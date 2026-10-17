@@ -1,14 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
-from pathlib import Path
-
-
-# Small custom component that detects left/right swipe gestures.
-ds_swipe_component = components.declare_component(
-    "ds_swipe_nav",
-    path=str(Path(__file__).parent / "swipe_nav")
-)
-
 st.set_page_config(
     page_title="D-SMART",
     page_icon="☀️",
@@ -226,14 +216,7 @@ st.selectbox(
     on_change=_ds_sync_nav
 )
 
-# Swipe left for the next screen; swipe right for the previous screen.
-_swipe_event = ds_swipe_component(key="ds_swipe_event", default=None)
-if isinstance(_swipe_event, dict):
-    _swipe_seq = _swipe_event.get("seq")
-    if _swipe_seq and _swipe_seq != st.session_state.get("ds_last_swipe_seq"):
-        st.session_state.ds_last_swipe_seq = _swipe_seq
-        _swipe_delta = 1 if _swipe_event.get("direction") == "left" else -1
-        _ds_move_page(_swipe_delta)
+# Reliable navigation: use the screen selector or Back/Next buttons.
 _nav_left, _nav_right = st.columns(2)
 with _nav_left:
     st.button(
@@ -262,183 +245,8 @@ st.divider()
 
 
 if st.session_state.ds_page == 0:
-    # =============== D-SMART IMPACT DASHBOARD ===============
+    # Clean home screen: app introduction and Science Exhibition Mode.
     
-    st.markdown("""
-    <style>
-    .ds-card {
-        background: linear-gradient(135deg, #e0f7f1, #edf4ff);
-        border: 1px solid #c8e6df;
-        border-radius: 16px;
-        padding: 16px;
-        margin: 5px 0;
-    }
-    .ds-number {
-        font-size: 28px;
-        font-weight: 800;
-        color: #087f8c;
-    }
-    .ds-label {
-        font-size: 14px;
-        color: #36545a;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-    
-    st.divider()
-    
-    st.header(
-        "📊 D-SMART Impact Dashboard"
-        if not pa else
-        "📊 D-SMART ਪ੍ਰਭਾਵ ਡੈਸ਼ਬੋਰਡ"
-    )
-    
-    st.write(
-        "Explore the project's capabilities and prepare a live demonstration."
-        if not pa else
-        "ਪ੍ਰੋਜੈਕਟ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਵੇਖੋ ਅਤੇ ਲਾਈਵ ਪ੍ਰਦਰਸ਼ਨ ਦੀ ਤਿਆਰੀ ਕਰੋ।"
-    )
-    
-    # Real feature counts from the current application
-    metric_labels = (
-        ["Languages", "Quiz Questions", "Report Units", "Learning Sections"]
-        if not pa else
-        ["ਭਾਸ਼ਾਵਾਂ", "ਕਵਿਜ਼ ਪ੍ਰਸ਼ਨ", "ਰਿਪੋਰਟ ਇਕਾਈਆਂ", "ਸਿੱਖਣ ਭਾਗ"]
-    )
-    
-    metric_values = ["2", "5", "2", "3"]
-    
-    metric_cols = st.columns(2)
-    
-    for i, col in enumerate(metric_cols):
-        with col:
-            st.markdown(
-                f"""
-                <div class="ds-card">
-                    <div class="ds-number">{metric_values[i]}</div>
-                    <div class="ds-label">{metric_labels[i]}</div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-    
-    for i, col in enumerate(metric_cols):
-        with col:
-            j = i + 2
-            st.markdown(
-                f"""
-                <div class="ds-card">
-                    <div class="ds-number">{metric_values[j]}</div>
-                    <div class="ds-label">{metric_labels[j]}</div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-    
-    st.caption(
-        "These numbers describe app features, not people helped or health outcomes."
-        if not pa else
-        "ਇਹ ਅੰਕ ਐਪ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਦੱਸਦੇ ਹਨ, ਲੋਕਾਂ ਦੀ ਮਦਦ ਜਾਂ ਸਿਹਤ ਨਤੀਜੇ ਨਹੀਂ।"
-    )
-    
-    # Judge demonstration checklist
-    st.subheader(
-        "🎤 Judge Demonstration Checklist"
-        if not pa else
-        "🎤 ਜੱਜਾਂ ਸਾਹਮਣੇ ਪ੍ਰਦਰਸ਼ਨ ਦੀ ਸੂਚੀ"
-    )
-    
-    demo_items = [
-        (
-            "Show English and Punjabi support",
-            "ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੀ ਸਹੂਲਤ ਦਿਖਾਓ"
-        ),
-        (
-            "Demonstrate the awareness questionnaire",
-            "ਜਾਗਰੂਕਤਾ ਪ੍ਰਸ਼ਨਾਵਲੀ ਦਿਖਾਓ"
-        ),
-        (
-            "Convert a sample Vitamin D report value",
-            "ਵਿਟਾਮਿਨ D ਦੀ ਨਮੂਨਾ ਰਿਪੋਰਟ ਦਾ ਮੁੱਲ ਬਦਲੋ"
-        ),
-        (
-            "Explain the report interpretation limitations",
-            "ਰਿਪੋਰਟ ਦੀ ਵਿਆਖਿਆ ਦੀਆਂ ਸੀਮਾਵਾਂ ਸਮਝਾਓ"
-        ),
-        (
-            "Complete the quiz and review explanations",
-            "ਕਵਿਜ਼ ਹੱਲ ਕਰੋ ਅਤੇ ਜਵਾਬਾਂ ਦੀ ਵਿਆਖਿਆ ਵੇਖੋ"
-        ),
-        (
-            "Explain future development plans",
-            "ਭਵਿੱਖ ਵਿੱਚ ਵਿਕਾਸ ਦੀ ਯੋਜਨਾ ਦੱਸੋ"
-        )
-    ]
-    
-    completed = 0
-    
-    for i, item in enumerate(demo_items):
-        label = item[1] if pa else item[0]
-        if st.checkbox(label, key=f"dashboard_demo_{i}"):
-            completed += 1
-    
-    st.progress(completed / len(demo_items))
-    
-    st.caption(
-        f"Demonstration preparation: {completed}/{len(demo_items)}"
-        if not pa else
-        f"ਪ੍ਰਦਰਸ਼ਨ ਦੀ ਤਿਆਰੀ: {completed}/{len(demo_items)}"
-    )
-    
-    if completed == len(demo_items):
-        st.success(
-            "Demo checklist complete. You are ready to rehearse!"
-            if not pa else
-            "ਸੂਚੀ ਪੂਰੀ ਹੋ ਗਈ। ਹੁਣ ਪ੍ਰਦਰਸ਼ਨ ਦੀ ਰਿਹਰਸਲ ਕਰੋ!"
-        )
-    
-    # Innovation highlights
-    st.subheader(
-        "💡 Innovation Highlights"
-        if not pa else
-        "💡 ਨਵੀਨਤਾ ਦੀਆਂ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ"
-    )
-    
-    if not pa:
-        st.markdown("""
-        - **Bilingual access:** health-learning content in Punjabi and English.
-        - **Report literacy:** converts ng/mL and nmol/L values.
-        - **Interactive learning:** awareness questionnaire and knowledge quiz.
-        - **Responsible design:** explains that educational guidance is not a diagnosis.
-        """)
-    else:
-        st.markdown("""
-        - **ਦੋ-ਭਾਸ਼ਾਈ ਸਹੂਲਤ:** ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸਿਹਤ ਸਿੱਖਿਆ।
-        - **ਰਿਪੋਰਟ ਦੀ ਸਮਝ:** ng/mL ਅਤੇ nmol/L ਇਕਾਈਆਂ ਦਾ ਬਦਲਾਅ।
-        - **ਇੰਟਰਐਕਟਿਵ ਸਿੱਖਿਆ:** ਜਾਗਰੂਕਤਾ ਪ੍ਰਸ਼ਨਾਵਲੀ ਅਤੇ ਗਿਆਨ ਕਵਿਜ਼।
-        - **ਜ਼ਿੰਮੇਵਾਰ ਡਿਜ਼ਾਈਨ:** ਸਪਸ਼ਟ ਕਰਦਾ ਹੈ ਕਿ ਇਹ ਡਾਕਟਰੀ ਨਿਦਾਨ ਨਹੀਂ ਹੈ।
-        """)
-    
-    # Future scope
-    with st.expander(
-        "🚀 Future Scope" if not pa else "🚀 ਭਵਿੱਖ ਵਿੱਚ ਵਿਕਾਸ"
-    ):
-        if not pa:
-            st.markdown("""
-            1. Explore carefully tested reading of report values from images.
-            2. Add more evidence-based learning resources.
-            3. Conduct a voluntary school awareness activity and evaluate learning
-               using anonymous pre- and post-activity quiz scores.
-            4. Improve accessibility and usability based on user feedback.
-            """)
-        else:
-            st.markdown("""
-            1. ਰਿਪੋਰਟ ਦੀਆਂ ਤਸਵੀਰਾਂ ਵਿੱਚੋਂ ਮੁੱਲ ਪੜ੍ਹਨ ਦੀ ਸਹੂਲਤ ਦੀ ਜਾਂਚ ਕਰਨਾ।
-            2. ਤੱਥਾਂ 'ਤੇ ਆਧਾਰਿਤ ਹੋਰ ਸਿੱਖਿਆ ਸਮੱਗਰੀ ਜੋੜਨਾ।
-            3. ਸਕੂਲ ਵਿੱਚ ਸਵੈ-ਇੱਛਾ ਨਾਲ ਜਾਗਰੂਕਤਾ ਗਤੀਵਿਧੀ ਕਰਕੇ
-               ਗੁਮਨਾਮ ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ ਦੇ ਕਵਿਜ਼ ਅੰਕਾਂ ਨਾਲ ਸਿੱਖਣ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨਾ।
-            4. ਵਰਤੋਂਕਾਰਾਂ ਦੇ ਸੁਝਾਵਾਂ ਅਨੁਸਾਰ ਐਪ ਨੂੰ ਹੋਰ ਆਸਾਨ ਬਣਾਉਣਾ।
-            """)
     st.title("☀️ D-SMART")
     st.subheader(title)
     st.write(intro)
