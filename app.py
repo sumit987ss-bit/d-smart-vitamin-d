@@ -190,6 +190,104 @@ st.subheader(title)
 st.write(intro)
 st.info(notice)
 
+# ---------- SCIENCE EXHIBITION MODE ----------
+
+with st.expander(
+    "🏆 Science Exhibition Mode" if not pa
+    else "🏆 ਵਿਗਿਆਨ ਪ੍ਰਦਰਸ਼ਨੀ ਮੋਡ",
+    expanded=False
+):
+    if not pa:
+        st.subheader("The Problem")
+        st.write(
+            "Many people hear about Vitamin D but may not understand "
+            "its role, food sources, laboratory units, or the limits "
+            "of interpreting a blood test."
+        )
+
+        st.subheader("Our Solution")
+        st.write(
+            "D-SMART is a bilingual educational assistant that "
+            "provides awareness guidance, explains Vitamin D report "
+            "units, and tests learning through an interactive quiz."
+        )
+
+        st.subheader("How It Works")
+        st.markdown(
+            "1. Select English or Punjabi.\n"
+            "2. Complete the awareness questionnaire.\n"
+            "3. Explore Vitamin D learning resources.\n"
+            "4. Enter a report value and its unit for an educational explanation.\n"
+            "5. Complete the quiz and review the answers."
+        )
+
+        st.subheader("What Makes It Useful?")
+        st.write(
+            "It brings bilingual health education, unit conversion, "
+            "report-reading awareness, and interactive learning "
+            "together in one simple app."
+        )
+
+        st.subheader("Important Limitation")
+        st.warning(
+            "D-SMART does not diagnose Vitamin D deficiency, "
+            "automatically read report images, or prescribe supplements. "
+            "Its explanations are educational and should be discussed "
+            "with a healthcare professional when needed."
+        )
+
+        st.subheader("Live Demonstration")
+        st.markdown(
+            "1. Switch between English and Punjabi.\n"
+            "2. Complete the awareness questionnaire.\n"
+            "3. Convert a sample report value between ng/mL and nmol/L.\n"
+            "4. Try the quiz and show the answer explanations."
+        )
+
+    else:
+        st.subheader("ਸਮੱਸਿਆ")
+        st.write(
+            "ਕਈ ਲੋਕ ਵਿਟਾਮਿਨ D ਬਾਰੇ ਸੁਣਦੇ ਹਨ, ਪਰ ਇਸ ਦੀ ਮਹੱਤਤਾ, "
+            "ਭੋਜਨ ਸਰੋਤਾਂ, ਲੈਬ ਰਿਪੋਰਟ ਦੀਆਂ ਇਕਾਈਆਂ ਅਤੇ ਨਤੀਜਿਆਂ "
+            "ਨੂੰ ਸਮਝਣ ਦੀਆਂ ਸੀਮਾਵਾਂ ਬਾਰੇ ਪੂਰੀ ਜਾਣਕਾਰੀ ਨਹੀਂ ਰੱਖਦੇ।"
+        )
+
+        st.subheader("ਸਾਡਾ ਹੱਲ")
+        st.write(
+            "D-SMART ਇੱਕ ਦੋ-ਭਾਸ਼ਾਈ ਸਿੱਖਿਆ ਸਹਾਇਕ ਹੈ ਜੋ "
+            "ਵਿਟਾਮਿਨ D ਬਾਰੇ ਜਾਗਰੂਕਤਾ, ਰਿਪੋਰਟ ਦੀਆਂ ਇਕਾਈਆਂ ਦੀ "
+            "ਵਿਆਖਿਆ ਅਤੇ ਇੰਟਰਐਕਟਿਵ ਕਵਿਜ਼ ਰਾਹੀਂ ਸਿੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।"
+        )
+
+        st.subheader("ਇਹ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ?")
+        st.markdown(
+            "1. ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਚੁਣੋ।\n"
+            "2. ਜਾਗਰੂਕਤਾ ਪ੍ਰਸ਼ਨਾਵਲੀ ਭਰੋ।\n"
+            "3. ਵਿਟਾਮਿਨ D ਬਾਰੇ ਜਾਣਕਾਰੀ ਪੜ੍ਹੋ।\n"
+            "4. ਰਿਪੋਰਟ ਦਾ ਮੁੱਲ ਅਤੇ ਇਕਾਈ ਦਰਜ ਕਰਕੇ ਸਿੱਖਿਆ ਲਈ ਵਿਆਖਿਆ ਵੇਖੋ।\n"
+            "5. ਕਵਿਜ਼ ਹੱਲ ਕਰੋ ਅਤੇ ਸਹੀ ਜਵਾਬਾਂ ਦੀ ਸਮੀਖਿਆ ਕਰੋ।"
+        )
+
+        st.subheader("ਇਸ ਦੀ ਵਿਸ਼ੇਸ਼ਤਾ")
+        st.write(
+            "ਇਹ ਇੱਕੋ ਐਪ ਵਿੱਚ ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਸਿਹਤ ਸਿੱਖਿਆ, "
+            "ਇਕਾਈ ਬਦਲਣ ਦੀ ਸਹੂਲਤ ਅਤੇ ਇੰਟਰਐਕਟਿਵ ਸਿੱਖਣ ਦਾ ਅਨੁਭਵ ਦਿੰਦਾ ਹੈ।"
+        )
+
+        st.subheader("ਮਹੱਤਵਪੂਰਨ ਸੀਮਾ")
+        st.warning(
+            "D-SMART ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ, "
+            "ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਆਪਣੇ ਆਪ ਨਹੀਂ ਪੜ੍ਹਦਾ ਅਤੇ ਸਪਲੀਮੈਂਟ "
+            "ਦੀ ਖੁਰਾਕ ਨਹੀਂ ਦੱਸਦਾ। ਲੋੜ ਪੈਣ 'ਤੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
+        )
+
+        st.subheader("ਲਾਈਵ ਪ੍ਰਦਰਸ਼ਨ")
+        st.markdown(
+            "1. ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਬਦਲ ਕੇ ਦਿਖਾਓ।\n"
+            "2. ਜਾਗਰੂਕਤਾ ਪ੍ਰਸ਼ਨਾਵਲੀ ਭਰੋ।\n"
+            "3. ਨਮੂਨਾ ਰਿਪੋਰਟ ਦੀ ਇਕਾਈ ਬਦਲ ਕੇ ਦਿਖਾਓ।\n"
+            "4. ਕਵਿਜ਼ ਹੱਲ ਕਰਕੇ ਸਹੀ ਜਵਾਬਾਂ ਦੀ ਵਿਆਖਿਆ ਦਿਖਾਓ।"
+        )
 st.divider()
 st.header(heading)
 
