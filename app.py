@@ -301,22 +301,60 @@ food = st.selectbox(food_label, food_options)
 concern = st.selectbox(concern_label, concern_options)
 tested = st.radio(test_label, test_options)
 
+
 if st.button(button, type="primary"):
     st.subheader(result_title)
 
+    # Daylight guidance
     if sunlight == sun_options[2]:
         st.write(sun_advice)
+    elif sunlight == sun_options[1]:
+        st.write(
+            "Consider learning more about safe daylight exposure "
+            "and how individual needs can differ."
+            if not pa else
+            "ਸੁਰੱਖਿਅਤ ਧੁੱਪ ਅਤੇ ਦਿਨ ਦੀ ਰੌਸ਼ਨੀ ਬਾਰੇ ਹੋਰ ਜਾਣੋ। "
+            "ਹਰ ਵਿਅਕਤੀ ਦੀ ਲੋੜ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਹੈ।"
+        )
 
+    # Food guidance
     if food in food_options[2:]:
         st.write(food_advice)
+    elif food == food_options[1]:
+        st.write(
+            "Explore food sources of Vitamin D and check whether "
+            "foods fortified with Vitamin D are available to you."
+            if not pa else
+            "ਵਿਟਾਮਿਨ D ਵਾਲੇ ਭੋਜਨ ਸਰੋਤਾਂ ਬਾਰੇ ਜਾਣੋ ਅਤੇ ਵੇਖੋ ਕਿ "
+            "ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਭੋਜਨ ਉਪਲਬਧ ਹੈ ਜਾਂ ਨਹੀਂ।"
+        )
 
+    # Age-aware educational note
+    if age < 18:
+        st.info(
+            "If you have health concerns, discuss them with a parent "
+            "or trusted adult and a healthcare professional."
+            if not pa else
+            "ਜੇ ਸਿਹਤ ਬਾਰੇ ਚਿੰਤਾ ਹੈ, ਤਾਂ ਮਾਪਿਆਂ ਜਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ "
+            "ਅਤੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ।"
+        )
+
+    # Health concerns
     if concern == concern_options[1]:
         st.warning(health_advice)
+    elif concern == concern_options[2]:
+        st.write(
+            "If you are unsure, a healthcare professional can help "
+            "you decide whether any assessment is needed."
+            if not pa else
+            "ਜੇ ਤੁਹਾਨੂੰ ਪੱਕਾ ਪਤਾ ਨਹੀਂ, ਤਾਂ ਸਿਹਤ ਮਾਹਿਰ ਦੱਸ ਸਕਦਾ ਹੈ "
+            "ਕਿ ਜਾਂਚ ਦੀ ਲੋੜ ਹੈ ਜਾਂ ਨਹੀਂ।"
+        )
 
-    if tested == test_options[1]:
+    # Testing guidance
+    if tested == test_options[1] or tested == test_options[2]:
         st.write(test_advice)
-
-    if tested == test_options[0]:
+    elif tested == test_options[0]:
         st.write(report_advice)
 
     st.success(safe_end)
