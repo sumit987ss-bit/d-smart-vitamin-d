@@ -397,7 +397,6 @@ elif mode in ["I don't know the unit", "ਮੈਨੂੰ ਇਕਾਈ ਪਤਾ �
             "Possible interpretations" if not pa
             else "ਸੰਭਾਵਿਤ ਵਿਆਖਿਆਵਾਂ"
         )
-
         st.info(
             "These are two possibilities, not a way to identify "
             "the actual unit. Check the report before relying on either."
@@ -405,7 +404,7 @@ elif mode in ["I don't know the unit", "ਮੈਨੂੰ ਇਕਾਈ ਪਤਾ �
             "ਇਹ ਦੋ ਸੰਭਾਵਨਾਵਾਂ ਹਨ, ਅਸਲ ਇਕਾਈ ਦੀ ਪਛਾਣ ਨਹੀਂ। "
             "ਕਿਸੇ ਨਤੀਜੇ 'ਤੇ ਭਰੋਸਾ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਰਿਪੋਰਟ ਵੇਖੋ।"
         )
-                st.markdown("### Possibility A: ng/mL")
+        st.markdown("### Possibility A: ng/mL")
         st.write(
             f"{unknown_value:.1f} ng/mL = "
             f"{unknown_value * 2.5:.1f} nmol/L"
