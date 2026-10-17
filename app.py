@@ -296,60 +296,44 @@ def explain_vitamin_d(value_ng, punjabi=False):
             f"{12 - value_ng:.1f} ng/mL ਘੱਟ।"
         )
 
+    
     elif value_ng < 20:
         if punjabi:
-           
-        if value_ng < 12:
-            if punjabi:
-                st.warning(
-                    "ਨਤੀਜਾ 12 ng/mL ਤੋਂ ਘੱਟ ਹੈ। "
-                    "ਇਸ ਦੀ ਵਿਆਖਿਆ ਆਪਣੀ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ "
-                    "ਅਤੇ ਸਿਹਤ ਦੀ ਸਥਿਤੀ ਅਨੁਸਾਰ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਕਰੋ।"
-                )
-            else:
-                st.warning(
-                    "Below 12 ng/mL: this may indicate a risk "
-                    "of Vitamin D deficiency. Consult a healthcare "
-                    "professional for interpretation."
-                )
-
-        elif value_ng < 20:
-            if punjabi:
-                st.warning(
-                    "ਨਤੀਜਾ 12 ਤੋਂ 20 ng/mL ਦੇ ਵਿਚਕਾਰ ਹੈ। "
-                    "ਇਹ ਕੁਝ ਲੋਕਾਂ ਲਈ ਨਾਕਾਫ਼ੀ ਹੋ ਸਕਦਾ ਹੈ। "
-                    "ਆਪਣੀ ਰਿਪੋਰਟ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਅਤੇ ਸਿਹਤ ਬਾਰੇ "
-                    "ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
-                )
-            else:
-                st.warning(
-                    "Between 12 and 20 ng/mL: may be inadequate "
-                    "for some people. Discuss the result with a "
-                    "healthcare professional."
-                )
-
-            st.write(
-                f"{20 - value_ng:.1f} ng/mL below the "
-                "20 ng/mL reference point used for adequacy "
-                "in most people."
-                if not punjabi else
-                f"ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਵਰਤੇ ਜਾਂਦੇ 20 ng/mL ਦੇ "
-                f"ਹਵਾਲਾ ਬਿੰਦੂ ਤੋਂ {20 - value_ng:.1f} ng/mL ਘੱਟ।"
+            st.warning(
+                "ਨਤੀਜਾ 12 ਤੋਂ 20 ng/mL ਦੇ ਵਿਚਕਾਰ ਹੈ। "
+                "ਇਹ ਕੁਝ ਲੋਕਾਂ ਲਈ ਨਾਕਾਫ਼ੀ ਹੋ ਸਕਦਾ ਹੈ। "
+                "ਆਪਣੀ ਰਿਪੋਰਟ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਅਤੇ ਸਿਹਤ ਬਾਰੇ "
+                "ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
+            )
+        else:
+            st.warning(
+                "Between 12 and 20 ng/mL: may be inadequate "
+                "for some people. Discuss the result with a "
+                "healthcare professional."
             )
 
+        st.write(
+            f"{20 - value_ng:.1f} ng/mL below the "
+            "20 ng/mL reference point used for adequacy "
+            "in most people."
+            if not punjabi else
+            f"ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਵਰਤੇ ਜਾਂਦੇ 20 ng/mL ਦੇ "
+            f"ਹਵਾਲਾ ਬਿੰਦੂ ਤੋਂ {20 - value_ng:.1f} ng/mL ਘੱਟ।"
+        )
+
+    else:
+        if punjabi:
+            st.success(
+                "ਇਹ ਨਤੀਜਾ NIH ਦੇ ਹਵਾਲਾ ਢਾਂਚੇ ਅਨੁਸਾਰ "
+                "ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਕਾਫ਼ੀ ਮੰਨੇ ਜਾਂਦੇ ਪੱਧਰ 'ਤੇ ਹੈ। "
+                "ਆਪਣੀ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੀ ਵੇਖੋ।"
+            )
         else:
-            if punjabi:
-                st.success(
-                    "ਇਹ ਨਤੀਜਾ NIH ਦੇ ਹਵਾਲਾ ਢਾਂਚੇ ਅਨੁਸਾਰ "
-                    "ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਕਾਫ਼ੀ ਮੰਨੇ ਜਾਂਦੇ ਪੱਧਰ 'ਤੇ ਹੈ। "
-                    "ਆਪਣੀ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੀ ਵੇਖੋ।"
-                )
-            else:
-                st.success(
-                    "This is within the level considered adequate "
-                    "for most people under the NIH framework. "
-                    "Also check your laboratory's reference range."
-                ) 
+            st.success(
+                "This is within the level considered adequate "
+                "for most people under the NIH framework. "
+                "Also check your laboratory's reference range."
+            )
 
     st.caption(
         "Educational interpretation only. Reference thresholds "
