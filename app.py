@@ -597,6 +597,77 @@ else:
         )
 st.divider()
 
+# ---------- LIVE VITAMIN D UNIT CONVERTER ----------
+
+st.divider()
+
+st.header(
+    "🔄 Live Vitamin D Unit Converter"
+    if not pa else
+    "🔄 ਵਿਟਾਮਿਨ D ਇਕਾਈ ਬਦਲਣ ਵਾਲਾ ਕੈਲਕੁਲੇਟਰ"
+)
+
+st.write(
+    "Enter a sample value and see its converted value instantly."
+    if not pa else
+    "ਕੋਈ ਮੁੱਲ ਦਰਜ ਕਰੋ ਅਤੇ ਉਸ ਦੀ ਬਦਲੀ ਹੋਈ ਇਕਾਈ ਤੁਰੰਤ ਵੇਖੋ।"
+)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    converter_value = st.number_input(
+        "Enter value" if not pa else "ਮੁੱਲ ਦਰਜ ਕਰੋ",
+        min_value=0.0,
+        max_value=1000.0,
+        value=20.0,
+        step=0.1,
+        key="live_converter_value"
+    )
+
+    converter_from = st.selectbox(
+        "From unit" if not pa else "ਮੂਲ ਇਕਾਈ",
+        ["ng/mL", "nmol/L"],
+        key="live_converter_from"
+    )
+
+with col2:
+    converter_to = st.selectbox(
+        "Convert to" if not pa else "ਬਦਲਣ ਵਾਲੀ ਇਕਾਈ",
+        ["nmol/L", "ng/mL"],
+        index=0,
+        key="live_converter_to"
+    )
+
+if converter_from == converter_to:
+    converted_value = converter_value
+elif converter_from == "ng/mL":
+    converted_value = converter_value * 2.5
+else:
+    converted_value = converter_value / 2.5
+
+st.metric(
+    label=(
+        f"Converted value ({converter_to})"
+        if not pa else
+        f"ਬਦਲਿਆ ਮੁੱਲ ({converter_to})"
+    ),
+    value=f"{converted_value:.2f}"
+)
+
+st.caption(
+    "Conversion: 1 ng/mL = 2.5 nmol/L."
+    if not pa else
+    "ਇਕਾਈ ਬਦਲਾਅ: 1 ng/mL = 2.5 nmol/L।"
+)
+
+st.info(
+    "This calculator converts units only. It does not diagnose "
+    "Vitamin D deficiency or determine whether a result is healthy."
+    if not pa else
+    "ਇਹ ਕੈਲਕੁਲੇਟਰ ਸਿਰਫ਼ ਇਕਾਈ ਬਦਲਦਾ ਹੈ। ਇਹ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ "
+    "ਦੀ ਪਛਾਣ ਜਾਂ ਨਤੀਜੇ ਦੇ ਸਿਹਤਮੰਦ ਹੋਣ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਕਰਦਾ।"
+)
 st.header(
     "🎯 Vitamin D Challenge Zone"
     if not pa else
