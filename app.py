@@ -15,7 +15,7 @@ st.markdown("""
 
 .block-container {
     max-width: 800px;
-    padding-top: 2rem;
+    padding-top: 5.5rem !important;
     padding-bottom: 3rem;
 }
 
@@ -187,7 +187,7 @@ else:
 
 # ---------- MOBILE SCREEN NAVIGATION ----------
 # Screen navigation preserves the existing feature code below.
-ds_pages = ["Home", "Awareness", "Learn", "Report", "Converter", "Quiz", "About"]
+ds_pages = ["Welcome", "Home", "Awareness", "Learn", "Report", "Converter", "Quiz", "About"]
 
 if "ds_page" not in st.session_state:
     st.session_state.ds_page = 0
@@ -206,45 +206,97 @@ st.markdown("""
 <style>
 div[data-testid="stSelectbox"] { margin-bottom: 0.25rem; }
 .ds-screen-caption { text-align: center; color: #087f8c; font-weight: 700; }
+.ds-welcome {
+    background: radial-gradient(circle at 50% 0%, #d7fff2 0%, #e8f5ff 36%, #f7fbff 72%, #ffffff 100%);
+    border: 1px solid #c7e6e7; border-radius: 28px; padding: 30px 22px 28px;
+    text-align: center; box-shadow: 0 14px 38px rgba(8, 127, 140, 0.12); overflow: hidden;
+}
+.ds-sun {
+    width: 124px; height: 124px; border-radius: 50%; margin: 4px auto 20px;
+    display: flex; align-items: center; justify-content: center; font-size: 66px;
+    background: radial-gradient(circle at 35% 28%, #fff6b0, #ffc857 52%, #ff9b42 100%);
+    box-shadow: 0 0 0 12px rgba(255, 202, 87, .15), 0 0 0 25px rgba(255, 202, 87, .08);
+}
+.ds-brand { font-size: clamp(36px, 9vw, 52px); line-height: 1.05; font-weight: 900; letter-spacing: 1.5px; color: #087f8c; margin: 6px 0 12px; }
+.ds-welcome-sub { font-size: 20px; font-weight: 750; color: #176b5b; margin-bottom: 12px; }
+.ds-welcome-copy { color: #3c5962; font-size: 15px; line-height: 1.6; }
+.ds-pill-row { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:20px; }
+.ds-pill { border:1px solid #c4e3df; background:rgba(255,255,255,.78); border-radius:999px; padding:7px 11px; color:#176b5b; font-size:12px; font-weight:700; }
 </style>
 """, unsafe_allow_html=True)
 
-st.selectbox(
-    "Go to screen / ਸਕ੍ਰੀਨ ਚੁਣੋ",
-    ds_pages,
-    key="ds_nav",
-    on_change=_ds_sync_nav
-)
-
-# Reliable navigation: use the screen selector or Back/Next buttons.
-_nav_left, _nav_right = st.columns(2)
-with _nav_left:
-    st.button(
-        "← Back" if not pa else "← ਪਿੱਛੇ",
-        key="ds_top_back",
-        disabled=st.session_state.ds_page == 0,
-        on_click=_ds_move_page,
-        args=(-1,),
-        use_container_width=True
+if st.session_state.ds_page > 0:
+    st.selectbox(
+        "Go to screen / ਸਕ੍ਰੀਨ ਚੁਣੋ",
+        ds_pages[1:],
+        key="ds_nav",
+        on_change=_ds_sync_nav
     )
-with _nav_right:
-    st.button(
-        "Next →" if not pa else "ਅੱਗੇ →",
-        key="ds_top_next",
-        disabled=st.session_state.ds_page == len(ds_pages) - 1,
-        on_click=_ds_move_page,
-        args=(1,),
-        use_container_width=True
+    _nav_left, _nav_right = st.columns(2)
+    with _nav_left:
+        st.button(
+            "← Back" if not pa else "← ਪਿੱਛੇ",
+            key="ds_top_back",
+            disabled=st.session_state.ds_page <= 1,
+            on_click=_ds_move_page,
+            args=(-1,),
+            use_container_width=True
+        )
+    with _nav_right:
+        st.button(
+            "Next →" if not pa else "ਅੱਗੇ →",
+            key="ds_top_next",
+            disabled=st.session_state.ds_page == len(ds_pages) - 1,
+            on_click=_ds_move_page,
+            args=(1,),
+            use_container_width=True
+        )
+    st.caption(
+        f"Screen {st.session_state.ds_page} of {len(ds_pages) - 1}"
+        if not pa else
+        f"ਸਕ੍ਰੀਨ {st.session_state.ds_page} / {len(ds_pages) - 1}"
     )
-st.caption(
-    f"Screen {st.session_state.ds_page + 1} of {len(ds_pages)}"
-    if not pa else
-    f"ਸਕ੍ਰੀਨ {st.session_state.ds_page + 1} / {len(ds_pages)}"
-)
-st.divider()
+    st.divider()
 
 
 if st.session_state.ds_page == 0:
+    # Welcome / splash screen. The actual app begins on the next screen.
+    st.markdown(
+        f"""
+        <div class="ds-welcome">
+          <div class="ds-sun">☀️</div>
+          <div class="ds-brand">D-SMART</div>
+          <div class="ds-welcome-sub">{'ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ' if pa else 'Vitamin D Awareness Assistant'}</div>
+          <div class="ds-welcome-copy">
+            {'ਵਿਗਿਆਨ ਅਤੇ ਤਕਨਾਲੋਜੀ ਰਾਹੀਂ ਸਿਹਤ ਬਾਰੇ ਸਿੱਖੋ।' if pa else 'A brighter way to learn about Vitamin D, understand reports, and build health awareness.'}
+          </div>
+          <div class="ds-pill-row">
+            <span class="ds-pill">🌐 {'ਪੰਜਾਬੀ + English' if pa else 'Punjabi + English'}</span>
+            <span class="ds-pill">📘 {'ਸਿੱਖੋ' if pa else 'Learn'}</span>
+            <span class="ds-pill">🔬 {'ਵਿਗਿਆਨ' if pa else 'Science'}</span>
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    st.write("")
+    st.caption(
+        "ਇੱਕ ਵਿਦਿਆਰਥੀ-ਕੇਂਦਰਿਤ ਸਿਹਤ ਜਾਗਰੂਕਤਾ ਪ੍ਰੋਜੈਕਟ"
+        if pa else
+        "A student-led science and health-awareness project"
+    )
+    _welcome_left, _welcome_mid, _welcome_right = st.columns([1, 5, 1])
+    with _welcome_mid:
+        st.button(
+            "ਸ਼ੁਰੂ ਕਰੋ  →" if pa else "Start D-SMART  →",
+            key="ds_start_app",
+            on_click=_ds_move_page,
+            args=(1,),
+            type="primary",
+            use_container_width=True
+        )
+
+if st.session_state.ds_page == 1:
     # Clean home screen: app introduction and Science Exhibition Mode.
     
     st.title("☀️ D-SMART")
@@ -353,7 +405,7 @@ if st.session_state.ds_page == 0:
     st.divider()
     
 
-if st.session_state.ds_page == 1:
+if st.session_state.ds_page == 2:
     st.header(heading)
     
     age = st.number_input(
@@ -427,7 +479,7 @@ if st.session_state.ds_page == 1:
     st.divider()
     
 
-if st.session_state.ds_page == 2:
+if st.session_state.ds_page == 3:
     st.header(learn_title)
     
     with st.expander(why_title):
@@ -445,7 +497,7 @@ if st.session_state.ds_page == 2:
     
     
 
-if st.session_state.ds_page == 3:
+if st.session_state.ds_page == 4:
     # ---------- D-SMART REPORT ASSISTANT ----------
     
     st.divider()
@@ -670,7 +722,7 @@ if st.session_state.ds_page == 3:
     
     
 
-if st.session_state.ds_page == 4:
+if st.session_state.ds_page == 5:
     # ---------- LIVE VITAMIN D UNIT CONVERTER ----------
     
     st.divider()
@@ -744,7 +796,7 @@ if st.session_state.ds_page == 4:
     )
     
 
-if st.session_state.ds_page == 5:
+if st.session_state.ds_page == 6:
     st.header(
         "🎯 Vitamin D Challenge Zone"
         if not pa else
@@ -926,7 +978,7 @@ if st.session_state.ds_page == 5:
     
     
 
-if st.session_state.ds_page == 6:
+if st.session_state.ds_page == 7:
     # ================= PROJECT CREDITS =================
     
     st.divider()
@@ -1046,23 +1098,24 @@ if st.session_state.ds_page == 6:
         st.caption("Science Exhibition Project | Academic Session 2026–27")
     
 
-# Bottom navigation appears after each screen's content.
-_nav_bottom_left, _nav_bottom_right = st.columns(2)
-with _nav_bottom_left:
-    st.button(
-        "← Back" if not pa else "← ਪਿੱਛੇ",
-        key="ds_bottom_back",
-        disabled=st.session_state.ds_page == 0,
-        on_click=_ds_move_page,
-        args=(-1,),
-        use_container_width=True
-    )
-with _nav_bottom_right:
-    st.button(
-        "Next →" if not pa else "ਅੱਗੇ →",
-        key="ds_bottom_next",
-        disabled=st.session_state.ds_page == len(ds_pages) - 1,
-        on_click=_ds_move_page,
-        args=(1,),
-        use_container_width=True
-    )
+# Bottom navigation appears after each functional screen.
+if st.session_state.ds_page > 0:
+    _nav_bottom_left, _nav_bottom_right = st.columns(2)
+    with _nav_bottom_left:
+        st.button(
+            "← Back" if not pa else "← ਪਿੱਛੇ",
+            key="ds_bottom_back",
+            disabled=st.session_state.ds_page == 0,
+            on_click=_ds_move_page,
+            args=(-1,),
+            use_container_width=True
+        )
+    with _nav_bottom_right:
+        st.button(
+            "Next →" if not pa else "ਅੱਗੇ →",
+            key="ds_bottom_next",
+            disabled=st.session_state.ds_page == len(ds_pages) - 1,
+            on_click=_ds_move_page,
+            args=(1,),
+            use_container_width=True
+        )
