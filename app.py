@@ -197,6 +197,7 @@ age = st.number_input(
     age_label, min_value=1, max_value=120, value=18
 )
 
+
 sunlight = st.selectbox(sun_label, sun_options)
 food = st.selectbox(food_label, food_options)
 concern = st.selectbox(concern_label, concern_options)
@@ -213,7 +214,8 @@ if st.button(button, type="primary"):
 
     if concern == concern_options[1]:
         st.warning(health_advice)
-if tested == test_options[1]:
+
+    if tested == test_options[1]:
         st.write(test_advice)
 
     if tested == test_options[0]:
