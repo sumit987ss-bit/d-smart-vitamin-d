@@ -1,407 +1,648 @@
-
 import streamlit as st
 
-# ================= PAGE CONFIGURATION =================
-
 st.set_page_config(
-    page_title="D-SMART | Vitamin D Awareness",
+    page_title="D-SMART",
     page_icon="☀️",
-    layout="centered",
+    layout="centered"
 )
 
-# ================= LANGUAGE =================
+st.markdown("""
+<style>
+.stApp {
+    background: linear-gradient(
+        180deg, #eaf7ff 0%, #ffffff 55%, #f0fff4 100%
+    );
+}
 
-st.sidebar.title("☀️ D-SMART")
+.block-container {
+    max-width: 800px;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
 
-language = st.sidebar.selectbox(
-    "Choose Language | ਭਾਸ਼ਾ ਚੁਣੋ",
-    ["English", "ਪੰਜਾਬੀ"],
+h1 {
+    color: #087f8c !important;
+    font-weight: 800 !important;
+}
+
+h2, h3 {
+    color: #176b5b !important;
+}
+
+.stButton > button {
+    background: linear-gradient(
+        90deg, #087f8c, #16a085
+    );
+    color: white;
+    border: none;
+    border-radius: 14px;
+    min-height: 48px;
+    font-weight: 700;
+    width: 100%;
+}
+
+.stButton > button:hover {
+    border: 2px solid #087f8c;
+    color: #087f8c;
+}
+
+div[data-testid="stAlert"] {
+    border-radius: 14px;
+}
+
+div[data-testid="stExpander"] {
+    border-radius: 12px;
+    border: 1px solid #cce8e4;
+}
+
+footer {
+    visibility: hidden;
+}
+</style>
+""", unsafe_allow_html=True)
+language = st.selectbox(
+    "Choose Language / ਭਾਸ਼ਾ ਚੁਣੋ",
+    ["English", "ਪੰਜਾਬੀ"]
 )
 
 pa = language == "ਪੰਜਾਬੀ"
 
 if pa:
     title = "ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ"
-    intro = (
-        "ਵਿਟਾਮਿਨ D, ਹੱਡੀਆਂ ਦੀ ਸਿਹਤ ਅਤੇ ਲੈਬ ਰਿਪੋਰਟ ਦੀਆਂ "
-        "ਇਕਾਈਆਂ ਬਾਰੇ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕਰੋ।"
+    intro = "ਆਪਣੀ ਸਿਹਤ ਬਾਰੇ ਸਿੱਖੋ ਅਤੇ ਵਿਟਾਮਿਨ D ਨੂੰ ਸਮਝੋ।"
+    notice = (
+        "ਇਹ ਸਿੱਖਿਆ ਲਈ ਹੈ। ਇਹ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ "
+        "ਅਤੇ ਡਾਕਟਰੀ ਸਲਾਹ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ।"
     )
-    tab_names = [
-        "ਜਾਣਕਾਰੀ",
-        "ਇਕਾਈ ਬਦਲੋ",
-        "ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ",
-        "ਕਵਿਜ਼",
-    ]
+    heading = "ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਪ੍ਰਸ਼ਨਾਵਲੀ"
+    age_label = "ਤੁਹਾਡੀ ਉਮਰ (ਸਾਲ)"
+    sun_label = "ਤੁਸੀਂ ਦਿਨ ਵੇਲੇ ਬਾਹਰ ਕਿੰਨੀ ਵਾਰ ਜਾਂਦੇ ਹੋ?"
+    sun_options = ["ਰੋਜ਼ਾਨਾ", "ਹਫ਼ਤੇ ਵਿੱਚ ਕਈ ਵਾਰ", "ਬਹੁਤ ਘੱਟ"]
+    food_label = "ਤੁਸੀਂ ਵਿਟਾਮਿਨ D ਵਾਲੇ ਭੋਜਨ ਕਿੰਨੀ ਵਾਰ ਖਾਂਦੇ ਹੋ?"
+    food_options = ["ਅਕਸਰ", "ਕਦੇ-ਕਦੇ", "ਬਹੁਤ ਘੱਟ", "ਪਤਾ ਨਹੀਂ"]
+    concern_label = "ਕੀ ਤੁਹਾਨੂੰ ਹੱਡੀਆਂ ਜਾਂ ਮਾਸਪੇਸ਼ੀਆਂ ਬਾਰੇ ਚਿੰਤਾ ਹੈ?"
+    concern_options = ["ਨਹੀਂ", "ਹਾਂ", "ਪੱਕਾ ਨਹੀਂ"]
+    test_label = "ਕੀ ਤੁਸੀਂ ਵਿਟਾਮਿਨ D ਦਾ ਖੂਨ ਟੈਸਟ ਕਰਵਾਇਆ ਹੈ?"
+    test_options = ["ਹਾਂ", "ਨਹੀਂ", "ਪਤਾ ਨਹੀਂ"]
+    button = "ਮੇਰੀ ਜਾਗਰੂਕਤਾ ਗਾਈਡ ਦਿਖਾਓ"
+    result_title = "ਤੁਹਾਡੀ ਸਿੱਖਣ ਲਈ ਗਾਈਡ"
+    sun_advice = (
+        "ਸੁਰੱਖਿਅਤ ਧੁੱਪ ਅਤੇ ਦਿਨ ਦੀ ਰੌਸ਼ਨੀ ਬਾਰੇ ਸਿੱਖੋ। "
+        "ਲੋੜੀਂਦੀ ਧੁੱਪ ਹਰ ਵਿਅਕਤੀ ਲਈ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਹੈ।"
+    )
+    food_advice = (
+        "ਵਿਟਾਮਿਨ D ਦੇ ਸਰੋਤਾਂ ਵਿੱਚ ਚਰਬੀ ਵਾਲੀ ਮੱਛੀ, "
+        "ਅੰਡੇ ਦੀ ਜ਼ਰਦੀ ਅਤੇ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਭੋਜਨ ਸ਼ਾਮਲ ਹਨ।"
+    )
+    health_advice = (
+        "ਹੱਡੀਆਂ ਜਾਂ ਮਾਸਪੇਸ਼ੀਆਂ ਦੀਆਂ ਸਮੱਸਿਆਵਾਂ ਦੇ ਕਈ ਕਾਰਨ ਹੋ ਸਕਦੇ ਹਨ। "
+        "ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
+    )
+    test_advice = (
+        "ਹਰ ਵਿਅਕਤੀ ਲਈ ਖੂਨ ਟੈਸਟ ਜ਼ਰੂਰੀ ਨਹੀਂ ਹੁੰਦਾ। "
+        "ਸਿਹਤ ਮਾਹਿਰ ਦੱਸ ਸਕਦਾ ਹੈ ਕਿ ਟੈਸਟ ਦੀ ਲੋੜ ਹੈ ਜਾਂ ਨਹੀਂ।"
+    )
+    report_advice = (
+        "ਰਿਪੋਰਟ ਨੂੰ ਸਮਝਣ ਲਈ ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲਵੋ।"
+    )
+    safe_end = (
+        "ਇਹ ਪ੍ਰਸ਼ਨਾਵਲੀ ਸਿਰਫ਼ ਜਾਗਰੂਕਤਾ ਲਈ ਹੈ। "
+        "ਇਹ ਤੁਹਾਡੇ ਵਿਟਾਮਿਨ D ਦੇ ਪੱਧਰ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਕਰਦੀ।"
+    )
+    learn_title = "ਵਿਟਾਮਿਨ D ਬਾਰੇ ਜਾਣੋ"
+    why_title = "ਵਿਟਾਮਿਨ D ਕਿਉਂ ਜ਼ਰੂਰੀ ਹੈ?"
+    why_text = (
+        "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ "
+        "ਅਤੇ ਹੱਡੀਆਂ ਤੇ ਮਾਸਪੇਸ਼ੀਆਂ ਦੀ ਸਿਹਤ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹੈ।"
+    )
+    sources_title = "ਵਿਟਾਮਿਨ D ਦੇ ਭੋਜਨ ਸਰੋਤ"
+    sources_text = (
+        "ਚਰਬੀ ਵਾਲੀ ਮੱਛੀ, ਅੰਡੇ ਦੀ ਜ਼ਰਦੀ ਅਤੇ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ "
+        "ਭੋਜਨ ਇਸ ਦੇ ਸਰੋਤ ਹਨ।"
+    )
+    symptoms_title = "ਕੀ ਲੱਛਣਾਂ ਨਾਲ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਸਕਦੀ ਹੈ?"
+    symptoms_text = (
+        "ਨਹੀਂ। ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੁੰਦੀ। "
+        "ਲੋੜ ਪੈਣ 'ਤੇ ਡਾਕਟਰੀ ਜਾਂਚ ਅਤੇ ਖੂਨ ਟੈਸਟ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
+    )
 else:
-    title = "Vitamin D Awareness Assistant"
-    intro = (
-        "Learn about Vitamin D, bone health, and laboratory "
-        "report units."
+    title = "Your Vitamin D Awareness Assistant"
+    intro = "Learn about Vitamin D and make informed health choices."
+    notice = (
+        "This is an educational tool. It cannot diagnose deficiency "
+        "or replace professional medical advice."
     )
-    tab_names = [
-        "Learn",
-        "Unit Converter",
-        "Report Image",
-        "Quiz",
-    ]
+    heading = "Your Vitamin D Awareness Check"
+    age_label = "Your age (years)"
+    sun_label = "How often are you outdoors in daylight?"
+    sun_options = ["Daily", "Several days a week", "Rarely"]
+    food_label = "How often do you eat Vitamin D-containing foods?"
+    food_options = ["Often", "Sometimes", "Rarely", "Not sure"]
+    concern_label = "Any concerns about bone or muscle health?"
+    concern_options = ["No particular concern", "Yes, I have concerns", "Not sure"]
+    test_label = "Have you had a Vitamin D blood test?"
+    test_options = ["Yes", "No", "Not sure"]
+    button = "Get My Awareness Guidance"
+    result_title = "Your Learning Guide"
+    sun_advice = (
+        "Learn about safe daylight exposure. Requirements vary "
+        "depending on several personal and environmental factors."
+    )
+    food_advice = (
+        "Sources include oily fish, egg yolks and foods fortified "
+        "with Vitamin D."
+    )
+    health_advice = (
+        "Bone or muscle concerns can have many causes. "
+        "Consult a healthcare professional."
+    )
+    test_advice = (
+        "A blood test is not necessary for everyone. "
+        "A healthcare professional can advise whether it is appropriate."
+    )
+    report_advice = (
+        "Ask a healthcare professional to interpret your report "
+        "in the context of your health."
+    )
+    safe_end = (
+        "This questionnaire provides awareness guidance only. "
+        "It cannot determine your Vitamin D level."
+    )
+    learn_title = "Learn About Vitamin D"
+    why_title = "Why is Vitamin D important?"
+    why_text = (
+        "Vitamin D helps your body absorb calcium and supports "
+        "healthy bones and muscles."
+    )
+    sources_title = "Food sources of Vitamin D"
+    sources_text = (
+        "Sources include oily fish, egg yolks and foods fortified "
+        "with Vitamin D."
+    )
+    symptoms_title = "Can symptoms confirm deficiency?"
+    symptoms_text = (
+        "No. Symptoms alone cannot confirm deficiency. "
+        "Clinical assessment and, when appropriate, a blood test are used."
+    )
 
-# ================= HEADER =================
-
-st.markdown(
-    """
-    <div style="
-        background: linear-gradient(135deg, #e0f7f1, #e8f0ff);
-        padding: 24px;
-        border-radius: 18px;
-        text-align: center;
-        border: 1px solid #b8ded5;
-    ">
-        <h1 style="color:#087e75;">☀️ D-SMART</h1>
-        <p style="color:#244c58;">
-            Science • Technology • Health Awareness
-        </p>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-st.title(title)
+st.title("☀️ D-SMART")
+st.subheader(title)
 st.write(intro)
+st.info(notice)
 
-st.info(
-    "ਇਹ ਵਿਦਿਅਕ ਜਾਣਕਾਰੀ ਹੈ, ਡਾਕਟਰੀ ਸਲਾਹ ਨਹੀਂ।"
-    if pa
-    else
-    "This is an educational tool, not a medical advice or "
-    "diagnosis service."
+st.divider()
+st.header(heading)
+
+age = st.number_input(
+    age_label, min_value=1, max_value=120, value=18
 )
 
-# ================= MAIN TABS =================
+sunlight = st.selectbox(sun_label, sun_options)
+food = st.selectbox(food_label, food_options)
+concern = st.selectbox(concern_label, concern_options)
+tested = st.radio(test_label, test_options)
 
-learn_tab, convert_tab, image_tab, quiz_tab = st.tabs(tab_names)
+if st.button(button, type="primary"):
+    st.subheader(result_title)
 
-# ================= LEARN =================
+    if sunlight == sun_options[2]:
+        st.write(sun_advice)
 
-with learn_tab:
-    if pa:
-        st.subheader("☀️ ਵਿਟਾਮਿਨ D ਕੀ ਹੈ?")
+    if food in food_options[2:]:
+        st.write(food_advice)
+
+    if concern == concern_options[1]:
+        st.warning(health_advice)
+if tested == test_options[1]:
+        st.write(test_advice)
+
+    if tested == test_options[0]:
+        st.write(report_advice)
+
+    st.success(safe_end)
+
+st.divider()
+st.header(learn_title)
+
+with st.expander(why_title):
+    st.write(why_text)
+
+with st.expander(sources_title):
+    st.write(sources_text)
+
+with st.expander(symptoms_title):
+    st.write(symptoms_text)
+
+st.caption("D-SMART | Science Exhibition Project")
+
+st.divider()
+
+# ---------- D-SMART REPORT ASSISTANT ----------
+
+st.divider()
+
+st.header(
+    "🧪 Vitamin D Report Assistant"
+    if not pa else
+    "🧪 ਵਿਟਾਮਿਨ D ਰਿਪੋਰਟ ਸਹਾਇਕ"
+)
+
+st.write(
+    "Choose how you want to understand your report."
+    if not pa else
+    "ਚੁਣੋ ਕਿ ਤੁਸੀਂ ਆਪਣੀ ਰਿਪੋਰਟ ਕਿਵੇਂ ਸਮਝਣਾ ਚਾਹੁੰਦੇ ਹੋ।"
+)
+
+mode = st.radio(
+    "Report option / ਰਿਪੋਰਟ ਦਾ ਵਿਕਲਪ",
+    [
+        "I know the unit",
+        "I don't know the unit",
+        "I have a report photo"
+    ] if not pa else [
+        "ਮੈਨੂੰ ਇਕਾਈ ਪਤਾ ਹੈ",
+        "ਮੈਨੂੰ ਇਕਾਈ ਪਤਾ ਨਹੀਂ",
+        "ਮੇਰੇ ਕੋਲ ਰਿਪੋਰਟ ਦੀ ਫੋਟੋ ਹੈ"
+    ],
+    key="report_mode"
+)
+
+# Reference framework used for educational explanations.
+# ng/mL: below 12 = deficiency risk;
+# 12 to below 20 = may be inadequate for some;
+# 20 or above = adequate for most, under NIH guidance.
+
+def explain_vitamin_d(value_ng, punjabi=False):
+    if value_ng < 12:
+        if punjabi:
+            st.error(
+                "ਨਤੀਜਾ 12 ng/mL ਤੋਂ ਘੱਟ ਹੈ। "
+                "ਇਹ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੇ ਵਧੇ ਹੋਏ ਜੋਖਮ ਨਾਲ ਜੁੜਿਆ ਹੈ। "
+                "ਡਾਕਟਰੀ ਸਲਾਹ ਲਵੋ।"
+            )
+        else:
+            st.error(
+                "Below 12 ng/mL: associated with increased "
+                "risk of Vitamin D deficiency. Seek medical advice."
+            )
+
         st.write(
-            "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ "
-            "ਅਤੇ ਹੱਡੀਆਂ ਤੇ ਮਾਸਪੇਸ਼ੀਆਂ ਦੀ ਸਿਹਤ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹੈ।"
+            f"{12 - value_ng:.1f} ng/mL below the "
+            "12 ng/mL reference point."
+            if not punjabi else
+            f"12 ng/mL ਦੇ ਹਵਾਲਾ ਬਿੰਦੂ ਤੋਂ "
+            f"{12 - value_ng:.1f} ng/mL ਘੱਟ।"
         )
 
-        st.subheader("🌞 ਵਿਟਾਮਿਨ D ਦੇ ਸਰੋਤ")
-        st.write(
-            "- ਸੂਰਜ ਦੀ ਰੌਸ਼ਨੀ ਤੋਂ ਸਰੀਰ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਬਣ ਸਕਦਾ ਹੈ।\n"
-            "- ਕੁਝ ਭੋਜਨ, ਜਿਵੇਂ ਚਰਬੀ ਵਾਲੀ ਮੱਛੀ ਅਤੇ ਵਿਟਾਮਿਨ D "
-            "ਮਿਲਾਇਆ ਹੋਇਆ ਦੁੱਧ, ਇਸ ਦੇ ਸਰੋਤ ਹਨ।\n"
-            "- ਲੋੜ ਪੈਣ 'ਤੇ ਡਾਕਟਰ ਸਪਲੀਮੈਂਟ ਦੀ ਸਲਾਹ ਦੇ ਸਕਦਾ ਹੈ।"
-        )
+    elif value_ng < 20:
+        if punjabi:
+            st.warning(
+                "ਨਤੀਜਾ 12 ਤੋਂ 20 ng/mL ਦੇ ਵਿਚਕਾਰ ਹੈ। "
+                "ਇਹ ਕੁਝ ਲੋਕਾਂ ਲਈ ਨਾਕਾਫ਼ੀ ਹੋ ਸਕਦਾ ਹੈ। "
+                "ਆਪਣੀ ਰਿਪੋਰਟ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਅਤੇ ਸਿਹਤ ਬਾਰੇ "
+                "ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
+            )
+        else:
+            st.warning(
+                "Between 12 and 20 ng/mL: may be inadequate "
+                "for some people. Discuss the result with a "
+                "healthcare professional."
+            )
 
-        st.subheader("🦴 ਇਹ ਕਿਉਂ ਜ਼ਰੂਰੀ ਹੈ?")
         st.write(
-            "ਇਹ ਹੱਡੀਆਂ ਦੀ ਮਜ਼ਬੂਤੀ, ਕੈਲਸ਼ੀਅਮ ਦੇ ਜਜ਼ਬ ਹੋਣ ਅਤੇ "
-            "ਮਾਸਪੇਸ਼ੀਆਂ ਦੇ ਆਮ ਕੰਮ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।"
+            f"{20 - value_ng:.1f} ng/mL below the "
+            "20 ng/mL reference point used for adequacy "
+            "in most people."
+            if not punjabi else
+            f"ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਵਰਤੇ ਜਾਂਦੇ 20 ng/mL ਦੇ "
+            f"ਹਵਾਲਾ ਬਿੰਦੂ ਤੋਂ {20 - value_ng:.1f} ng/mL ਘੱਟ।"
         )
+        else:
+        if punjabi:
+            st.success(
+                "ਇਹ ਨਤੀਜਾ NIH ਦੇ ਹਵਾਲਾ ਢਾਂਚੇ ਅਨੁਸਾਰ "
+                "ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਕਾਫ਼ੀ ਮੰਨੇ ਜਾਂਦੇ ਪੱਧਰ 'ਤੇ ਹੈ। "
+                "ਆਪਣੀ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੀ ਵੇਖੋ।"
+            )
+        else:
+            st.success(
+                "This is within the level considered adequate "
+                "for most people under the NIH framework. "
+                "Also check your laboratory's reference range."
+            )
 
-        st.subheader("🧪 ਲੈਬ ਰਿਪੋਰਟ ਸਮਝੋ")
-        st.write(
-            "25-hydroxyvitamin D (25-OH Vitamin D) ਦੀ ਜਾਂਚ ਆਮ ਤੌਰ "
-            "ਤੇ ਸਰੀਰ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਦੇ ਪੱਧਰ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਲਈ ਵਰਤੀ ਜਾਂਦੀ ਹੈ। "
-            "ਰਿਪੋਰਟ ਦੀ ਵਿਆਖਿਆ ਲਈ ਡਾਕਟਰ ਦੀ ਸਲਾਹ ਲਓ।"
-        )
-    else:
-        st.subheader("☀️ What is Vitamin D?")
-        st.write(
-            "Vitamin D helps the body absorb calcium and supports "
-            "healthy bones and muscles."
-        )
+    st.caption(
+        "Educational interpretation only. Reference thresholds "
+        "vary, and this tool cannot diagnose a medical condition."
+        if not punjabi else
+        "ਇਹ ਸਿਰਫ਼ ਸਿੱਖਿਆ ਲਈ ਹੈ। ਹਵਾਲਾ ਸੀਮਾਵਾਂ ਵੱਖਰੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ; "
+        "ਇਹ ਸਾਧਨ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ।"
+    )
 
-        st.subheader("🌞 Sources of Vitamin D")
-        st.write(
-            "- The body can produce Vitamin D through exposure "
-            "to sunlight.\n"
-            "- Food sources include fatty fish and some "
-            "Vitamin D-fortified foods.\n"
-            "- A healthcare professional may recommend supplements "
-            "when appropriate."
-        )
 
-        st.subheader("🦴 Why is it important?")
-        st.write(
-            "Vitamin D supports calcium absorption, bone health, "
-            "and normal muscle function."
-        )
+if mode in ["I know the unit", "ਮੈਨੂੰ ਇਕਾਈ ਪਤਾ ਹੈ"]:
 
-        st.subheader("🧪 Understanding a laboratory report")
-        st.write(
-            "The 25-hydroxyvitamin D (25-OH Vitamin D) test is commonly "
-            "used to assess Vitamin D status. A healthcare professional "
-            "should interpret the result in its clinical context."
-        )
-
-# ================= UNIT CONVERTER =================
-
-with convert_tab:
-    st.subheader(
-        "ਵਿਟਾਮਿਨ D ਦੀ ਇਕਾਈ ਬਦਲੋ"
-        if pa else
-        "Vitamin D Unit Converter"
+    unit = st.selectbox(
+        "Report unit / ਰਿਪੋਰਟ ਦੀ ਇਕਾਈ",
+        ["ng/mL", "nmol/L"],
+        key="known_unit"
     )
 
     value = st.number_input(
-        "ਰਿਪੋਰਟ ਦਾ ਮੁੱਲ" if pa else "Laboratory result",
+        "Enter the reported value / ਰਿਪੋਰਟ ਦਾ ਮੁੱਲ",
         min_value=0.0,
+        max_value=1000.0,
         value=20.0,
         step=0.1,
+        key="known_value"
     )
 
-    source_unit = st.selectbox(
-        "ਰਿਪੋਰਟ ਵਿੱਚ ਦਿੱਤੀ ਇਕਾਈ ਚੁਣੋ"
-        if pa else
-        "Select the unit shown in your report",
-        ["ng/mL", "nmol/L"],
+    if st.button(
+        "Explain My Result" if not pa else "ਮੇਰੀ ਰਿਪੋਰਟ ਸਮਝਾਓ",
+        key="known_explain"
+    ):
+        value_ng = value if unit == "ng/mL" else value / 2.5
+
+        st.subheader(
+            "Your result" if not pa else "ਤੁਹਾਡਾ ਨਤੀਜਾ"
+        )
+
+        st.write(f"{value_ng:.1f} ng/mL")
+        st.write(f"{value_ng * 2.5:.1f} nmol/L")
+
+        explain_vitamin_d(value_ng, pa)
+
+
+elif mode in ["I don't know the unit", "ਮੈਨੂੰ ਇਕਾਈ ਪਤਾ ਨਹੀਂ"]:
+
+    unknown_value = st.number_input(
+        "Enter the number shown / ਰਿਪੋਰਟ ਵਿੱਚ ਦਿੱਤਾ ਅੰਕ ਲਿਖੋ",
+        min_value=0.0,
+        max_value=1000.0,
+        value=20.0,
+        step=0.1,
+        key="unknown_value"
     )
 
-    if source_unit == "ng/mL":
-        converted = value * 2.5
-        result_unit = "nmol/L"
-    else:
-        converted = value / 2.5
-        result_unit = "ng/mL"
-
-    st.metric(
-        "ਬਦਲਿਆ ਹੋਇਆ ਮੁੱਲ" if pa else "Converted result",
-        f"{converted:.2f} {result_unit}",
-    )
-
-    st.caption(
-        "1 ng/mL = 2.5 nmol/L. ਇਹ ਗਣਿਤਕ ਬਦਲਾਅ ਹੈ, "
-        "ਰਿਪੋਰਟ ਦੀ ਡਾਕਟਰੀ ਵਿਆਖਿਆ ਨਹੀਂ।"
-        if pa else
-        "1 ng/mL = 2.5 nmol/L. This is a mathematical conversion, "
-        "not a medical interpretation of the result."
-    )
-
-    st.warning(
-        "ਵਿਟਾਮਿਨ D ਦੀ ਉਚਿਤ ਮਾਤਰਾ ਵਿਅਕਤੀ ਦੀ ਸਥਿਤੀ ਅਤੇ ਲੈਬ ਦੇ "
-        "ਮਾਪਦੰਡਾਂ ਅਨੁਸਾਰ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਹੈ।"
-        if pa else
-        "Interpretation depends on individual circumstances and "
-        "the laboratory's reference guidance."
-    )
-
-# ================= REPORT IMAGE UPLOAD =================
-
-with image_tab:
-    st.subheader(
-        "ਲੈਬ ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰੋ"
-        if pa else
-        "Upload a Laboratory Report Image"
-    )
-
-    st.write(
-        "ਤਸਵੀਰ ਵਿੱਚ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਖੁਦ ਜਾਂਚੋ।"
-        if pa else
-        "Upload an image to view your laboratory report."
-    )
-
-    uploaded_file = st.file_uploader(
-        "ਤਸਵੀਰ ਚੁਣੋ" if pa else "Choose an image",
-        type=["png", "jpg", "jpeg"],
-    )
-
-    if uploaded_file is not None:
-        st.image(
-            uploaded_file,
-            caption=(
-                "ਅਪਲੋਡ ਕੀਤੀ ਰਿਪੋਰਟ"
-                if pa else
-                "Uploaded laboratory report"
-            ),
-            use_container_width=True,
+    if st.button(
+        "Compare Both Possibilities" if not pa
+        else "ਦੋਵੇਂ ਸੰਭਾਵਨਾਵਾਂ ਵੇਖੋ",
+        key="unknown_compare"
+    ):
+        st.subheader(
+            "Possible interpretations" if not pa
+            else "ਸੰਭਾਵਿਤ ਵਿਆਖਿਆਵਾਂ"
         )
 
         st.info(
-            "ਇਹ ਵਰਜਨ ਤਸਵੀਰ ਦਿਖਾਉਂਦਾ ਹੈ, ਪਰ ਇਸ ਵਿੱਚੋਂ ਆਪਣੇ ਆਪ "
-            "ਟੈਸਟ ਦੇ ਨਤੀਜੇ ਨਹੀਂ ਪੜ੍ਹਦਾ।"
-            if pa else
-            "This version previews the image but does not "
-            "automatically extract or interpret its results."
+            "These are two possibilities, not a way to identify "
+            "the actual unit. Check the report before relying on either."
+            if not pa else
+            "ਇਹ ਦੋ ਸੰਭਾਵਨਾਵਾਂ ਹਨ, ਅਸਲ ਇਕਾਈ ਦੀ ਪਛਾਣ ਨਹੀਂ। "
+            "ਕਿਸੇ ਨਤੀਜੇ 'ਤੇ ਭਰੋਸਾ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਰਿਪੋਰਟ ਵੇਖੋ।"
+        )
+st.markdown("### Possibility A: ng/mL")
+        st.write(
+            f"{unknown_value:.1f} ng/mL = "
+            f"{unknown_value * 2.5:.1f} nmol/L"
+        )
+        explain_vitamin_d(unknown_value, pa)
+
+        st.markdown("### Possibility B: nmol/L")
+        value_as_ng = unknown_value / 2.5
+        st.write(
+            f"{unknown_value:.1f} nmol/L = "
+            f"{value_as_ng:.1f} ng/mL"
+        )
+        explain_vitamin_d(value_as_ng, pa)
+
+
+else:
+
+    st.subheader(
+        "Upload a report image" if not pa
+        else "ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰੋ"
+    )
+
+    st.warning(
+        "For privacy, use a sample report or hide your name, "
+        "date of birth, address, patient ID and other personal details."
+        if not pa else
+        "ਨਿੱਜਤਾ ਲਈ ਨਮੂਨਾ ਰਿਪੋਰਟ ਵਰਤੋ ਜਾਂ ਆਪਣਾ ਨਾਮ, "
+        "ਜਨਮ ਮਿਤੀ, ਪਤਾ, ਮਰੀਜ਼ ID ਅਤੇ ਹੋਰ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਲੁਕਾਓ।"
+    )
+
+    uploaded_report = st.file_uploader(
+        "Choose report image / ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਚੁਣੋ",
+        type=["png", "jpg", "jpeg"],
+        key="report_image"
+    )
+
+    if uploaded_report is not None:
+        st.image(
+            uploaded_report,
+            caption=(
+                "Report preview — values are not read automatically yet."
+                if not pa else
+                "ਰਿਪੋਰਟ ਦੀ ਝਲਕ — ਅਜੇ ਮੁੱਲ ਆਪਣੇ ਆਪ ਨਹੀਂ ਪੜ੍ਹੇ ਜਾਂਦੇ।"
+            ),
+            use_container_width=True
         )
 
-# ================= QUIZ =================
+        st.info(
+            "Automatic report reading is our next development step. "
+            "For now, select a known unit or enter the number manually."
+            if not pa else
+            "ਰਿਪੋਰਟ ਨੂੰ ਆਪਣੇ ਆਪ ਪੜ੍ਹਨ ਦੀ ਸਹੂਲਤ ਅਗਲਾ ਕਦਮ ਹੈ। "
+            "ਫਿਲਹਾਲ ਇਕਾਈ ਚੁਣੋ ਜਾਂ ਅੰਕ ਖੁਦ ਦਰਜ ਕਰੋ।"
+        )
+st.divider()
+
+st.header(
+    "🎯 Vitamin D Challenge Zone"
+    if not pa else
+    "🎯 ਵਿਟਾਮਿਨ D ਚੈਲੰਜ ਜ਼ੋਨ"
+)
+
+st.write(
+    "Test your knowledge and earn points!"
+    if not pa else
+    "ਆਪਣੇ ਗਿਆਨ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਅੰਕ ਪ੍ਰਾਪਤ ਕਰੋ!"
+)
 
 questions = [
     {
-        "en": "Which vitamin helps the body absorb calcium?",
-        "pa": "ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਕਿਹੜਾ ਵਿਟਾਮਿਨ ਮਦਦ ਕਰਦਾ ਹੈ?",
-        "options": [
-            "Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"
-        ],
-        "options_pa": [
-            "ਵਿਟਾਮਿਨ A", "ਵਿਟਾਮਿਨ C", "ਵਿਟਾਮਿਨ D", "ਵਿਟਾਮਿਨ K"
-        ],
-        "answer": 2,
+        "q": "What does Vitamin D help the body absorb?",
+        "pa": "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੀ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ?",
+        "options": ["Iron", "Calcium", "Sodium"],
+        "options_pa": ["ਆਇਰਨ", "ਕੈਲਸ਼ੀਅਮ", "ਸੋਡੀਅਮ"],
+        "answer": 1,
         "why": "Vitamin D helps the body absorb calcium.",
-        "why_pa": "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।",
+        "why_pa": "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।"
     },
     {
-        "en": "Which test is commonly used to assess Vitamin D status?",
-        "pa": "ਵਿਟਾਮਿਨ D ਦੇ ਪੱਧਰ ਦਾ ਮੁਲਾਂਕਣ ਕਰਨ ਲਈ ਕਿਹੜੀ ਜਾਂਚ ਆਮ ਹੈ?",
-        "options": [
-            "Blood glucose", "25-OH Vitamin D",
-            "Haemoglobin only", "Blood group"
-        ],
-        "options_pa": [
-            "ਬਲੱਡ ਗਲੂਕੋਜ਼", "25-OH ਵਿਟਾਮਿਨ D",
-            "ਸਿਰਫ਼ ਹੀਮੋਗਲੋਬਿਨ", "ਬਲੱਡ ਗਰੁੱਪ"
-        ],
+        "q": "Which is a source of Vitamin D?",
+        "pa": "ਵਿਟਾਮਿਨ D ਦਾ ਇੱਕ ਸਰੋਤ ਕਿਹੜਾ ਹੈ?",
+        "options": ["Egg yolk", "Plain sugar", "Salt"],
+        "options_pa": ["ਅੰਡੇ ਦੀ ਜ਼ਰਦੀ", "ਸਾਦੀ ਖੰਡ", "ਨਮਕ"],
+        "answer": 0,
+        "why": "Egg yolk contains Vitamin D.",
+        "why_pa": "ਅੰਡੇ ਦੀ ਜ਼ਰਦੀ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਹੁੰਦਾ ਹੈ।"
+    },
+    {
+        "q": "Can symptoms alone confirm Vitamin D deficiency?",
+        "pa": "ਕੀ ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਸਕਦੀ ਹੈ?",
+        "options": ["Yes", "No", "Always"],
+        "options_pa": ["ਹਾਂ", "ਨਹੀਂ", "ਹਮੇਸ਼ਾ"],
         "answer": 1,
-        "why": "The 25-OH Vitamin D test is commonly used.",
-        "why_pa": "25-OH ਵਿਟਾਮਿਨ D ਦੀ ਜਾਂਚ ਆਮ ਤੌਰ 'ਤੇ ਵਰਤੀ ਜਾਂਦੀ ਹੈ।",
+        "why": "Symptoms alone cannot confirm deficiency.",
+        "why_pa": "ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੁੰਦੀ।"
     },
     {
-        "en": "Which is a possible source of Vitamin D?",
-        "pa": "ਵਿਟਾਮਿਨ D ਦਾ ਇੱਕ ਸੰਭਾਵੀ ਸਰੋਤ ਕਿਹੜਾ ਹੈ?",
+        "q": "Which test measures Vitamin D status?",
+        "pa": "ਵਿਟਾਮਿਨ D ਦਾ ਪੱਧਰ ਜਾਣਨ ਲਈ ਕਿਹੜਾ ਟੈਸਟ ਕੀਤਾ ਜਾਂਦਾ ਹੈ?",
         "options": [
-            "Sunlight", "Plain sugar", "Salt", "Drinking water alone"
+            "25-hydroxyvitamin D blood test",
+            "Eye test",
+            "Hearing test"
         ],
         "options_pa": [
-            "ਸੂਰਜ ਦੀ ਰੌਸ਼ਨੀ", "ਸਾਦੀ ਖੰਡ", "ਨਮਕ", "ਸਿਰਫ਼ ਪੀਣ ਵਾਲਾ ਪਾਣੀ"
+            "25-ਹਾਈਡ੍ਰੋਕਸੀ ਵਿਟਾਮਿਨ D ਖੂਨ ਟੈਸਟ",
+            "ਅੱਖਾਂ ਦਾ ਟੈਸਟ",
+            "ਸੁਣਨ ਦਾ ਟੈਸਟ"
         ],
         "answer": 0,
-        "why": "Sunlight exposure can help the body produce Vitamin D.",
-        "why_pa": "ਸੂਰਜ ਦੀ ਰੌਸ਼ਨੀ ਸਰੀਰ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ।",
+        "why": "The 25-hydroxyvitamin D blood test is commonly used.",
+        "why_pa": "25-ਹਾਈਡ੍ਰੋਕਸੀ ਵਿਟਾਮਿਨ D ਦਾ ਖੂਨ ਟੈਸਟ ਆਮ ਤੌਰ 'ਤੇ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।"
     },
     {
-        "en": "Which units may appear on a Vitamin D report?",
-        "pa": "ਵਿਟਾਮਿਨ D ਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਕਿਹੜੀਆਂ ਇਕਾਈਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ?",
+        "q": "What should you do before taking high-dose supplements?",
+        "pa": "ਵੱਧ ਖੁਰਾਕ ਵਾਲੇ ਸਪਲੀਮੈਂਟ ਲੈਣ ਤੋਂ ਪਹਿਲਾਂ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
         "options": [
-            "kg and metre", "ng/mL and nmol/L",
-            "litre and watt", "°C and km"
+            "Take them without advice",
+            "Seek professional advice",
+            "Guess the dose"
         ],
         "options_pa": [
-            "ਕਿਲੋਗ੍ਰਾਮ ਅਤੇ ਮੀਟਰ", "ng/mL ਅਤੇ nmol/L",
-            "ਲੀਟਰ ਅਤੇ ਵਾਟ", "°C ਅਤੇ ਕਿਲੋਮੀਟਰ"
+            "ਬਿਨਾਂ ਸਲਾਹ ਲੈਣਾ",
+            "ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲੈਣਾ",
+            "ਖੁਰਾਕ ਦਾ ਅੰਦਾਜ਼ਾ ਲਗਾਉਣਾ"
         ],
         "answer": 1,
-        "why": "Vitamin D results may be reported in ng/mL or nmol/L.",
-        "why_pa": "ਵਿਟਾਮਿਨ D ਦੇ ਨਤੀਜੇ ng/mL ਜਾਂ nmol/L ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ।",
-    },
-    {
-        "en": "Who should help interpret a concerning laboratory result?",
-        "pa": "ਚਿੰਤਾਜਨਕ ਲੈਬ ਨਤੀਜੇ ਦੀ ਵਿਆਖਿਆ ਕੌਣ ਕਰੇ?",
-        "options": [
-            "A healthcare professional", "A guessing game",
-            "A social media comment", "No one"
-        ],
-        "options_pa": [
-            "ਸਿਹਤ ਸੰਭਾਲ ਮਾਹਿਰ", "ਅੰਦਾਜ਼ਾ ਲਗਾਉਣ ਵਾਲੀ ਖੇਡ",
-            "ਸੋਸ਼ਲ ਮੀਡੀਆ ਦੀ ਟਿੱਪਣੀ", "ਕੋਈ ਨਹੀਂ"
-        ],
-        "answer": 0,
-        "why": "A healthcare professional can interpret the result in context.",
-        "why_pa": "ਸਿਹਤ ਸੰਭਾਲ ਮਾਹਿਰ ਵਿਅਕਤੀ ਦੀ ਸਥਿਤੀ ਅਨੁਸਾਰ ਨਤੀਜੇ ਦੀ ਵਿਆਖਿਆ ਕਰ ਸਕਦਾ ਹੈ।",
-    },
+        "why": "Professional advice helps avoid inappropriate dosing.",
+        "why_pa": "ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਗਲਤ ਖੁਰਾਕ ਤੋਂ ਬਚਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।"
+    }
 ]
 
-with quiz_tab:
-    st.subheader(
-        "ਵਿਟਾਮਿਨ D ਬਾਰੇ ਕਵਿਜ਼"
-        if pa else
-        "Vitamin D Awareness Quiz"
+answers = []
+
+for i, question in enumerate(questions):
+    q_text = question["pa"] if pa else question["q"]
+    opts = question["options_pa"] if pa else question["options"]
+
+    choice = st.radio(
+        f"{i + 1}. {q_text}",
+        opts,
+        index=None,
+        key=f"vitd_quiz_{i}"
     )
-
-    with st.form("vitamin_d_quiz"):
-        answers = []
-
-        for i, question in enumerate(questions):
-            st.write(
-                f"**{i + 1}. "
-                f"{question['pa'] if pa else question['en']}**"
-            )
-
-            options = (
-                question["options_pa"]
+    answers.append(choice)
+if st.button(
+    "Check My Score" if not pa else "ਮੇਰੇ ਅੰਕ ਦਿਖਾਓ",
+    type="primary"
+):
+    if any(a is None for a in answers):
+        st.warning(
+            "Please answer all questions first."
+            if not pa else
+            "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਸਾਰੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਜਵਾਬ ਦਿਓ।"
+        )
+    else:
+        score = sum(
+            answers[i] == (
+                questions[i]["options_pa"][questions[i]["answer"]]
                 if pa else
-                question["options"]
+                questions[i]["options"][questions[i]["answer"]]
             )
-
-            selected = st.radio(
-                "ਆਪਣਾ ਜਵਾਬ ਚੁਣੋ" if pa else "Choose your answer",
-                options,
-                key=f"quiz_question_{i}",
-                index=None,
-            )
-
-            answers.append(selected)
-
-        submitted = st.form_submit_button(
-            "ਨਤੀਜਾ ਵੇਖੋ" if pa else "Check My Score",
-            use_container_width=True,
+            for i in range(len(questions))
         )
 
-    if submitted:
-        score = 0
-
-        for i, question in enumerate(questions):
-            correct_options = (
-                question["options_pa"]
-                if pa else
-                question["options"]
-            )
-
-            correct_answer = correct_options[question["answer"]]
-
-            if answers[i] == correct_answer:
-                score += 1
-
-        st.success(
-            f"ਤੁਹਾਡੇ ਅੰਕ: {score}/{len(questions)}"
-            if pa else
-            f"Your score: {score}/{len(questions)}"
+        st.subheader(
+            f"Your score: {score}/5"
+            if not pa else
+            f"ਤੁਹਾਡੇ ਅੰਕ: {score}/5"
         )
 
-        st.markdown(
-            "### ਸਹੀ ਜਵਾਬ ਅਤੇ ਵਿਆਖਿਆ"
-            if pa else
-            "### Correct Answers and Explanations"
-        )
+        st.progress(score / 5)
 
-        for i, question in enumerate(questions):
-            correct_options = (
-                question["options_pa"]
-                if pa else
-                question["options"]
+        if score == 5:
+            st.balloons()
+            st.success(
+                "Perfect score! Vitamin D Champion!"
+                if not pa else
+                "ਸ਼ਾਨਦਾਰ! ਤੁਸੀਂ ਵਿਟਾਮਿਨ D ਚੈਂਪੀਅਨ ਹੋ!"
             )
+        elif score >= 3:
+            st.success(
+                "Good work! Keep learning."
+                if not pa else
+                "ਬਹੁਤ ਵਧੀਆ! ਸਿੱਖਦੇ ਰਹੋ।"
+            )
+        else:
+            st.info(
+                "Keep exploring the learning section and try again."
+                if not pa else
+                "ਜਾਣਕਾਰੀ ਵਾਲਾ ਭਾਗ ਪੜ੍ਹੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+            )
+            with st.expander(
+            "Review answers" if not pa else "ਜਵਾਬ ਵੇਖੋ"
+        ):
+            for i, question in enumerate(questions):
+                correct = (
+                    question["options_pa"][question["answer"]]
+                    if pa else
+                    question["options"][question["answer"]]
+                )
+                explanation = question["why_pa"] if pa else question["why"]
 
-            correct_answer = correct_options[question["answer"]]
-            explanation = question["why_pa"] if pa else question["why"]
-
-            st.write(f"**{i + 1}. {correct_answer}**")
-            st.caption(explanation)
-
+                st.write(f"**{i + 1}. {correct}**")
+                
+                st.caption(explanation)
 # ================= PROJECT CREDITS =================
 
 st.divider()
 
-with st.expander(
-    "🏫 ਪ੍ਰੋਜੈਕਟ ਅਤੇ ਜਾਣਕਾਰੀ"
-    if pa else
-    "🏫 About the Project & Credits",
-    expanded=False,
-):
-    if pa:
-        st.markdown("### ☀️ D-SMART")
-        st.subheader("ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ")
-        st.write("ਵਿਗਿਆਨ • ਤਕਨਾਲੋਜੀ • ਸਿਹਤ ਜਾਗਰੂਕਤਾ")
+with st.expander("🏫 About the Project & Credits | ਪ੍ਰੋਜੈਕਟ ਅਤੇ ਜਾਣਕਾਰੀ", expanded=False):
+
+    if language == "ਪੰਜਾਬੀ":
+        st.markdown(
+            """
+            <div style="
+                background: linear-gradient(135deg, #e0f7f1, #e8f0ff);
+                padding: 24px;
+                border-radius: 18px;
+                text-align: center;
+                border: 1px solid #b8ded5;
+            ">
+                <h1 style="color:#087e75; margin-bottom:5px;">
+                    ☀️ D-SMART
+                </h1>
+                <h3 style="color:#244c58;">
+                    ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ
+                </h3>
+                <p style="color:#435b62;">
+                    ਵਿਗਿਆਨ • ਤਕਨਾਲੋਜੀ • ਸਿਹਤ ਜਾਗਰੂਕਤਾ
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
         st.markdown("### 🎯 ਪ੍ਰੋਜੈਕਟ ਦਾ ਉਦੇਸ਼")
         st.write(
-            "ਵਿਟਾਮਿਨ D ਬਾਰੇ ਜਾਗਰੂਕਤਾ ਵਧਾਉਣਾ, ਸਿਹਤਮੰਦ ਆਦਤਾਂ "
-            "ਬਾਰੇ ਸਿੱਖਿਆ ਦੇਣਾ ਅਤੇ ਲੈਬ ਰਿਪੋਰਟ ਦੀਆਂ ਇਕਾਈਆਂ ਸਮਝਣ "
-            "ਵਿੱਚ ਮਦਦ ਕਰਨਾ।"
+            "D-SMART ਦਾ ਉਦੇਸ਼ ਵਿਟਾਮਿਨ D ਬਾਰੇ ਜਾਗਰੂਕਤਾ ਵਧਾਉਣਾ, "
+            "ਵਰਤੋਂਕਾਰਾਂ ਨੂੰ ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਬਾਰੇ ਸਿੱਖਿਆ ਦੇਣਾ ਅਤੇ "
+            "ਵਿਟਾਮਿਨ D ਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਦਿੱਤੀ ਇਕਾਈ ਨੂੰ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰਨਾ ਹੈ।"
         )
 
         st.markdown("### 👩‍🎓 ਵਿਦਿਆਰਥਣ")
@@ -417,10 +658,11 @@ with st.expander(
         st.write("ਜ਼ਿਲ੍ਹਾ: Ferozepur, Punjab")
 
         st.markdown("### 💡 ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ")
-        st.write("- ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਜਾਣਕਾਰੀ")
-        st.write("- ਇੰਟਰਐਕਟਿਵ ਵਿਟਾਮਿਨ D ਕਵਿਜ਼")
-        st.write("- ਵਿਟਾਮਿਨ D ਦੀਆਂ ਇਕਾਈਆਂ ਬਦਲਣ ਦੀ ਸਹੂਲਤ")
-        st.write("- ਲੈਬ ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਦੇਖਣ ਦੀ ਸਹੂਲਤ")
+        st.write("• ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਜਾਣਕਾਰੀ")
+        st.write("• ਵਿਟਾਮਿਨ D ਬਾਰੇ ਇੰਟਰਐਕਟਿਵ ਕਵਿਜ਼")
+        st.write("• ਰਿਪੋਰਟ ਦੀ ਇਕਾਈ ਬਦਲਣ ਦੀ ਸਹੂਲਤ")
+        st.write("• ਇਕਾਈ ਪਤਾ ਨਾ ਹੋਣ 'ਤੇ ਦੋਵੇਂ ਸੰਭਾਵਨਾਵਾਂ ਦੀ ਵਿਆਖਿਆ")
+        st.write("• ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰਨ ਦੀ ਸਹੂਲਤ")
 
         st.info(
             "ਇਹ ਵਿਦਿਅਕ ਜਾਗਰੂਕਤਾ ਐਪ ਹੈ। ਇਹ ਡਾਕਟਰੀ ਜਾਂਚ, "
@@ -428,15 +670,34 @@ with st.expander(
         )
 
     else:
-        st.markdown("### ☀️ D-SMART")
-        st.subheader("Vitamin D Awareness Assistant")
-        st.write("Science • Technology • Health Awareness")
+        st.markdown(
+            """
+            <div style="
+                background: linear-gradient(135deg, #e0f7f1, #e8f0ff);
+                padding: 24px;
+                border-radius: 18px;
+                text-align: center;
+                border: 1px solid #b8ded5;
+            ">
+                <h1 style="color:#087e75; margin-bottom:5px;">
+                    ☀️ D-SMART
+                </h1>
+                <h3 style="color:#244c58;">
+                    Vitamin D Awareness Assistant
+                </h3>
+                <p style="color:#435b62;">
+                    Science • Technology • Health Awareness
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
         st.markdown("### 🎯 About the Project")
         st.write(
-            "D-SMART aims to improve Vitamin D awareness, encourage "
-            "healthy habits, and help users understand laboratory "
-            "report units."
+            "D-SMART aims to improve awareness about Vitamin D, "
+            "educate users about healthy habits, and help them understand "
+            "the units used in Vitamin D laboratory reports."
         )
 
         st.markdown("### 👩‍🎓 Student Developer")
@@ -452,10 +713,11 @@ with st.expander(
         st.write("District: Ferozepur, Punjab")
 
         st.markdown("### 💡 Key Features")
-        st.write("- English and Punjabi information")
-        st.write("- Interactive Vitamin D awareness quiz")
-        st.write("- Vitamin D unit conversion")
-        st.write("- Laboratory report image preview")
+        st.write("• Bilingual support: English and Punjabi")
+        st.write("• Interactive Vitamin D awareness quiz")
+        st.write("• Vitamin D unit conversion")
+        st.write("• Explanation of results when the unit is unknown")
+        st.write("• Laboratory report photo upload and preview")
 
         st.info(
             "D-SMART is an educational awareness tool. It does not "
