@@ -686,6 +686,7 @@ for i, question in enumerate(questions):
         key=f"vitd_quiz_{i}"
     )
     answers.append(choice)
+
 if st.button(
     "Check My Score" if not pa else "ਮੇਰੇ ਅੰਕ ਦਿਖਾਓ",
     type="primary"
@@ -729,26 +730,52 @@ if st.button(
             )
         else:
             st.info(
-                "Keep exploring the learning section and try again."
+                "Keep learning and try again."
                 if not pa else
-                "ਜਾਣਕਾਰੀ ਵਾਲਾ ਭਾਗ ਪੜ੍ਹੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+                "ਸਿੱਖਦੇ ਰਹੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
             )
-            
-            with st.expander(
-                "Review answers" if not pa else "ਜਵਾਬ ਵੇਖੋ"
-            ):
-                for i, question in enumerate(questions):
-                    correct = (
-                        question["options_pa"][question["answer"]]
-                        if pa else
-                        question["options"][question["answer"]]
+
+        # Review answers for every completed quiz
+        with st.expander(
+            "📘 Review Answers & Explanations"
+            if not pa else
+            "📘 ਸਹੀ ਜਵਾਬ ਅਤੇ ਵਿਆਖਿਆ ਵੇਖੋ"
+        ):
+            for i, question in enumerate(questions):
+                correct = (
+                    question["options_pa"][question["answer"]]
+                    if pa else
+                    question["options"][question["answer"]]
+                )
+
+                explanation = (
+                    question["why_pa"] if pa else question["why"]
+                )
+
+                selected = answers[i]
+
+                if selected == correct:
+                    st.success(
+                        f"{i + 1}. {correct}"
+                        if not pa else
+                        f"{i + 1}. {correct} — ਸਹੀ ਜਵਾਬ"
                     )
-                    explanation = (
-                        question["why_pa"] if pa else question["why"]
+                else:
+                    st.error(
+                        f"{i + 1}. Correct answer: {correct}"
+                        if not pa else
+                        f"{i + 1}. ਸਹੀ ਜਵਾਬ: {correct}"
+                    )
+                    st.caption(
+                        (
+                            f"Your answer: {selected}"
+                            if not pa else
+                            f"ਤੁਹਾਡਾ ਜਵਾਬ: {selected}"
+                        )
                     )
 
-                    st.write(f"**{i + 1}. {correct}**")
-                    st.caption(explanation)
+                st.write(explanation)
+
 # ================= PROJECT CREDITS =================
 
 st.divider()
