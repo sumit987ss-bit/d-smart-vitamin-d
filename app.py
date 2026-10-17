@@ -597,20 +597,22 @@ if st.button(
                 if not pa else
                 "ਜਾਣਕਾਰੀ ਵਾਲਾ ਭਾਗ ਪੜ੍ਹੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
             )
+            
             with st.expander(
-            "Review answers" if not pa else "ਜਵਾਬ ਵੇਖੋ"
-        ):
-            for i, question in enumerate(questions):
-                correct = (
-                    question["options_pa"][question["answer"]]
-                    if pa else
-                    question["options"][question["answer"]]
-                )
-                explanation = question["why_pa"] if pa else question["why"]
+                "Review answers" if not pa else "ਜਵਾਬ ਵੇਖੋ"
+            ):
+                for i, question in enumerate(questions):
+                    correct = (
+                        question["options_pa"][question["answer"]]
+                        if pa else
+                        question["options"][question["answer"]]
+                    )
+                    explanation = (
+                        question["why_pa"] if pa else question["why"]
+                    )
 
-                st.write(f"**{i + 1}. {correct}**")
-                
-                st.caption(explanation)
+                    st.write(f"**{i + 1}. {correct}**")
+                    st.caption(explanation)
 # ================= PROJECT CREDITS =================
 
 st.divider()
