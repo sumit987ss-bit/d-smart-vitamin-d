@@ -1,4 +1,13 @@
 import streamlit as st
+import streamlit.components.v1 as components
+from pathlib import Path
+
+
+# Small custom component that detects left/right swipe gestures.
+ds_swipe_component = components.declare_component(
+    "ds_swipe_nav",
+    path=str(Path(__file__).parent / "swipe_nav")
+)
 
 st.set_page_config(
     page_title="D-SMART",
@@ -216,6 +225,15 @@ st.selectbox(
     key="ds_nav",
     on_change=_ds_sync_nav
 )
+
+# Swipe left for the next screen; swipe right for the previous screen.
+_swipe_event = ds_swipe_component(key="ds_swipe_event", default=None)
+if isinstance(_swipe_event, dict):
+    _swipe_seq = _swipe_event.get("seq")
+    if _swipe_seq and _swipe_seq != st.session_state.get("ds_last_swipe_seq"):
+        st.session_state.ds_last_swipe_seq = _swipe_seq
+        _swipe_delta = 1 if _swipe_event.get("direction") == "left" else -1
+        _ds_move_page(_swipe_delta)
 _nav_left, _nav_right = st.columns(2)
 with _nav_left:
     st.button(
