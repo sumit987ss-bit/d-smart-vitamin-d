@@ -545,228 +545,77 @@ if st.session_state.ds_page == 3:
 
 if st.session_state.ds_page == 4:
     # ---------- D-SMART REPORT ASSISTANT ----------
-    
-    st.divider()
-    
     st.header(
         "🧪 Vitamin D Report Assistant"
         if not pa else
         "🧪 ਵਿਟਾਮਿਨ D ਰਿਪੋਰਟ ਸਹਾਇਕ"
     )
-    
     st.write(
-        "Choose how you want to understand your report."
+        "Enter the Vitamin D blood-test result exactly as reported in nmol/L."
         if not pa else
-        "ਚੁਣੋ ਕਿ ਤੁਸੀਂ ਆਪਣੀ ਰਿਪੋਰਟ ਕਿਵੇਂ ਸਮਝਣਾ ਚਾਹੁੰਦੇ ਹੋ।"
+        "ਵਿਟਾਮਿਨ D ਦੇ ਖੂਨ ਟੈਸਟ ਦਾ ਨਤੀਜਾ ਰਿਪੋਰਟ ਅਨੁਸਾਰ nmol/L ਵਿੱਚ ਦਰਜ ਕਰੋ।"
     )
-    
-    mode = st.radio(
-        "Report option / ਰਿਪੋਰਟ ਦਾ ਵਿਕਲਪ",
-        [
-            "I know the unit",
-            "I don't know the unit",
-            "I have a report photo"
-        ] if not pa else [
-            "ਮੈਨੂੰ ਇਕਾਈ ਪਤਾ ਹੈ",
-            "ਮੈਨੂੰ ਇਕਾਈ ਪਤਾ ਨਹੀਂ",
-            "ਮੇਰੇ ਕੋਲ ਰਿਪੋਰਟ ਦੀ ਫੋਟੋ ਹੈ"
-        ],
-        key="report_mode"
+    st.info(
+        "Use the 25-hydroxyvitamin D [25(OH)D] result. This is an educational guide, not a diagnosis."
+        if not pa else
+        "25-hydroxyvitamin D [25(OH)D] ਦਾ ਨਤੀਜਾ ਵਰਤੋ। ਇਹ ਸਿੱਖਿਆ ਲਈ ਹੈ, ਡਾਕਟਰੀ ਨਿਦਾਨ ਨਹੀਂ।"
     )
-    
-    # Reference framework used for educational explanations.
-    # ng/mL: below 12 = deficiency risk;
-    # 12 to below 20 = may be inadequate for some;
-    # 20 or above = adequate for most, under NIH guidance.
-    
-    def explain_vitamin_d(value_ng, punjabi=False):
-        if value_ng < 12:
-            if punjabi:
-                st.error(
-                    "ਨਤੀਜਾ 12 ng/mL ਤੋਂ ਘੱਟ ਹੈ। "
-                    "ਇਹ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੇ ਵਧੇ ਹੋਏ ਜੋਖਮ ਨਾਲ ਜੁੜਿਆ ਹੈ। "
-                    "ਡਾਕਟਰੀ ਸਲਾਹ ਲਵੋ।"
-                )
-            else:
-                st.error(
-                    "Below 12 ng/mL: associated with increased "
-                    "risk of Vitamin D deficiency. Seek medical advice."
-                )
-    
-            st.write(
-                f"{12 - value_ng:.1f} ng/mL below the "
-                "12 ng/mL reference point."
-                if not punjabi else
-                f"12 ng/mL ਦੇ ਹਵਾਲਾ ਬਿੰਦੂ ਤੋਂ "
-                f"{12 - value_ng:.1f} ng/mL ਘੱਟ।"
+
+    sex = st.selectbox(
+        "Sex / ਲਿੰਗ",
+        ["Male", "Female"] if not pa else ["ਪੁਰਸ਼", "ਇਸਤਰੀ"],
+        key="report_sex"
+    )
+    value_nmol = st.number_input(
+        "Vitamin D result (nmol/L) / ਵਿਟਾਮਿਨ D ਦਾ ਨਤੀਜਾ (nmol/L)",
+        min_value=0.0,
+        max_value=2500.0,
+        value=50.0,
+        step=1.0,
+        key="report_value_nmol"
+    )
+
+    if st.button(
+        "Interpret My Result" if not pa else "ਮੇਰਾ ਨਤੀਜਾ ਸਮਝਾਓ",
+        key="nmol_explain",
+        use_container_width=True
+    ):
+        st.subheader("Your result" if not pa else "ਤੁਹਾਡਾ ਨਤੀਜਾ")
+        st.metric(
+            "Vitamin D [25(OH)D]" if not pa else "ਵਿਟਾਮਿਨ D [25(OH)D]",
+            f"{value_nmol:.1f} nmol/L"
+        )
+        st.write(
+            ("Selected sex: " if not pa else "ਚੁਣਿਆ ਲਿੰਗ: ") + sex
+        )
+
+        if value_nmol < 30:
+            st.error(
+                "This result is below 30 nmol/L and is associated with increased risk of Vitamin D deficiency. Please discuss it with a qualified healthcare professional."
+                if not pa else
+                "ਇਹ ਨਤੀਜਾ 30 nmol/L ਤੋਂ ਘੱਟ ਹੈ ਅਤੇ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੇ ਵਧੇ ਹੋਏ ਜੋਖਮ ਨਾਲ ਜੁੜਿਆ ਹੈ। ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
             )
-    
-        
-        elif value_ng < 20:
-            if punjabi:
-                st.warning(
-                    "ਨਤੀਜਾ 12 ਤੋਂ 20 ng/mL ਦੇ ਵਿਚਕਾਰ ਹੈ। "
-                    "ਇਹ ਕੁਝ ਲੋਕਾਂ ਲਈ ਨਾਕਾਫ਼ੀ ਹੋ ਸਕਦਾ ਹੈ। "
-                    "ਆਪਣੀ ਰਿਪੋਰਟ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਅਤੇ ਸਿਹਤ ਬਾਰੇ "
-                    "ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
-                )
-            else:
-                st.warning(
-                    "Between 12 and 20 ng/mL: may be inadequate "
-                    "for some people. Discuss the result with a "
-                    "healthcare professional."
-                )
-    
-            st.write(
-                f"{20 - value_ng:.1f} ng/mL below the "
-                "20 ng/mL reference point used for adequacy "
-                "in most people."
-                if not punjabi else
-                f"ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਵਰਤੇ ਜਾਂਦੇ 20 ng/mL ਦੇ "
-                f"ਹਵਾਲਾ ਬਿੰਦੂ ਤੋਂ {20 - value_ng:.1f} ng/mL ਘੱਟ।"
+        elif value_nmol < 50:
+            st.warning(
+                "This result is 30 to below 50 nmol/L. It may be inadequate for some people; discuss it with a qualified healthcare professional and check your laboratory's reference range."
+                if not pa else
+                "ਇਹ ਨਤੀਜਾ 30 ਤੋਂ 50 nmol/L ਤੋਂ ਘੱਟ ਦੀ ਸੀਮਾ ਵਿੱਚ ਹੈ। ਇਹ ਕੁਝ ਲੋਕਾਂ ਲਈ ਨਾਕਾਫ਼ੀ ਹੋ ਸਕਦਾ ਹੈ; ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ ਅਤੇ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੇਖੋ।"
             )
-    
         else:
-            if punjabi:
-                st.success(
-                    "ਇਹ ਨਤੀਜਾ NIH ਦੇ ਹਵਾਲਾ ਢਾਂਚੇ ਅਨੁਸਾਰ "
-                    "ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਕਾਫ਼ੀ ਮੰਨੇ ਜਾਂਦੇ ਪੱਧਰ 'ਤੇ ਹੈ। "
-                    "ਆਪਣੀ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੀ ਵੇਖੋ।"
-                )
-            else:
-                st.success(
-                    "This is within the level considered adequate "
-                    "for most people under the NIH framework. "
-                    "Also check your laboratory's reference range."
-                )
-    
+            st.success(
+                "This result is at least 50 nmol/L, a level considered adequate for most people under the NIH framework. Check your laboratory's reference range and discuss personal results with a healthcare professional."
+                if not pa else
+                "ਇਹ ਨਤੀਜਾ ਘੱਟੋ-ਘੱਟ 50 nmol/L ਹੈ, ਜਿਸ ਨੂੰ NIH ਦੇ ਹਵਾਲਾ ਢਾਂਚੇ ਅਨੁਸਾਰ ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਕਾਫ਼ੀ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ। ਆਪਣੀ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੇਖੋ ਅਤੇ ਨਿੱਜੀ ਨਤੀਜੇ ਬਾਰੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
+            )
+
         st.caption(
-            "Educational interpretation only. Reference thresholds "
-            "vary, and this tool cannot diagnose a medical condition."
-            if not punjabi else
-            "ਇਹ ਸਿਰਫ਼ ਸਿੱਖਿਆ ਲਈ ਹੈ। ਹਵਾਲਾ ਸੀਮਾਵਾਂ ਵੱਖਰੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ; "
-            "ਇਹ ਸਾਧਨ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ।"
-        )
-    
-    
-    if mode in ["I know the unit", "ਮੈਨੂੰ ਇਕਾਈ ਪਤਾ ਹੈ"]:
-    
-        unit = st.selectbox(
-            "Report unit / ਰਿਪੋਰਟ ਦੀ ਇਕਾਈ",
-            ["ng/mL", "nmol/L"],
-            key="known_unit"
-        )
-    
-        value = st.number_input(
-            "Enter the reported value / ਰਿਪੋਰਟ ਦਾ ਮੁੱਲ",
-            min_value=0.0,
-            max_value=1000.0,
-            value=20.0,
-            step=0.1,
-            key="known_value"
-        )
-    
-        if st.button(
-            "Explain My Result" if not pa else "ਮੇਰੀ ਰਿਪੋਰਟ ਸਮਝਾਓ",
-            key="known_explain"
-        ):
-            value_ng = value if unit == "ng/mL" else value / 2.5
-    
-            st.subheader(
-                "Your result" if not pa else "ਤੁਹਾਡਾ ਨਤੀਜਾ"
-            )
-    
-            st.write(f"{value_ng:.1f} ng/mL")
-            st.write(f"{value_ng * 2.5:.1f} nmol/L")
-    
-            explain_vitamin_d(value_ng, pa)
-    
-    
-    elif mode in ["I don't know the unit", "ਮੈਨੂੰ ਇਕਾਈ ਪਤਾ ਨਹੀਂ"]:
-    
-        unknown_value = st.number_input(
-            "Enter the number shown / ਰਿਪੋਰਟ ਵਿੱਚ ਦਿੱਤਾ ਅੰਕ ਲਿਖੋ",
-            min_value=0.0,
-            max_value=1000.0,
-            value=20.0,
-            step=0.1,
-            key="unknown_value"
-        )
-    
-        if st.button(
-            "Compare Both Possibilities" if not pa
-            else "ਦੋਵੇਂ ਸੰਭਾਵਨਾਵਾਂ ਵੇਖੋ",
-            key="unknown_compare"
-        ):
-            st.subheader(
-                "Possible interpretations" if not pa
-                else "ਸੰਭਾਵਿਤ ਵਿਆਖਿਆਵਾਂ"
-            )
-            st.info(
-                "These are two possibilities, not a way to identify "
-                "the actual unit. Check the report before relying on either."
-                if not pa else
-                "ਇਹ ਦੋ ਸੰਭਾਵਨਾਵਾਂ ਹਨ, ਅਸਲ ਇਕਾਈ ਦੀ ਪਛਾਣ ਨਹੀਂ। "
-                "ਕਿਸੇ ਨਤੀਜੇ 'ਤੇ ਭਰੋਸਾ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਰਿਪੋਰਟ ਵੇਖੋ।"
-            )
-            st.markdown("### Possibility A: ng/mL")
-            st.write(
-                f"{unknown_value:.1f} ng/mL = "
-                f"{unknown_value * 2.5:.1f} nmol/L"
-            )
-            explain_vitamin_d(unknown_value, pa)
-    
-            st.markdown("### Possibility B: nmol/L")
-            value_as_ng = unknown_value / 2.5
-            st.write(
-                f"{unknown_value:.1f} nmol/L = "
-                f"{value_as_ng:.1f} ng/mL"
-            )
-            explain_vitamin_d(value_as_ng, pa)
-    
-    
-    else:
-    
-        st.subheader(
-            "Upload a report image" if not pa
-            else "ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰੋ"
-        )
-    
-        st.warning(
-            "For privacy, use a sample report or hide your name, "
-            "date of birth, address, patient ID and other personal details."
+            "The same general interpretation thresholds are used for males and females; sex alone does not change these cut-offs. Laboratory ranges and individual circumstances can differ. Do not start high-dose supplements based on this result alone."
             if not pa else
-            "ਨਿੱਜਤਾ ਲਈ ਨਮੂਨਾ ਰਿਪੋਰਟ ਵਰਤੋ ਜਾਂ ਆਪਣਾ ਨਾਮ, "
-            "ਜਨਮ ਮਿਤੀ, ਪਤਾ, ਮਰੀਜ਼ ID ਅਤੇ ਹੋਰ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਲੁਕਾਓ।"
+            "ਪੁਰਸ਼ਾਂ ਅਤੇ ਇਸਤਰੀਆਂ ਲਈ ਆਮ ਤੌਰ 'ਤੇ ਇਹੀ ਵਿਆਖਿਆ ਸੀਮਾਵਾਂ ਵਰਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ; ਸਿਰਫ਼ ਲਿੰਗ ਨਾਲ ਇਹ ਸੀਮਾਵਾਂ ਨਹੀਂ ਬਦਲਦੀਆਂ। ਲੈਬ ਦੀਆਂ ਹਵਾਲਾ ਸੀਮਾਵਾਂ ਅਤੇ ਵਿਅਕਤੀਗਤ ਹਾਲਾਤ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ। ਸਿਰਫ਼ ਇਸ ਨਤੀਜੇ ਦੇ ਆਧਾਰ 'ਤੇ ਵੱਧ ਖੁਰਾਕ ਵਾਲੇ ਸਪਲੀਮੈਂਟ ਸ਼ੁਰੂ ਨਾ ਕਰੋ।"
         )
-    
-        uploaded_report = st.file_uploader(
-            "Choose report image / ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਚੁਣੋ",
-            type=["png", "jpg", "jpeg"],
-            key="report_image"
-        )
-    
-        if uploaded_report is not None:
-            st.image(
-                uploaded_report,
-                caption=(
-                    "Report preview — values are not read automatically yet."
-                    if not pa else
-                    "ਰਿਪੋਰਟ ਦੀ ਝਲਕ — ਅਜੇ ਮੁੱਲ ਆਪਣੇ ਆਪ ਨਹੀਂ ਪੜ੍ਹੇ ਜਾਂਦੇ।"
-                ),
-                use_container_width=True
-            )
-    
-            st.info(
-                "Automatic report reading is our next development step. "
-                "For now, select a known unit or enter the number manually."
-                if not pa else
-                "ਰਿਪੋਰਟ ਨੂੰ ਆਪਣੇ ਆਪ ਪੜ੍ਹਨ ਦੀ ਸਹੂਲਤ ਅਗਲਾ ਕਦਮ ਹੈ। "
-                "ਫਿਲਹਾਲ ਇਕਾਈ ਚੁਣੋ ਜਾਂ ਅੰਕ ਖੁਦ ਦਰਜ ਕਰੋ।"
-            )
+
     st.divider()
-    
-    
+
 
 if st.session_state.ds_page == 5:
     st.header(
