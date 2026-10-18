@@ -1431,6 +1431,10 @@ if st.session_state.ds_page == 9:
                 for _key in [
                     "impact_pre_score", "impact_pre_form_answers",
                     "impact_post_score", "impact_post_form_answers"
+                ] + [
+                    f"{_form}_q{_i}"
+                    for _form in ["impact_pre_form", "impact_post_form"]
+                    for _i in range(5)
                 ]:
                     st.session_state.pop(_key, None)
                 st.rerun()
