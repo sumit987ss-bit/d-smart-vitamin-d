@@ -1315,7 +1315,7 @@ if st.session_state.ds_page == 9:
                     _opts = _impact_questions[_iq]["opts_pa"] if pa else _impact_questions[_iq]["opts"]
                     if _answer == _opts[_impact_questions[_iq]["answer"]]:
                         _score += 1
-                st.session_state[f"{form_key}_score"] = _score
+                st.session_state[form_key.replace("_form", "") + "_score"] = _score
                 st.session_state[f"{form_key}_answers"] = _impact_selected
                 st.rerun()
 
