@@ -347,14 +347,14 @@ if st.session_state.ds_page == 1:
                 "1. Select English or Punjabi.\n"
                 "2. Complete the awareness questionnaire.\n"
                 "3. Explore Vitamin D learning resources.\n"
-                "4. Enter a report value and its unit for an educational explanation.\n"
+                "4. Enter the Vitamin D report value in nmol/L for a direct educational interpretation.\n"
                 "5. Complete the quiz and review the answers."
             )
     
             st.subheader("What Makes It Useful?")
             st.write(
-                "It brings bilingual health education, unit conversion, "
-                "report-reading awareness, and interactive learning "
+                "It brings bilingual health education, Vitamin D report interpretation "
+                "in nmol/L, and interactive learning "
                 "together in one simple app."
             )
     
@@ -370,7 +370,7 @@ if st.session_state.ds_page == 1:
             st.markdown(
                 "1. Switch between English and Punjabi.\n"
                 "2. Complete the awareness questionnaire.\n"
-                "3. Convert a sample report value between ng/mL and nmol/L.\n"
+                "3. Enter a sample Vitamin D result in nmol/L and review its interpretation.\n"
                 "4. Try the quiz and show the answer explanations."
             )
     
@@ -586,8 +586,16 @@ if st.session_state.ds_page == 4:
             f"{value_nmol:.1f} nmol/L"
         )
         st.write(
-            ("Selected sex: " if not pa else "ਚੁਣਿਆ ਲਿੰਗ: ") + sex
+            ("Sex selected: " if not pa else "ਚੁਣਿਆ ਲਿੰਗ: ") + sex
         )
+        if not pa:
+            st.info(
+                f"For a {sex.lower()}, this Vitamin D level is interpreted using the same general adult thresholds used for males and females."
+            )
+        else:
+            st.info(
+                f"{sex} ਲਈ ਇਸ ਵਿਟਾਮਿਨ D ਪੱਧਰ ਦੀ ਆਮ ਵਿਆਖਿਆ ਪੁਰਸ਼ਾਂ ਅਤੇ ਇਸਤਰੀਆਂ ਲਈ ਵਰਤੀਆਂ ਜਾਣ ਵਾਲੀਆਂ ਇੱਕੋ ਜਿਹੀਆਂ ਆਮ ਸੀਮਾਵਾਂ ਅਨੁਸਾਰ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।"
+            )
 
         if value_nmol < 30:
             st.error(
@@ -934,7 +942,7 @@ if st.session_state.ds_page == 6:
             unsafe_allow_html=True
         )
         st.markdown("### 🎯 Project Purpose")
-        st.write("D-SMART is an educational project designed to improve awareness about Vitamin D, encourage healthy habits, and help users understand the units commonly used in Vitamin D laboratory reports.")
+        st.write("D-SMART is an educational project designed to improve awareness about Vitamin D, encourage healthy habits, and explain Vitamin D report results entered in nmol/L.")
 
         st.markdown("### 🤝 Project Team")
         _c1, _c2 = st.columns(2)
@@ -948,7 +956,7 @@ if st.session_state.ds_page == 6:
         for _feature in [
             "🌐 Bilingual learning: English and Punjabi",
             "🧠 Interactive Vitamin D awareness quiz",
-            "📘 Explanation when the report unit is unclear",
+            "📘 Direct educational interpretation of Vitamin D results in nmol/L",
             "🖼️ Laboratory report image upload and preview",
             "🤖 AI assistant for general Vitamin D questions",
             "🎯 Expanded Vitamin D Challenge Quiz",
