@@ -1134,32 +1134,40 @@ if st.session_state.ds_page == 8:
         if "ds_ai_question_count" not in st.session_state:
             st.session_state.ds_ai_question_count = 0
 
-        for _ds_msg in st.session_state.ds_ai_messages:
-            with st.chat_message(_ds_msg["role"]):
-                st.markdown(_ds_msg["content"])
-
         _ds_ai_limit_reached = st.session_state.ds_ai_question_count >= 5
-        if _ds_ai_limit_reached:
-            st.caption(
-                "Demo limit reached: 5 questions per session. Refreshing or reopening the app may reset this session limit."
-                if not pa else
-                "ਡੈਮੋ ਸੀਮਾ ਪੂਰੀ ਹੋ ਗਈ: ਹਰ ਸੈਸ਼ਨ ਵਿੱਚ 5 ਸਵਾਲ। ਐਪ ਮੁੜ ਖੋਲ੍ਹਣ ਨਾਲ ਇਹ ਸੀਮਾ ਰੀਸੈੱਟ ਹੋ ਸਕਦੀ ਹੈ।"
+        with st.form("ds_ai_question_form", clear_on_submit=True):
+            _ds_ai_prompt = st.text_input(
+                "Your question / ਤੁਹਾਡਾ ਸਵਾਲ",
+                max_chars=1000,
+                key="ds_ai_question_text",
+                placeholder=(
+                    "Ask a Vitamin D question..."
+                    if not pa else
+                    "ਵਿਟਾਮਿਨ D ਬਾਰੇ ਸਵਾਲ ਪੁੱਛੋ..."
+                ),
+                disabled=_ds_ai_limit_reached
+            )
+            _ds_ai_send = st.form_submit_button(
+                "Ask AI →" if not pa else "AI ਨੂੰ ਪੁੱਛੋ →",
+                disabled=_ds_ai_limit_reached,
+                use_container_width=True
             )
 
-        _ds_ai_prompt = st.chat_input(
-            "Ask a Vitamin D question..." if not pa else "ਵਿਟਾਮਿਨ D ਬਾਰੇ ਸਵਾਲ ਪੁੱਛੋ...",
-            max_chars=1000,
-            disabled=_ds_ai_limit_reached
-        )
+        if _ds_ai_limit_reached:
+            st.caption(
+                "Demo limit reached: 5 questions per session."
+                if not pa else
+                "ਡੈਮੋ ਸੀਮਾ ਪੂਰੀ ਹੋ ਗਈ: ਹਰ ਸੈਸ਼ਨ ਵਿੱਚ 5 ਸਵਾਲ।"
+            )
 
-        if _ds_ai_prompt:
+        if _ds_ai_send and _ds_ai_prompt.strip():
             st.session_state.ds_ai_messages.append(
-                {"role": "user", "content": _ds_ai_prompt}
+                {"role": "user", "content": _ds_ai_prompt.strip()}
             )
             st.session_state.ds_ai_question_count += 1
 
             _ds_history = st.session_state.ds_ai_messages[-8:]
-            _ds_chat_context = "\n".join(
+            _ds_chat_context = "\\n".join(
                 ("User: " if _m["role"] == "user" else "Assistant: ") + _m["content"]
                 for _m in _ds_history
             )
@@ -1177,7 +1185,7 @@ if st.session_state.ds_page == 8:
                 "or private health information. If a question is unrelated to Vitamin D or general health education, "
                 "politely explain the assistant's limited scope. Be transparent about uncertainty and do not invent facts. "
                 + _ds_language_instruction
-                + "\nConversation so far:\n" + _ds_chat_context
+                + "\\nConversation so far:\\n" + _ds_chat_context
             )
 
             try:
@@ -1198,17 +1206,21 @@ if st.session_state.ds_page == 8:
                         if not pa else
                         "ਇਸ ਵੇਲੇ ਜਵਾਬ ਤਿਆਰ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਹੋਰ ਤਰੀਕੇ ਨਾਲ ਸਵਾਲ ਪੁੱਛੋ।"
                     )
-            except Exception:
+            except Exception as _ds_error:
                 _ds_answer = (
-                    "The AI service could not respond. Please check the API key, available quota, and app logs, then try again."
+                    "The AI request failed (" + type(_ds_error).__name__ + "). Please check the API key, API access/quota, and Streamlit app logs."
                     if not pa else
-                    "AI ਸੇਵਾ ਜਵਾਬ ਨਹੀਂ ਦੇ ਸਕੀ। API key, ਉਪਲਬਧ quota ਅਤੇ app logs ਦੀ ਜਾਂਚ ਕਰਕੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+                    "AI ਬੇਨਤੀ ਅਸਫਲ ਰਹੀ (" + type(_ds_error).__name__ + ")। API key, API ਪਹੁੰਚ/quota ਅਤੇ Streamlit app logs ਦੀ ਜਾਂਚ ਕਰੋ।"
                 )
 
             st.session_state.ds_ai_messages.append(
                 {"role": "assistant", "content": _ds_answer}
             )
-            st.rerun()
+
+        # Render conversation after processing the form so the latest answer appears immediately.
+        for _ds_msg in st.session_state.ds_ai_messages:
+            with st.chat_message(_ds_msg["role"]):
+                st.markdown(_ds_msg["content"])
 
     st.caption(
         "AI-generated information may be incomplete or incorrect. Verify important health information with a qualified professional."
