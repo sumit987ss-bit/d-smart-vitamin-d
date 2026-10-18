@@ -83,6 +83,14 @@ if pa:
     concern_options = ["ਨਹੀਂ", "ਹਾਂ", "ਪੱਕਾ ਨਹੀਂ"]
     test_label = "ਕੀ ਤੁਸੀਂ ਵਿਟਾਮਿਨ D ਦਾ ਖੂਨ ਟੈਸਟ ਕਰਵਾਇਆ ਹੈ?"
     test_options = ["ਹਾਂ", "ਨਹੀਂ", "ਪਤਾ ਨਹੀਂ"]
+    role_label = "ਕੀ ਤੁਹਾਨੂੰ ਵਿਟਾਮਿਨ D ਦਾ ਮੁੱਖ ਕੰਮ ਪਤਾ ਹੈ?"
+    role_options = ["ਹਾਂ", "ਥੋੜ੍ਹਾ ਜਿਹਾ", "ਨਹੀਂ"]
+    fortified_label = "ਕੀ ਤੁਸੀਂ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਭੋਜਨ ਖਾਂਦੇ ਹੋ?"
+    fortified_options = ["ਅਕਸਰ", "ਕਦੇ-ਕਦੇ", "ਨਹੀਂ / ਪਤਾ ਨਹੀਂ"]
+    supplement_label = "ਵਿਟਾਮਿਨ D ਸਪਲੀਮੈਂਟ ਬਾਰੇ ਤੁਹਾਡੀ ਸਥਿਤੀ ਕੀ ਹੈ?"
+    supplement_options = ["ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਨਾਲ", "ਨਹੀਂ ਲੈਂਦਾ/ਲੈਂਦੀ", "ਪਤਾ ਨਹੀਂ / ਸਲਾਹ ਲੈਣੀ ਹੈ"]
+    symptom_label = "ਕੀ ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਪੱਕੀ ਹੋ ਸਕਦੀ ਹੈ?"
+    symptom_options = ["ਨਹੀਂ", "ਹਾਂ", "ਪਤਾ ਨਹੀਂ"]
     button = "ਮੇਰੀ ਜਾਗਰੂਕਤਾ ਗਾਈਡ ਦਿਖਾਓ"
     result_title = "ਤੁਹਾਡੀ ਸਿੱਖਣ ਲਈ ਗਾਈਡ"
     sun_advice = (
@@ -141,6 +149,14 @@ else:
     concern_options = ["No particular concern", "Yes, I have concerns", "Not sure"]
     test_label = "Have you had a Vitamin D blood test?"
     test_options = ["Yes", "No", "Not sure"]
+    role_label = "Do you know the main role of Vitamin D?"
+    role_options = ["Yes", "A little", "No"]
+    fortified_label = "Do you eat foods fortified with Vitamin D?"
+    fortified_options = ["Often", "Sometimes", "No / Not sure"]
+    supplement_label = "Which best describes your approach to Vitamin D supplements?"
+    supplement_options = ["Only with healthcare professional advice", "I do not take them", "Not sure / need advice"]
+    symptom_label = "Can symptoms alone confirm Vitamin D deficiency?"
+    symptom_options = ["No", "Yes", "Not sure"]
     button = "Get My Awareness Guidance"
     result_title = "Your Learning Guide"
     sun_advice = (
@@ -417,6 +433,10 @@ if st.session_state.ds_page == 2:
     food = st.selectbox(food_label, food_options)
     concern = st.selectbox(concern_label, concern_options)
     tested = st.radio(test_label, test_options)
+    role_knowledge = st.selectbox(role_label, role_options)
+    fortified_food = st.selectbox(fortified_label, fortified_options)
+    supplement_approach = st.selectbox(supplement_label, supplement_options)
+    symptom_knowledge = st.selectbox(symptom_label, symptom_options)
     
     
     if st.button(button, type="primary"):
@@ -468,6 +488,32 @@ if st.session_state.ds_page == 2:
                 "ਕਿ ਜਾਂਚ ਦੀ ਲੋੜ ਹੈ ਜਾਂ ਨਹੀਂ।"
             )
     
+        # Knowledge and food-awareness guidance
+        if role_knowledge != role_options[0]:
+            st.info(
+                "Vitamin D helps the body absorb calcium and supports bone and muscle health."
+                if not pa else
+                "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ ਅਤੇ ਹੱਡੀਆਂ ਤੇ ਮਾਸਪੇਸ਼ੀਆਂ ਦੀ ਸਿਹਤ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹੈ।"
+            )
+        if fortified_food == fortified_options[2]:
+            st.write(
+                "Check food labels where available: some milk, plant drinks, cereals and other foods may be fortified with Vitamin D."
+                if not pa else
+                "ਜਿੱਥੇ ਉਪਲਬਧ ਹੋਵੇ, ਭੋਜਨ ਦਾ ਲੇਬਲ ਵੇਖੋ: ਕੁਝ ਦੁੱਧ, ਪੌਦਿਆਂ ਤੋਂ ਬਣੇ ਪੇਅ, ਸੀਰੀਅਲ ਅਤੇ ਹੋਰ ਭੋਜਨ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਹੋ ਸਕਦਾ ਹੈ।"
+            )
+        if supplement_approach == supplement_options[2]:
+            st.warning(
+                "Do not guess a supplement dose. Ask a qualified healthcare professional whether a supplement is appropriate for you."
+                if not pa else
+                "ਸਪਲੀਮੈਂਟ ਦੀ ਖੁਰਾਕ ਦਾ ਅੰਦਾਜ਼ਾ ਨਾ ਲਗਾਓ। ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਤੋਂ ਪੁੱਛੋ ਕਿ ਤੁਹਾਡੇ ਲਈ ਸਪਲੀਮੈਂਟ ਢੁੱਕਵਾਂ ਹੈ ਜਾਂ ਨਹੀਂ।"
+            )
+        if symptom_knowledge != symptom_options[0]:
+            st.info(
+                "Symptoms alone cannot confirm Vitamin D deficiency. A healthcare professional can advise whether assessment is needed."
+                if not pa else
+                "ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੁੰਦੀ। ਸਿਹਤ ਮਾਹਿਰ ਦੱਸ ਸਕਦਾ ਹੈ ਕਿ ਜਾਂਚ ਦੀ ਲੋੜ ਹੈ ਜਾਂ ਨਹੀਂ।"
+            )
+
         # Testing guidance
         if tested == test_options[1] or tested == test_options[2]:
             st.write(test_advice)
@@ -796,6 +842,51 @@ if st.session_state.ds_page == 5:
             "answer": 1,
             "why": "Professional advice helps avoid inappropriate dosing.",
             "why_pa": "ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਗਲਤ ਖੁਰਾਕ ਤੋਂ ਬਚਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।"
+        },
+        {
+            "q": "Which statement about sunlight is most accurate?",
+            "pa": "ਧੁੱਪ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਭ ਤੋਂ ਸਹੀ ਹੈ?",
+            "options": ["Everyone needs exactly the same amount", "Needs vary by person and conditions", "Sunburn is necessary"],
+            "options_pa": ["ਹਰ ਕਿਸੇ ਨੂੰ ਬਿਲਕੁਲ ਇੱਕੋ ਜਿੰਨੀ ਧੁੱਪ ਚਾਹੀਦੀ ਹੈ", "ਲੋੜ ਵਿਅਕਤੀ ਅਤੇ ਹਾਲਾਤਾਂ ਅਨੁਸਾਰ ਬਦਲਦੀ ਹੈ", "ਚਮੜੀ ਸੜਨਾ ਜ਼ਰੂਰੀ ਹੈ"],
+            "answer": 1,
+            "why": "Sunlight needs vary with factors such as location, season, skin and other conditions; avoid sunburn.",
+            "why_pa": "ਧੁੱਪ ਦੀ ਲੋੜ ਸਥਾਨ, ਮੌਸਮ, ਚਮੜੀ ਅਤੇ ਹੋਰ ਹਾਲਾਤਾਂ ਨਾਲ ਬਦਲਦੀ ਹੈ; ਚਮੜੀ ਸੜਨ ਤੋਂ ਬਚੋ।"
+        },
+        {
+            "q": "Which food may be fortified with Vitamin D?",
+            "pa": "ਕਿਹੜੇ ਭੋਜਨ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਹੋ ਸਕਦਾ ਹੈ?",
+            "options": ["Some fortified milk or cereals", "Plain table sugar", "Salt always contains it"],
+            "options_pa": ["ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਕੁਝ ਦੁੱਧ ਜਾਂ ਸੀਰੀਅਲ", "ਸਾਦੀ ਖੰਡ", "ਨਮਕ ਵਿੱਚ ਹਮੇਸ਼ਾ ਹੁੰਦਾ ਹੈ"],
+            "answer": 0,
+            "why": "Some foods and drinks are fortified with Vitamin D; check the label.",
+            "why_pa": "ਕੁਝ ਭੋਜਨ ਅਤੇ ਪੇਅ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਜਾਂਦਾ ਹੈ; ਲੇਬਲ ਵੇਖੋ।"
+        },
+        {
+            "q": "What is the common blood test used to assess Vitamin D status?",
+            "pa": "ਵਿਟਾਮਿਨ D ਦੀ ਸਥਿਤੀ ਜਾਣਨ ਲਈ ਆਮ ਤੌਰ 'ਤੇ ਕਿਹੜਾ ਖੂਨ ਟੈਸਟ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+            "options": ["25-hydroxyvitamin D", "Blood group test", "Blood pressure measurement"],
+            "options_pa": ["25-ਹਾਈਡ੍ਰੋਕਸੀ ਵਿਟਾਮਿਨ D", "ਬਲੱਡ ਗਰੁੱਪ ਟੈਸਟ", "ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਪਣਾ"],
+            "answer": 0,
+            "why": "The 25-hydroxyvitamin D blood test is commonly used when testing is appropriate.",
+            "why_pa": "ਜਦੋਂ ਟੈਸਟ ਦੀ ਲੋੜ ਹੋਵੇ, 25-ਹਾਈਡ੍ਰੋਕਸੀ ਵਿਟਾਮਿਨ D ਖੂਨ ਟੈਸਟ ਆਮ ਤੌਰ 'ਤੇ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।"
+        },
+        {
+            "q": "Should you start high-dose Vitamin D supplements just because a friend takes them?",
+            "pa": "ਕੀ ਸਿਰਫ਼ ਦੋਸਤ ਦੇ ਲੈਣ ਕਰਕੇ ਵੱਧ ਖੁਰਾਕ ਵਾਲੇ ਵਿਟਾਮਿਨ D ਸਪਲੀਮੈਂਟ ਸ਼ੁਰੂ ਕਰਨੇ ਚਾਹੀਦੇ ਹਨ?",
+            "options": ["Yes, the same dose suits everyone", "No, seek professional advice", "Take a guessed dose"],
+            "options_pa": ["ਹਾਂ, ਇੱਕੋ ਖੁਰਾਕ ਸਭ ਲਈ ਠੀਕ ਹੈ", "ਨਹੀਂ, ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲਵੋ", "ਅੰਦਾਜ਼ੇ ਨਾਲ ਖੁਰਾਕ ਲਵੋ"],
+            "answer": 1,
+            "why": "Supplement needs and doses differ. Do not start high-dose supplements without qualified advice.",
+            "why_pa": "ਸਪਲੀਮੈਂਟ ਦੀ ਲੋੜ ਅਤੇ ਖੁਰਾਕ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਹੈ। ਯੋਗ ਸਲਾਹ ਤੋਂ ਬਿਨਾਂ ਵੱਧ ਖੁਰਾਕ ਸ਼ੁਰੂ ਨਾ ਕਰੋ।"
+        },
+        {
+            "q": "Can this app or a short quiz diagnose Vitamin D deficiency?",
+            "pa": "ਕੀ ਇਹ ਐਪ ਜਾਂ ਛੋਟਾ ਕਵਿਜ਼ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੀ ਪਛਾਣ ਕਰ ਸਕਦਾ ਹੈ?",
+            "options": ["Yes, it replaces a blood test", "No, it is for education only", "Only from age"],
+            "options_pa": ["ਹਾਂ, ਇਹ ਖੂਨ ਟੈਸਟ ਦੀ ਥਾਂ ਲੈਂਦਾ ਹੈ", "ਨਹੀਂ, ਇਹ ਸਿਰਫ਼ ਸਿੱਖਿਆ ਲਈ ਹੈ", "ਸਿਰਫ਼ ਉਮਰ ਤੋਂ"],
+            "answer": 1,
+            "why": "D-SMART provides education only and cannot diagnose a condition.",
+            "why_pa": "D-SMART ਸਿਰਫ਼ ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ ਅਤੇ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ।"
         }
     ]
     
@@ -834,21 +925,21 @@ if st.session_state.ds_page == 5:
             )
     
             st.subheader(
-                f"Your score: {score}/5"
+                f"Your score: {score}/{len(questions)}"
                 if not pa else
-                f"ਤੁਹਾਡੇ ਅੰਕ: {score}/5"
+                f"ਤੁਹਾਡੇ ਅੰਕ: {score}/{len(questions)}"
             )
     
-            st.progress(score / 5)
+            st.progress(score / len(questions))
     
-            if score == 5:
+            if score == len(questions):
                 st.balloons()
                 st.success(
                     "Perfect score! Vitamin D Champion!"
                     if not pa else
                     "ਸ਼ਾਨਦਾਰ! ਤੁਸੀਂ ਵਿਟਾਮਿਨ D ਚੈਂਪੀਅਨ ਹੋ!"
                 )
-            elif score >= 3:
+            elif score >= (len(questions) * 0.6):
                 st.success(
                     "Good work! Keep learning."
                     if not pa else
@@ -968,7 +1059,7 @@ if st.session_state.ds_page == 6:
             "📘 ਇਕਾਈ ਸਪਸ਼ਟ ਨਾ ਹੋਣ 'ਤੇ ਦੋਵੇਂ ਸੰਭਾਵਨਾਵਾਂ ਦੀ ਵਿਆਖਿਆ",
             "🖼️ ਲੈਬ ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰਕੇ ਵੇਖਣ ਦੀ ਸਹੂਲਤ",
             "🤖 ਵਿਟਾਮਿਨ D ਬਾਰੇ ਆਮ ਸਵਾਲਾਂ ਲਈ AI ਸਹਾਇਕ",
-            "📊 ਸਿੱਖਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ ਦੀ ਜਾਗਰੂਕਤਾ ਕਵਿਜ਼",
+            "🎯 ਵਿਟਾਮਿਨ D ਬਾਰੇ ਵਿਸਤ੍ਰਿਤ ਚੈਲੰਜ ਕਵਿਜ਼",
         ]:
             st.markdown(f'<div class="ds-credit-feature">{_feature}</div>', unsafe_allow_html=True)
 
@@ -1005,7 +1096,7 @@ if st.session_state.ds_page == 6:
             "📘 Explanation when the report unit is unclear",
             "🖼️ Laboratory report image upload and preview",
             "🤖 AI assistant for general Vitamin D questions",
-            "📊 Before-and-after awareness quiz for learning reflection",
+            "🎯 Expanded Vitamin D Challenge Quiz",
         ]:
             st.markdown(f'<div class="ds-credit-feature">{_feature}</div>', unsafe_allow_html=True)
 
