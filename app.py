@@ -601,11 +601,17 @@ if st.session_state.ds_page == 4:
                 if not pa else
                 "ਇਹ ਨਤੀਜਾ 30 ਤੋਂ 50 nmol/L ਤੋਂ ਘੱਟ ਦੀ ਸੀਮਾ ਵਿੱਚ ਹੈ। ਇਹ ਕੁਝ ਲੋਕਾਂ ਲਈ ਨਾਕਾਫ਼ੀ ਹੋ ਸਕਦਾ ਹੈ; ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ ਅਤੇ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੇਖੋ।"
             )
-        else:
+        elif value_nmol <= 125:
             st.success(
                 "This result is at least 50 nmol/L, a level considered adequate for most people under the NIH framework. Check your laboratory's reference range and discuss personal results with a healthcare professional."
                 if not pa else
-                "ਇਹ ਨਤੀਜਾ ਘੱਟੋ-ਘੱਟ 50 nmol/L ਹੈ, ਜਿਸ ਨੂੰ NIH ਦੇ ਹਵਾਲਾ ਢਾਂਚੇ ਅਨੁਸਾਰ ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਕਾਫ਼ੀ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ। ਆਪਣੀ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੇਖੋ ਅਤੇ ਨਿੱਜੀ ਨਤੀਜੇ ਬਾਰੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
+                "ਇਹ ਨਤੀਜਾ 50 ਤੋਂ 125 nmol/L ਦੀ ਸੀਮਾ ਵਿੱਚ ਹੈ; NIH ਦੇ ਹਵਾਲਾ ਢਾਂਚੇ ਅਨੁਸਾਰ 50 nmol/L ਜਾਂ ਵੱਧ ਪੱਧਰ ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਕਾਫ਼ੀ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ। ਆਪਣੀ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੇਖੋ ਅਤੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
+            )
+        else:
+            st.warning(
+                "This result is above 125 nmol/L. Levels this high may be associated with adverse effects. Please contact a qualified healthcare professional for advice; do not take additional Vitamin D supplements unless advised."
+                if not pa else
+                "ਇਹ ਨਤੀਜਾ 125 nmol/L ਤੋਂ ਵੱਧ ਹੈ। ਇੰਨਾ ਉੱਚਾ ਪੱਧਰ ਨੁਕਸਾਨਦੇਹ ਪ੍ਰਭਾਵਾਂ ਨਾਲ ਜੁੜਿਆ ਹੋ ਸਕਦਾ ਹੈ। ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ ਅਤੇ ਸਲਾਹ ਤੋਂ ਬਿਨਾਂ ਹੋਰ ਵਿਟਾਮਿਨ D ਸਪਲੀਮੈਂਟ ਨਾ ਲਵੋ।"
             )
 
         st.caption(
