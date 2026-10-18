@@ -725,13 +725,13 @@ if st.session_state.ds_page == 5:
             "why_pa": "ਕੁਝ ਭੋਜਨ ਅਤੇ ਪੇਅ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਜਾਂਦਾ ਹੈ; ਲੇਬਲ ਵੇਖੋ।"
         },
         {
-            "q": "What is the common blood test used to assess Vitamin D status?",
-            "pa": "ਵਿਟਾਮਿਨ D ਦੀ ਸਥਿਤੀ ਜਾਣਨ ਲਈ ਆਮ ਤੌਰ 'ਤੇ ਕਿਹੜਾ ਖੂਨ ਟੈਸਟ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
-            "options": ["25-hydroxyvitamin D", "Blood group test", "Blood pressure measurement"],
-            "options_pa": ["25-ਹਾਈਡ੍ਰੋਕਸੀ ਵਿਟਾਮਿਨ D", "ਬਲੱਡ ਗਰੁੱਪ ਟੈਸਟ", "ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ ਮਾਪਣਾ"],
+            "q": "Which rays from sunlight help the skin make Vitamin D?",
+            "pa": "ਸੂਰਜ ਦੀ ਰੌਸ਼ਨੀ ਦੀਆਂ ਕਿਹੜੀਆਂ ਕਿਰਨਾਂ ਚਮੜੀ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀਆਂ ਹਨ?",
+            "options": ["UV-B rays", "Infrared rays", "X-rays"],
+            "options_pa": ["UV-B ਕਿਰਨਾਂ", "ਇਨਫਰਾਰੈੱਡ ਕਿਰਨਾਂ", "ਐਕਸ-ਰੇ ਕਿਰਨਾਂ"],
             "answer": 0,
-            "why": "The 25-hydroxyvitamin D blood test is commonly used when testing is appropriate.",
-            "why_pa": "ਜਦੋਂ ਟੈਸਟ ਦੀ ਲੋੜ ਹੋਵੇ, 25-ਹਾਈਡ੍ਰੋਕਸੀ ਵਿਟਾਮਿਨ D ਖੂਨ ਟੈਸਟ ਆਮ ਤੌਰ 'ਤੇ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।"
+            "why": "UV-B rays help the skin produce Vitamin D.",
+            "why_pa": "UV-B ਕਿਰਨਾਂ ਚਮੜੀ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀਆਂ ਹਨ।"
         },
         {
             "q": "Should you start high-dose Vitamin D supplements just because a friend takes them?",
