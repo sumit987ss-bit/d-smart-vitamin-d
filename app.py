@@ -979,124 +979,114 @@ if st.session_state.ds_page == 6:
     
 
 if st.session_state.ds_page == 7:
-    # ================= PROJECT CREDITS =================
-    
-    st.divider()
-    
-    with st.expander("🏫 About the Project & Credits | ਪ੍ਰੋਜੈਕਟ ਅਤੇ ਜਾਣਕਾਰੀ", expanded=False):
-    
-        if language == "ਪੰਜਾਬੀ":
-            st.markdown(
-                """
-                <div style="
-                    background: linear-gradient(135deg, #e0f7f1, #e8f0ff);
-                    padding: 24px;
-                    border-radius: 18px;
-                    text-align: center;
-                    border: 1px solid #b8ded5;
-                ">
-                    <h1 style="color:#087e75; margin-bottom:5px;">
-                        ☀️ D-SMART
-                    </h1>
-                    <h3 style="color:#244c58;">
-                        ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ
-                    </h3>
-                    <p style="color:#435b62;">
-                        ਵਿਗਿਆਨ • ਤਕਨਾਲੋਜੀ • ਸਿਹਤ ਜਾਗਰੂਕਤਾ
-                    </p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-    
-            st.markdown("### 🎯 ਪ੍ਰੋਜੈਕਟ ਦਾ ਉਦੇਸ਼")
-            st.write(
-                "D-SMART ਦਾ ਉਦੇਸ਼ ਵਿਟਾਮਿਨ D ਬਾਰੇ ਜਾਗਰੂਕਤਾ ਵਧਾਉਣਾ, "
-                "ਵਰਤੋਂਕਾਰਾਂ ਨੂੰ ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਬਾਰੇ ਸਿੱਖਿਆ ਦੇਣਾ ਅਤੇ "
-                "ਵਿਟਾਮਿਨ D ਦੀ ਰਿਪੋਰਟ ਵਿੱਚ ਦਿੱਤੀ ਇਕਾਈ ਨੂੰ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰਨਾ ਹੈ।"
-            )
-    
-            st.markdown("### 👩‍🎓 ਵਿਦਿਆਰਥਣ")
-            st.write("**Pawandeep Kaur**")
-            st.write("ਜਮਾਤ: 9ਵੀਂ")
-    
-            st.markdown("### 👨‍🏫 ਮਾਰਗਦਰਸ਼ਕ ਅਧਿਆਪਕ")
-            st.write("**Sumitpal Singh Sodhi**")
-            st.write("ਅਹੁਦਾ: Science Master")
-    
-            st.markdown("### 🏫 ਸਕੂਲ")
-            st.write("**GSSS Bare Ke, Ferozepur**")
-            st.write("ਜ਼ਿਲ੍ਹਾ: Ferozepur, Punjab")
-    
-            st.markdown("### 💡 ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ")
-            st.write("• ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਜਾਣਕਾਰੀ")
-            st.write("• ਵਿਟਾਮਿਨ D ਬਾਰੇ ਇੰਟਰਐਕਟਿਵ ਕਵਿਜ਼")
-            st.write("• ਰਿਪੋਰਟ ਦੀ ਇਕਾਈ ਬਦਲਣ ਦੀ ਸਹੂਲਤ")
-            st.write("• ਇਕਾਈ ਪਤਾ ਨਾ ਹੋਣ 'ਤੇ ਦੋਵੇਂ ਸੰਭਾਵਨਾਵਾਂ ਦੀ ਵਿਆਖਿਆ")
-            st.write("• ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰਨ ਦੀ ਸਹੂਲਤ")
-    
-            st.info(
-                "ਇਹ ਵਿਦਿਅਕ ਜਾਗਰੂਕਤਾ ਐਪ ਹੈ। ਇਹ ਡਾਕਟਰੀ ਜਾਂਚ, "
-                "ਨਿਦਾਨ ਜਾਂ ਡਾਕਟਰ ਦੀ ਸਲਾਹ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ।"
-            )
-    
-        else:
-            st.markdown(
-                """
-                <div style="
-                    background: linear-gradient(135deg, #e0f7f1, #e8f0ff);
-                    padding: 24px;
-                    border-radius: 18px;
-                    text-align: center;
-                    border: 1px solid #b8ded5;
-                ">
-                    <h1 style="color:#087e75; margin-bottom:5px;">
-                        ☀️ D-SMART
-                    </h1>
-                    <h3 style="color:#244c58;">
-                        Vitamin D Awareness Assistant
-                    </h3>
-                    <p style="color:#435b62;">
-                        Science • Technology • Health Awareness
-                    </p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-    
-            st.markdown("### 🎯 About the Project")
-            st.write(
-                "D-SMART aims to improve awareness about Vitamin D, "
-                "educate users about healthy habits, and help them understand "
-                "the units used in Vitamin D laboratory reports."
-            )
-    
-            st.markdown("### 👩‍🎓 Student Developer")
-            st.write("**Pawandeep Kaur**")
-            st.write("Class: 9")
-    
-            st.markdown("### 👨‍🏫 Guided By")
-            st.write("**Sumitpal Singh Sodhi**")
-            st.write("Designation: Science Master")
-    
-            st.markdown("### 🏫 School Details")
-            st.write("**GSSS Bare Ke, Ferozepur**")
-            st.write("District: Ferozepur, Punjab")
-    
-            st.markdown("### 💡 Key Features")
-            st.write("• Bilingual support: English and Punjabi")
-            st.write("• Interactive Vitamin D awareness quiz")
-            st.write("• Vitamin D unit conversion")
-            st.write("• Explanation of results when the unit is unknown")
-            st.write("• Laboratory report photo upload and preview")
-    
-            st.info(
-                "D-SMART is an educational awareness tool. It does not "
-                "replace professional medical advice, diagnosis, or treatment."
-            )
-    
-        st.caption("Science Exhibition Project | Academic Session 2026–27")
-    
+    # ================= VISUAL PROJECT & CREDITS SCREEN =================
+    _credits_pa = language == "ਪੰਜਾਬੀ"
+
+    st.markdown(
+        """
+        <style>
+        .ds-credit-hero {
+            background: radial-gradient(circle at 50% 0%, #fff2b8 0%, #e4fff5 32%, #e9f1ff 72%, #ffffff 100%);
+            border: 1px solid #c9e7e3; border-radius: 24px; padding: 26px 18px;
+            text-align: center; box-shadow: 0 10px 28px rgba(8, 127, 140, .10);
+            margin: 4px 0 18px;
+        }
+        .ds-credit-sun {
+            width: 82px; height: 82px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; margin: 0 auto 12px; font-size: 46px;
+            background: linear-gradient(145deg, #fff7bd, #ffc857);
+            box-shadow: 0 0 0 8px rgba(255, 200, 87, .16);
+        }
+        .ds-credit-title { color: #087f8c; font-size: 34px; line-height: 1.1; font-weight: 900; letter-spacing: 1px; margin: 4px 0 8px; }
+        .ds-credit-sub { color: #24505a; font-size: 17px; font-weight: 750; margin: 0 0 9px; }
+        .ds-credit-tag { display: inline-block; margin: 4px 3px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.85); border: 1px solid #c6e4de; color: #176b5b; font-size: 12px; font-weight: 700; }
+        .ds-credit-card { background: linear-gradient(145deg, #ffffff, #f3fbff); border: 1px solid #d6e8ed; border-radius: 17px; padding: 16px; min-height: 126px; margin-bottom: 10px; }
+        .ds-credit-icon { font-size: 27px; margin-bottom: 5px; }
+        .ds-credit-label { color: #087f8c; font-size: 12px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 5px; }
+        .ds-credit-name { color: #203d49; font-size: 16px; font-weight: 800; line-height: 1.35; }
+        .ds-credit-detail { color: #536c74; font-size: 13px; line-height: 1.5; margin-top: 4px; }
+        .ds-credit-feature { background: #f1faf7; border: 1px solid #d3ece2; border-radius: 12px; padding: 10px 12px; margin: 6px 0; color: #24565b; }
+        .ds-credit-footer { text-align: center; padding: 13px 8px; color: #527078; font-size: 12px; }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    if _credits_pa:
+        st.markdown(
+            """
+            <div class="ds-credit-hero">
+              <div class="ds-credit-sun">☀️</div>
+              <div class="ds-credit-title">D-SMART</div>
+              <div class="ds-credit-sub">ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ</div>
+              <div><span class="ds-credit-tag">🔬 ਵਿਗਿਆਨ</span><span class="ds-credit-tag">💻 ਤਕਨਾਲੋਜੀ</span><span class="ds-credit-tag">💚 ਸਿਹਤ ਜਾਗਰੂਕਤਾ</span></div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown("### 🎯 ਪ੍ਰੋਜੈਕਟ ਦਾ ਉਦੇਸ਼")
+        st.write("D-SMART ਵਿਟਾਮਿਨ D ਬਾਰੇ ਸਹੀ ਜਾਗਰੂਕਤਾ ਵਧਾਉਣ, ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਬਾਰੇ ਸਿੱਖਣ ਅਤੇ ਲੈਬ ਰਿਪੋਰਟਾਂ ਵਿੱਚ ਵਰਤੀਆਂ ਇਕਾਈਆਂ ਨੂੰ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰਨ ਲਈ ਤਿਆਰ ਕੀਤਾ ਗਿਆ ਇੱਕ ਵਿਦਿਅਕ ਪ੍ਰੋਜੈਕਟ ਹੈ।")
+
+        st.markdown("### 🤝 ਪ੍ਰੋਜੈਕਟ ਟੀਮ")
+        _c1, _c2 = st.columns(2)
+        with _c1:
+            st.markdown('<div class="ds-credit-card"><div class="ds-credit-icon">👩‍🎓</div><div class="ds-credit-label">ਵਿਦਿਆਰਥਣ / Student Developer</div><div class="ds-credit-name">Pawandeep Kaur</div><div class="ds-credit-detail">ਜਮਾਤ 9ਵੀਂ</div></div>', unsafe_allow_html=True)
+        with _c2:
+            st.markdown('<div class="ds-credit-card"><div class="ds-credit-icon">👨‍🏫</div><div class="ds-credit-label">ਮਾਰਗਦਰਸ਼ਕ ਅਧਿਆਪਕ</div><div class="ds-credit-name">Sumitpal Singh Sodhi</div><div class="ds-credit-detail">Science Master</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ds-credit-card"><div class="ds-credit-icon">🏫</div><div class="ds-credit-label">ਸਕੂਲ / School</div><div class="ds-credit-name">GSSS Bare Ke, Ferozepur</div><div class="ds-credit-detail">ਜ਼ਿਲ੍ਹਾ ਫਿਰੋਜ਼ਪੁਰ, ਪੰਜਾਬ</div></div>', unsafe_allow_html=True)
+
+        st.markdown("### ✨ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ")
+        for _feature in [
+            "🌐 ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਜਾਣਕਾਰੀ",
+            "🧠 ਵਿਟਾਮਿਨ D ਬਾਰੇ ਇੰਟਰਐਕਟਿਵ ਜਾਗਰੂਕਤਾ ਕਵਿਜ਼",
+            "🔄 ਵਿਟਾਮਿਨ D ਦੀਆਂ ਇਕਾਈਆਂ ਬਦਲਣ ਦੀ ਸਹੂਲਤ",
+            "📘 ਇਕਾਈ ਸਪਸ਼ਟ ਨਾ ਹੋਣ 'ਤੇ ਦੋਵੇਂ ਸੰਭਾਵਨਾਵਾਂ ਦੀ ਵਿਆਖਿਆ",
+            "🖼️ ਲੈਬ ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰਕੇ ਵੇਖਣ ਦੀ ਸਹੂਲਤ",
+            "🤖 ਵਿਟਾਮਿਨ D ਬਾਰੇ ਆਮ ਸਵਾਲਾਂ ਲਈ AI ਸਹਾਇਕ",
+            "📊 ਸਿੱਖਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ ਦੀ ਜਾਗਰੂਕਤਾ ਕਵਿਜ਼",
+        ]:
+            st.markdown(f'<div class="ds-credit-feature">{_feature}</div>', unsafe_allow_html=True)
+
+        st.warning("ਮਹੱਤਵਪੂਰਨ: ਇਹ ਸਿਰਫ਼ ਵਿਦਿਅਕ ਜਾਗਰੂਕਤਾ ਲਈ ਹੈ। ਇਹ ਡਾਕਟਰੀ ਜਾਂਚ, ਨਿਦਾਨ, ਇਲਾਜ ਜਾਂ ਡਾਕਟਰ ਦੀ ਸਲਾਹ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ।")
+        st.markdown('<div class="ds-credit-footer">ਵਿਗਿਆਨ ਪ੍ਰਦਰਸ਼ਨੀ ਪ੍ਰੋਜੈਕਟ • ਅਕਾਦਮਿਕ ਸੈਸ਼ਨ 2026–27<br>ਗਿਆਨ • ਜਾਗਰੂਕਤਾ • ਬਿਹਤਰ ਸਿਹਤ</div>', unsafe_allow_html=True)
+
+    else:
+        st.markdown(
+            """
+            <div class="ds-credit-hero">
+              <div class="ds-credit-sun">☀️</div>
+              <div class="ds-credit-title">D-SMART</div>
+              <div class="ds-credit-sub">Vitamin D Awareness Assistant</div>
+              <div><span class="ds-credit-tag">🔬 Science</span><span class="ds-credit-tag">💻 Technology</span><span class="ds-credit-tag">💚 Health Awareness</span></div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown("### 🎯 Project Purpose")
+        st.write("D-SMART is an educational project designed to improve awareness about Vitamin D, encourage healthy habits, and help users understand the units commonly used in Vitamin D laboratory reports.")
+
+        st.markdown("### 🤝 Project Team")
+        _c1, _c2 = st.columns(2)
+        with _c1:
+            st.markdown('<div class="ds-credit-card"><div class="ds-credit-icon">👩‍🎓</div><div class="ds-credit-label">Student Developer</div><div class="ds-credit-name">Pawandeep Kaur</div><div class="ds-credit-detail">Class 9</div></div>', unsafe_allow_html=True)
+        with _c2:
+            st.markdown('<div class="ds-credit-card"><div class="ds-credit-icon">👨‍🏫</div><div class="ds-credit-label">Project Guide</div><div class="ds-credit-name">Sumitpal Singh Sodhi</div><div class="ds-credit-detail">Science Master</div></div>', unsafe_allow_html=True)
+        st.markdown('<div class="ds-credit-card"><div class="ds-credit-icon">🏫</div><div class="ds-credit-label">School</div><div class="ds-credit-name">GSSS Bare Ke, Ferozepur</div><div class="ds-credit-detail">District Ferozepur, Punjab, India</div></div>', unsafe_allow_html=True)
+
+        st.markdown("### ✨ Key Features")
+        for _feature in [
+            "🌐 Bilingual learning: English and Punjabi",
+            "🧠 Interactive Vitamin D awareness quiz",
+            "🔄 Vitamin D unit conversion",
+            "📘 Explanation when the report unit is unclear",
+            "🖼️ Laboratory report image upload and preview",
+            "🤖 AI assistant for general Vitamin D questions",
+            "📊 Before-and-after awareness quiz for learning reflection",
+        ]:
+            st.markdown(f'<div class="ds-credit-feature">{_feature}</div>', unsafe_allow_html=True)
+
+        st.warning("Important: D-SMART is for education and awareness only. It does not replace medical testing, diagnosis, treatment, or professional medical advice.")
+        st.markdown('<div class="ds-credit-footer">Science Exhibition Project • Academic Session 2026–27<br>Knowledge • Awareness • Better Health</div>', unsafe_allow_html=True)
 
 
 if st.session_state.ds_page == 8:
