@@ -187,7 +187,7 @@ else:
 
 # ---------- MOBILE SCREEN NAVIGATION ----------
 # Screen navigation preserves the existing feature code below.
-ds_pages = ["Welcome", "Home", "Awareness", "Learn", "Report", "Converter", "Quiz", "About", "AI Assistant"]
+ds_pages = ["Welcome", "Home", "Awareness", "Learn", "Report", "Converter", "Quiz", "About", "AI Assistant", "Impact Lab"]
 
 if "ds_page" not in st.session_state:
     st.session_state.ds_page = 0
@@ -1226,6 +1226,219 @@ if st.session_state.ds_page == 8:
         "AI-generated information may be incomplete or incorrect. Verify important health information with a qualified professional."
         if not pa else
         "AI ਤੋਂ ਮਿਲੀ ਜਾਣਕਾਰੀ ਅਧੂਰੀ ਜਾਂ ਗਲਤ ਹੋ ਸਕਦੀ ਹੈ। ਮਹੱਤਵਪੂਰਨ ਸਿਹਤ ਜਾਣਕਾਰੀ ਦੀ ਪੁਸ਼ਟੀ ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਕਰੋ।"
+    )
+
+
+if st.session_state.ds_page == 9:
+    # ---------- D-SMART IMPACT LAB: PRE-TEST, LEARN, POST-TEST, REPORT ----------
+    st.header("📊 D-SMART Impact Lab" if not pa else "📊 D-SMART ਪ੍ਰਭਾਵ ਲੈਬ")
+    st.write(
+        "Measure what you learn about Vitamin D. This activity checks awareness, not anyone's Vitamin D level."
+        if not pa else
+        "ਵਿਟਾਮਿਨ D ਬਾਰੇ ਆਪਣੀ ਸਿੱਖਿਆ ਵਿੱਚ ਤਬਦੀਲੀ ਮਾਪੋ। ਇਹ ਗਤੀਵਿਧੀ ਜਾਗਰੂਕਤਾ ਜਾਂਚਦੀ ਹੈ, ਕਿਸੇ ਦਾ ਵਿਟਾਮਿਨ D ਪੱਧਰ ਨਹੀਂ।"
+    )
+    st.info(
+        "Privacy: this demo stores results only in the current app session. It does not ask for your name or save a public record."
+        if not pa else
+        "ਨਿੱਜਤਾ: ਇਸ ਡੈਮੋ ਦੇ ਨਤੀਜੇ ਸਿਰਫ਼ ਮੌਜੂਦਾ ਸੈਸ਼ਨ ਵਿੱਚ ਰਹਿੰਦੇ ਹਨ। ਇਹ ਨਾਮ ਨਹੀਂ ਪੁੱਛਦਾ ਅਤੇ ਜਨਤਕ ਰਿਕਾਰਡ ਨਹੀਂ ਬਣਾਉਂਦਾ।"
+    )
+
+    _impact_questions = [
+        {
+            "en": "What is one important role of Vitamin D?",
+            "pa": "ਵਿਟਾਮਿਨ D ਦਾ ਇੱਕ ਮਹੱਤਵਪੂਰਨ ਕੰਮ ਕੀ ਹੈ?",
+            "opts": ["It helps the body absorb calcium", "It replaces all other vitamins", "It directly cures every illness"],
+            "opts_pa": ["ਇਹ ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ", "ਇਹ ਸਾਰੇ ਹੋਰ ਵਿਟਾਮਿਨਾਂ ਦੀ ਥਾਂ ਲੈਂਦਾ ਹੈ", "ਇਹ ਹਰ ਬਿਮਾਰੀ ਨੂੰ ਸਿੱਧਾ ਠੀਕ ਕਰਦਾ ਹੈ"],
+            "answer": 0, "topic": "Role of Vitamin D",
+            "topic_pa": "ਵਿਟਾਮਿਨ D ਦਾ ਕੰਮ"
+        },
+        {
+            "en": "Which is a recognised source of Vitamin D?",
+            "pa": "ਵਿਟਾਮਿਨ D ਦਾ ਮੰਨਿਆ ਹੋਇਆ ਸਰੋਤ ਕਿਹੜਾ ਹੈ?",
+            "opts": ["Fortified foods", "Plain sugar", "Soft drinks"],
+            "opts_pa": ["ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਭੋਜਨ", "ਸਾਦੀ ਖੰਡ", "ਮਿੱਠੇ ਪੇਅ"],
+            "answer": 0, "topic": "Food sources",
+            "topic_pa": "ਭੋਜਨ ਸਰੋਤ"
+        },
+        {
+            "en": "Can symptoms alone confirm Vitamin D deficiency?",
+            "pa": "ਕੀ ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਪੱਕੀ ਹੋ ਸਕਦੀ ਹੈ?",
+            "opts": ["Yes, always", "No, symptoms alone cannot confirm it", "Only by guessing"],
+            "opts_pa": ["ਹਾਂ, ਹਮੇਸ਼ਾ", "ਨਹੀਂ, ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੁੰਦੀ", "ਸਿਰਫ਼ ਅੰਦਾਜ਼ੇ ਨਾਲ"],
+            "answer": 1, "topic": "Symptoms and diagnosis",
+            "topic_pa": "ਲੱਛਣ ਅਤੇ ਜਾਂਚ"
+        },
+        {
+            "en": "Which test is commonly used to assess Vitamin D status?",
+            "pa": "ਵਿਟਾਮਿਨ D ਦੀ ਸਥਿਤੀ ਜਾਂਚਣ ਲਈ ਆਮ ਤੌਰ 'ਤੇ ਕਿਹੜਾ ਟੈਸਟ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+            "opts": ["25-hydroxyvitamin D blood test", "Eye colour test", "Hearing test"],
+            "opts_pa": ["25-ਹਾਈਡ੍ਰੋਕਸੀ ਵਿਟਾਮਿਨ D ਖੂਨ ਟੈਸਟ", "ਅੱਖਾਂ ਦੇ ਰੰਗ ਦਾ ਟੈਸਟ", "ਸੁਣਨ ਦਾ ਟੈਸਟ"],
+            "answer": 0, "topic": "Laboratory testing",
+            "topic_pa": "ਲੈਬ ਟੈਸਟ"
+        },
+        {
+            "en": "What should you do before taking high-dose supplements?",
+            "pa": "ਵੱਧ ਖੁਰਾਕ ਵਾਲੇ ਸਪਲੀਮੈਂਟ ਲੈਣ ਤੋਂ ਪਹਿਲਾਂ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
+            "opts": ["Guess the dose", "Take them because a friend does", "Ask a qualified healthcare professional"],
+            "opts_pa": ["ਖੁਰਾਕ ਦਾ ਅੰਦਾਜ਼ਾ ਲਗਾਉਣਾ", "ਦੋਸਤ ਲੈਂਦਾ ਹੈ ਇਸ ਲਈ ਲੈਣਾ", "ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲੈਣਾ"],
+            "answer": 2, "topic": "Supplement safety",
+            "topic_pa": "ਸਪਲੀਮੈਂਟ ਸੁਰੱਖਿਆ"
+        }
+    ]
+
+    def _impact_run_quiz(form_key, phase_label):
+        with st.form(form_key):
+            _impact_selected = []
+            for _iq, _item in enumerate(_impact_questions):
+                _q_text = _item["pa"] if pa else _item["en"]
+                _opts = _item["opts_pa"] if pa else _item["opts"]
+                _impact_selected.append(
+                    st.radio(
+                        f"{_iq + 1}. {_q_text}",
+                        _opts,
+                        index=None,
+                        key=f"{form_key}_q{_iq}"
+                    )
+                )
+            _submitted = st.form_submit_button(
+                phase_label, type="primary", use_container_width=True
+            )
+        if _submitted:
+            if any(_answer is None for _answer in _impact_selected):
+                st.warning(
+                    "Please answer all five questions." if not pa else
+                    "ਕਿਰਪਾ ਕਰਕੇ ਪੰਜੇ ਸਵਾਲਾਂ ਦੇ ਜਵਾਬ ਦਿਓ।"
+                )
+            else:
+                _score = 0
+                for _iq, _answer in enumerate(_impact_selected):
+                    _opts = _impact_questions[_iq]["opts_pa"] if pa else _impact_questions[_iq]["opts"]
+                    if _answer == _opts[_impact_questions[_iq]["answer"]]:
+                        _score += 1
+                st.session_state[f"{form_key}_score"] = _score
+                st.session_state[f"{form_key}_answers"] = _impact_selected
+                st.rerun()
+
+    if "impact_pre_score" not in st.session_state:
+        st.subheader("Step 1 — Baseline awareness" if not pa else "ਪੜਾਅ 1 — ਸ਼ੁਰੂਆਤੀ ਜਾਗਰੂਕਤਾ")
+        st.write(
+            "Answer before reading the lesson. Your score will be compared with the post-test."
+            if not pa else
+            "ਪਾਠ ਪੜ੍ਹਨ ਤੋਂ ਪਹਿਲਾਂ ਜਵਾਬ ਦਿਓ। ਤੁਹਾਡੇ ਅੰਕਾਂ ਦੀ ਬਾਅਦ ਵਾਲੇ ਟੈਸਟ ਨਾਲ ਤੁਲਨਾ ਹੋਵੇਗੀ।"
+        )
+        _impact_run_quiz("impact_pre_form", "Submit pre-test" if not pa else "ਸ਼ੁਰੂਆਤੀ ਟੈਸਟ ਜਮ੍ਹਾਂ ਕਰੋ")
+    else:
+        st.success(
+            f"Pre-test recorded: {st.session_state.impact_pre_score}/5"
+            if not pa else
+            f"ਸ਼ੁਰੂਆਤੀ ਟੈਸਟ ਦਰਜ: {st.session_state.impact_pre_score}/5"
+        )
+        st.subheader("Step 2 — Learn" if not pa else "ਪੜਾਅ 2 — ਸਿੱਖੋ")
+        with st.expander("1. Why Vitamin D matters" if not pa else "1. ਵਿਟਾਮਿਨ D ਕਿਉਂ ਜ਼ਰੂਰੀ ਹੈ", expanded=True):
+            st.write(
+                "Vitamin D helps the body absorb calcium and supports bone and muscle health."
+                if not pa else
+                "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ ਅਤੇ ਹੱਡੀਆਂ ਤੇ ਮਾਸਪੇਸ਼ੀਆਂ ਦੀ ਸਿਹਤ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹੈ।"
+            )
+        with st.expander("2. Sources and sunlight" if not pa else "2. ਸਰੋਤ ਅਤੇ ਧੁੱਪ"):
+            st.write(
+                "Sources include some oily fish, egg yolks and fortified foods. Sunlight needs vary with skin, location, season and other factors; avoid sunburn."
+                if not pa else
+                "ਕੁਝ ਚਰਬੀ ਵਾਲੀਆਂ ਮੱਛੀਆਂ, ਅੰਡੇ ਦੀ ਜ਼ਰਦੀ ਅਤੇ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਭੋਜਨ ਸਰੋਤ ਹਨ। ਧੁੱਪ ਦੀ ਲੋੜ ਚਮੜੀ, ਸਥਾਨ, ਮੌਸਮ ਅਤੇ ਹੋਰ ਕਾਰਕਾਂ ਨਾਲ ਬਦਲਦੀ ਹੈ; ਚਮੜੀ ਸੜਨ ਤੋਂ ਬਚੋ।"
+            )
+        with st.expander("3. Reports, symptoms and safe decisions" if not pa else "3. ਰਿਪੋਰਟਾਂ, ਲੱਛਣ ਅਤੇ ਸੁਰੱਖਿਅਤ ਫੈਸਲੇ"):
+            st.write(
+                "Symptoms alone cannot confirm deficiency. A 25-hydroxyvitamin D blood test may be used when clinically appropriate. Do not start high-dose supplements without professional advice."
+                if not pa else
+                "ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੁੰਦੀ। ਲੋੜ ਹੋਣ 'ਤੇ 25-ਹਾਈਡ੍ਰੋਕਸੀ ਵਿਟਾਮਿਨ D ਖੂਨ ਟੈਸਟ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ। ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਤੋਂ ਬਿਨਾਂ ਵੱਧ ਖੁਰਾਕ ਵਾਲੇ ਸਪਲੀਮੈਂਟ ਸ਼ੁਰੂ ਨਾ ਕਰੋ।"
+            )
+
+        if "impact_post_score" not in st.session_state:
+            st.subheader("Step 3 — Post-test" if not pa else "ਪੜਾਅ 3 — ਬਾਅਦ ਵਾਲਾ ਟੈਸਟ")
+            st.write(
+                "Answer the same five questions again to measure your learning."
+                if not pa else
+                "ਆਪਣੀ ਸਿੱਖਿਆ ਮਾਪਣ ਲਈ ਉਹੀ ਪੰਜ ਸਵਾਲ ਦੁਬਾਰਾ ਹੱਲ ਕਰੋ।"
+            )
+            _impact_run_quiz("impact_post_form", "Submit post-test" if not pa else "ਬਾਅਦ ਵਾਲਾ ਟੈਸਟ ਜਮ੍ਹਾਂ ਕਰੋ")
+        else:
+            _pre = st.session_state.impact_pre_score
+            _post = st.session_state.impact_post_score
+            _change = _post - _pre
+            st.subheader("Step 4 — Your learning impact" if not pa else "ਪੜਾਅ 4 — ਤੁਹਾਡੀ ਸਿੱਖਿਆ ਦਾ ਪ੍ਰਭਾਵ")
+            _c1, _c2, _c3 = st.columns(3)
+            _c1.metric("Pre-test" if not pa else "ਪਹਿਲਾਂ", f"{_pre}/5")
+            _c2.metric("Post-test" if not pa else "ਬਾਅਦ", f"{_post}/5")
+            _c3.metric("Change" if not pa else "ਤਬਦੀਲੀ", f"{_change:+d}")
+            st.progress(_post / 5)
+            if _change > 0:
+                st.success(
+                    f"Your score improved by {_change} point(s). Keep learning!"
+                    if not pa else
+                    f"ਤੁਹਾਡੇ ਅੰਕ {_change} ਵਧੇ। ਸਿੱਖਦੇ ਰਹੋ!"
+                )
+            elif _change == 0:
+                st.info(
+                    "Your score stayed the same. Review the lesson and try again."
+                    if not pa else
+                    "ਤੁਹਾਡੇ ਅੰਕ ਇੱਕੋ ਜਿਹੇ ਰਹੇ। ਪਾਠ ਦੁਹਰਾਓ ਅਤੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+                )
+            else:
+                st.info(
+                    "Your post-test score was lower. Review the lesson and try again."
+                    if not pa else
+                    "ਬਾਅਦ ਵਾਲੇ ਟੈਸਟ ਦੇ ਅੰਕ ਘੱਟ ਰਹੇ। ਪਾਠ ਦੁਹਰਾਓ ਅਤੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+                )
+
+            _missed = []
+            _post_answers = st.session_state.get("impact_post_form_answers", [])
+            for _iq, _item in enumerate(_impact_questions):
+                _opts = _item["opts_pa"] if pa else _item["opts"]
+                _correct = _opts[_item["answer"]]
+                if _iq >= len(_post_answers) or _post_answers[_iq] != _correct:
+                    _missed.append(_item["topic_pa"] if pa else _item["topic"])
+            if _missed:
+                st.write(
+                    ("Topics to revise: " if not pa else "ਦੁਹਰਾਉਣ ਵਾਲੇ ਵਿਸ਼ੇ: ")
+                    + ", ".join(_missed)
+                )
+            else:
+                st.success(
+                    "Excellent — all post-test answers are correct."
+                    if not pa else
+                    "ਸ਼ਾਨਦਾਰ — ਬਾਅਦ ਵਾਲੇ ਟੈਸਟ ਦੇ ਸਾਰੇ ਜਵਾਬ ਸਹੀ ਹਨ।"
+                )
+
+            _report_lines = [
+                "D-SMART Impact Lab — Learning Report",
+                "Language: " + ("Punjabi" if pa else "English"),
+                "Pre-test score: " + str(_pre) + "/5",
+                "Post-test score: " + str(_post) + "/5",
+                "Score change: " + str(_change),
+                "Topics to revise: " + (", ".join(_missed) if _missed else "None identified by this quiz"),
+                "",
+                "This is a brief educational awareness activity, not a validated research instrument or a medical assessment.",
+                "Results reflect one session and do not prove long-term learning or population-level impact."
+            ]
+            st.download_button(
+                "⬇️ Download learning report (.txt)" if not pa else "⬇️ ਰਿਪੋਰਟ ਡਾਊਨਲੋਡ ਕਰੋ (.txt)",
+                data="\n".join(_report_lines),
+                file_name="D-SMART_Impact_Report.txt",
+                mime="text/plain",
+                use_container_width=True
+            )
+            if st.button("Start a new attempt" if not pa else "ਨਵੀਂ ਕੋਸ਼ਿਸ਼ ਸ਼ੁਰੂ ਕਰੋ", key="impact_reset"):
+                for _key in [
+                    "impact_pre_score", "impact_pre_form_answers",
+                    "impact_post_score", "impact_post_form_answers"
+                ]:
+                    st.session_state.pop(_key, None)
+                st.rerun()
+
+    st.caption(
+        "Interpretation: this small quiz shows only the score change for this session. For an exhibition study, collect consented, anonymous pre/post results from a larger group and report the method and limitations honestly."
+        if not pa else
+        "ਵਿਆਖਿਆ: ਇਹ ਛੋਟਾ ਕਵਿਜ਼ ਸਿਰਫ਼ ਇਸ ਸੈਸ਼ਨ ਦੇ ਅੰਕਾਂ ਦੀ ਤਬਦੀਲੀ ਦਿਖਾਉਂਦਾ ਹੈ। ਪ੍ਰਦਰਸ਼ਨੀ ਅਧਿਐਨ ਲਈ ਸਹਿਮਤੀ ਨਾਲ, ਗੁਪਤ ਪਛਾਣ-ਰਹਿਤ ਨਤੀਜੇ ਵੱਡੇ ਸਮੂਹ ਤੋਂ ਇਕੱਠੇ ਕਰੋ ਅਤੇ ਵਿਧੀ ਤੇ ਸੀਮਾਵਾਂ ਸਪਸ਼ਟ ਦੱਸੋ।"
     )
 
 
