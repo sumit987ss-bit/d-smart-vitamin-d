@@ -77,7 +77,7 @@ else:
 
 # ---------- MOBILE SCREEN NAVIGATION ----------
 # Screen navigation preserves the existing feature code below.
-ds_pages = ["Welcome", "Home", "About", "AI Assistant", "Hygiene", "Sanitation", "Healthy Habits", "Community Challenge"]
+ds_pages = ["Welcome", "Home", "About", "AI Assistant", "Hygiene", "Sanitation", "Healthy Habits", "Community Challenge", "Health"]
 
 if "ds_page" not in st.session_state:
     st.session_state.ds_page = 0
@@ -167,11 +167,12 @@ if st.session_state.ds_page == 1:
     st.write(intro)
     st.markdown("### " + ("ਤੁਹਾਡਾ ਸਿਹਤ ਸਿੱਖਣ ਕੇਂਦਰ" if pa else "Your Health Learning Hub"))
     st.info("ਵਿਕਸਿਤ ਭਾਰਤ @2047 ਵੱਲ: ਸਿਹਤਮੰਦ ਨਾਗਰਿਕ, ਸਵੱਛ ਸਮਾਜ" if pa else "Towards Viksit Bharat @2047: Healthy citizens, clean communities and digital awareness.")
-    _hub_cards = st.columns(3)
+    _hub_cards = st.columns(4)
     _hub_items = [
         ("🧼", "Hygiene" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ", "Hygiene"),
         ("💧", "Sanitation" if not pa else "ਸੈਨਿਟੇਸ਼ਨ", "Sanitation"),
         ("🌱", "Healthy Habits" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ", "Healthy Habits"),
+        ("❤️", "Health" if not pa else "ਸਿਹਤ", "Health"),
     ]
     for _i, (_icon, _label, _dest) in enumerate(_hub_items):
         with _hub_cards[_i]:
@@ -317,9 +318,9 @@ if st.session_state.ds_page == 3:
         "🤖 SEHAT SAATHI AI ਸਿਹਤ ਸਾਥੀ"
     )
     st.write(
-        "Ask about hygiene, safe water, sanitation, waste management and healthy habits in simple language."
+        "Ask about general health, nutrition, physical activity, sleep, emotional wellbeing, hygiene, safe water and sanitation in simple language."
         if not pa else
-        "ਨਿੱਜੀ ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸੈਨਿਟੇਸ਼ਨ, ਕੂੜਾ ਪ੍ਰਬੰਧਨ ਅਤੇ ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਬਾਰੇ ਸਵਾਲ ਪੁੱਛੋ।"
+        "ਆਮ ਸਿਹਤ, ਪੋਸ਼ਣ, ਸਰੀਰਕ ਸਰਗਰਮੀ, ਨੀਂਦ, ਮਾਨਸਿਕ ਤੰਦਰੁਸਤੀ, ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ ਅਤੇ ਸੈਨਿਟੇਸ਼ਨ ਬਾਰੇ ਸੌਖੀ ਭਾਸ਼ਾ ਵਿੱਚ ਸਵਾਲ ਪੁੱਛੋ।"
     )
     st.info(
         "Education only: the AI provides general information, not personal medical advice. Do not enter names, contact details, medical reports, or other private health information."
@@ -386,7 +387,7 @@ if st.session_state.ds_page == 3:
                 else "Answer in clear, simple English."
             )
             _ds_system_instruction = (
-                "You are SEHAT SAATHI, an AI health-education assistant for personal hygiene, food hygiene, safe drinking water, sanitation, waste management and healthy habits. "
+                "You are SEHAT SAATHI, an AI health-education assistant for general health literacy, balanced nutrition, physical activity, sleep, emotional wellbeing, preventive health awareness, personal and food hygiene, safe drinking water, sanitation, waste management and healthy habits. "
                 "Provide concise, evidence-informed educational explanations for school students and the public. "
                 "Do not diagnose or interpret a personal medical case, "
                 "or prescribe treatment. For personal medical concerns, medication questions, or ongoing symptoms, "
@@ -673,6 +674,88 @@ if st.session_state.ds_page == 7:
         if not pa else
         "ਇਹ ਸਿੱਖਣ ਦੀ ਗਤੀਵਿਧੀ ਹੈ। ਇਹ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਜਾਂ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਕਰਦੀ।"
     )
+
+
+if st.session_state.ds_page == 8:
+    st.header("❤️ " + ("Health Learning Hub" if not pa else "ਸਿਹਤ ਸਿੱਖਿਆ ਕੇਂਦਰ"))
+    st.write(
+        "Build health literacy with reliable, age-appropriate information about the body, daily wellbeing and prevention. Good health is supported by personal choices as well as safe homes, schools and communities."
+        if not pa else
+        "ਸਰੀਰ, ਰੋਜ਼ਾਨਾ ਤੰਦਰੁਸਤੀ ਅਤੇ ਬਿਮਾਰੀਆਂ ਤੋਂ ਬਚਾਅ ਬਾਰੇ ਭਰੋਸੇਯੋਗ ਅਤੇ ਉਮਰ-ਅਨੁਕੂਲ ਜਾਣਕਾਰੀ ਨਾਲ ਸਿਹਤ ਦੀ ਸਮਝ ਵਧਾਓ। ਚੰਗੀ ਸਿਹਤ ਲਈ ਨਿੱਜੀ ਆਦਤਾਂ ਦੇ ਨਾਲ ਸੁਰੱਖਿਅਤ ਘਰ, ਸਕੂਲ ਅਤੇ ਭਾਈਚਾਰਾ ਵੀ ਜ਼ਰੂਰੀ ਹਨ।"
+    )
+    _health_topics = [
+        (
+            "🥗 Balanced nutrition" if not pa else "🥗 ਸੰਤੁਲਿਤ ਪੋਸ਼ਣ",
+            "Eat a variety of foods such as vegetables, fruits, pulses, whole grains, nuts and suitable protein sources. Drink safe water and enjoy meals without skipping or following extreme diets. Food needs vary with age, activity, culture and health; no single food provides everything."
+            if not pa else
+            "ਸਬਜ਼ੀਆਂ, ਫਲ, ਦਾਲਾਂ, ਸਾਬਤ ਅਨਾਜ, ਮੇਵੇ ਅਤੇ ਢੁੱਕਵੇਂ ਪ੍ਰੋਟੀਨ ਵਾਲੇ ਵੱਖ-ਵੱਖ ਭੋਜਨ ਖਾਓ। ਸੁਰੱਖਿਅਤ ਪਾਣੀ ਪੀਓ ਅਤੇ ਖਾਣਾ ਛੱਡਣ ਜਾਂ ਬਹੁਤ ਸਖ਼ਤ ਡਾਇਟਾਂ ਦੀ ਥਾਂ ਸੰਤੁਲਿਤ ਭੋਜਨ ਚੁਣੋ। ਭੋਜਨ ਦੀ ਲੋੜ ਉਮਰ, ਸਰਗਰਮੀ, ਸੱਭਿਆਚਾਰ ਅਤੇ ਸਿਹਤ ਅਨੁਸਾਰ ਵੱਖ ਹੋ ਸਕਦੀ ਹੈ। ਕੋਈ ਇੱਕ ਭੋਜਨ ਸਾਰੇ ਪੋਸ਼ਕ ਤੱਤ ਨਹੀਂ ਦਿੰਦਾ।"
+        ),
+        (
+            "🏃 Physical activity and movement" if not pa else "🏃 ਸਰੀਰਕ ਸਰਗਰਮੀ ਅਤੇ ਹਿਲਜੁਲ",
+            "Regular enjoyable movement supports the heart, muscles, bones, mood and concentration. Walking, cycling, dancing, games and active play all count. Choose activities that are safe and suitable for your age and ability, take breaks, and avoid comparing your activity or body with others."
+            if not pa else
+            "ਨਿਯਮਿਤ ਅਤੇ ਮਨਪਸੰਦ ਸਰੀਰਕ ਸਰਗਰਮੀ ਦਿਲ, ਮਾਸਪੇਸ਼ੀਆਂ, ਹੱਡੀਆਂ, ਮਨੋਦਸ਼ਾ ਅਤੇ ਧਿਆਨ ਲਈ ਲਾਭਦਾਇਕ ਹੈ। ਤੁਰਨਾ, ਸਾਈਕਲ ਚਲਾਉਣਾ, ਨੱਚਣਾ, ਖੇਡਾਂ ਅਤੇ ਸਰਗਰਮ ਖੇਡਣਾ—ਸਭ ਗਿਣੇ ਜਾਂਦੇ ਹਨ। ਆਪਣੀ ਉਮਰ ਅਤੇ ਸਮਰੱਥਾ ਅਨੁਸਾਰ ਸੁਰੱਖਿਅਤ ਸਰਗਰਮੀ ਚੁਣੋ, ਵਿਚਕਾਰ ਆਰਾਮ ਕਰੋ ਅਤੇ ਆਪਣੀ ਤੁਲਨਾ ਹੋਰਾਂ ਨਾਲ ਨਾ ਕਰੋ।"
+        ),
+        (
+            "😴 Sleep and rest" if not pa else "😴 ਨੀਂਦ ਅਤੇ ਆਰਾਮ",
+            "A regular sleep routine helps learning, memory, mood and general wellbeing. Keep a calming bedtime routine, reduce bright screens close to bedtime when possible, and make the sleeping space comfortable and safe. If sleep problems persist and affect daily life, talk with a trusted adult and a healthcare professional."
+            if not pa else
+            "ਨਿਯਮਿਤ ਨੀਂਦ ਦੀ ਰੁਟੀਨ ਪੜ੍ਹਾਈ, ਯਾਦਦਾਸ਼ਤ, ਮਨੋਦਸ਼ਾ ਅਤੇ ਸਮੁੱਚੀ ਤੰਦਰੁਸਤੀ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ। ਸੌਣ ਤੋਂ ਪਹਿਲਾਂ ਸ਼ਾਂਤ ਰੁਟੀਨ ਬਣਾਓ, ਸੰਭਵ ਹੋਵੇ ਤਾਂ ਸੌਣ ਦੇ ਨੇੜੇ ਤੇਜ਼ ਸਕ੍ਰੀਨ ਦੀ ਵਰਤੋਂ ਘਟਾਓ ਅਤੇ ਸੌਣ ਵਾਲੀ ਥਾਂ ਆਰਾਮਦਾਇਕ ਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ। ਜੇ ਨੀਂਦ ਦੀ ਸਮੱਸਿਆ ਲਗਾਤਾਰ ਰਹੇ ਅਤੇ ਰੋਜ਼ਾਨਾ ਜੀਵਨ ਪ੍ਰਭਾਵਿਤ ਕਰੇ ਤਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਅਤੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ।"
+        ),
+        (
+            "🧠 Mental and emotional wellbeing" if not pa else "🧠 ਮਾਨਸਿਕ ਅਤੇ ਭਾਵਨਾਤਮਕ ਤੰਦਰੁਸਤੀ",
+            "Feelings are a normal part of life. Talking with a trusted person, spending time with supportive people, taking breaks, enjoying hobbies and asking for help can support emotional wellbeing. If worry, sadness or stress feels difficult to manage, speak with a trusted adult, school counsellor or qualified professional."
+            if not pa else
+            "ਭਾਵਨਾਵਾਂ ਜੀਵਨ ਦਾ ਕੁਦਰਤੀ ਹਿੱਸਾ ਹਨ। ਭਰੋਸੇਯੋਗ ਵਿਅਕਤੀ ਨਾਲ ਗੱਲ ਕਰਨਾ, ਸਹਾਇਕ ਲੋਕਾਂ ਨਾਲ ਸਮਾਂ ਬਿਤਾਉਣਾ, ਆਰਾਮ ਕਰਨਾ, ਮਨਪਸੰਦ ਕੰਮ ਕਰਨਾ ਅਤੇ ਮਦਦ ਮੰਗਣਾ ਭਾਵਨਾਤਮਕ ਤੰਦਰੁਸਤੀ ਵਿੱਚ ਸਹਾਇਕ ਹੈ। ਜੇ ਚਿੰਤਾ, ਉਦਾਸੀ ਜਾਂ ਤਣਾਅ ਸੰਭਾਲਣਾ ਔਖਾ ਲੱਗੇ ਤਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ, ਸਕੂਲ ਕੌਂਸਲਰ ਜਾਂ ਯੋਗ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ।"
+        ),
+        (
+            "🛡️ Preventing infections" if not pa else "🛡️ ਇਨਫੈਕਸ਼ਨਾਂ ਤੋਂ ਬਚਾਅ",
+            "Handwashing, safe food and water, good ventilation, covering coughs and sneezes, and staying up to date with recommended vaccinations all help reduce infection risks. Follow current advice from qualified healthcare professionals and local public-health authorities."
+            if not pa else
+            "ਹੱਥ ਧੋਣਾ, ਸੁਰੱਖਿਅਤ ਭੋਜਨ ਅਤੇ ਪਾਣੀ, ਹਵਾਦਾਰੀ, ਖੰਘਣ-ਛਿੱਕਣ ਵੇਲੇ ਮੂੰਹ ਢੱਕਣਾ ਅਤੇ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੇ ਟੀਕਾਕਰਨ ਬਾਰੇ ਅਪਡੇਟ ਰਹਿਣਾ ਇਨਫੈਕਸ਼ਨ ਦੇ ਖਤਰੇ ਘਟਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ। ਯੋਗ ਸਿਹਤ ਮਾਹਿਰਾਂ ਅਤੇ ਸਥਾਨਕ ਸਿਹਤ ਵਿਭਾਗ ਦੀ ਮੌਜੂਦਾ ਸਲਾਹ ਮੰਨੋ।"
+        ),
+        (
+            "🩺 Check-ups and asking for help" if not pa else "🩺 ਸਿਹਤ ਜਾਂਚ ਅਤੇ ਮਦਦ ਲੈਣਾ",
+            "Routine check-ups, dental care, vision checks and recommended vaccinations can support preventive health. Tell a trusted adult if you feel unwell or are worried about a health concern. Seek urgent help from an adult and local emergency services for severe or rapidly worsening symptoms. Do not self-diagnose or take medicines based only on app content."
+            if not pa else
+            "ਸਮੇਂ-ਸਮੇਂ 'ਤੇ ਸਿਹਤ ਜਾਂਚ, ਦੰਦਾਂ ਦੀ ਦੇਖਭਾਲ, ਨਜ਼ਰ ਦੀ ਜਾਂਚ ਅਤੇ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੇ ਟੀਕੇ ਰੋਕਥਾਮ ਵਾਲੀ ਸਿਹਤ ਸੰਭਾਲ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ। ਜੇ ਤਬੀਅਤ ਠੀਕ ਨਾ ਹੋਵੇ ਜਾਂ ਕਿਸੇ ਸਿਹਤ ਸਮੱਸਿਆ ਦੀ ਚਿੰਤਾ ਹੋਵੇ ਤਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਨੂੰ ਦੱਸੋ। ਗੰਭੀਰ ਜਾਂ ਤੇਜ਼ੀ ਨਾਲ ਵਧ ਰਹੇ ਲੱਛਣਾਂ ਵਿੱਚ ਵੱਡੇ ਦੀ ਮਦਦ ਨਾਲ ਤੁਰੰਤ ਸਥਾਨਕ ਐਮਰਜੈਂਸੀ ਸੇਵਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ। ਸਿਰਫ਼ ਐਪ ਦੀ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ 'ਤੇ ਆਪਣੀ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਜਾਂ ਦਵਾਈ ਨਾ ਕਰੋ।"
+        ),
+        (
+            "🌞 Everyday wellbeing and safety" if not pa else "🌞 ਰੋਜ਼ਾਨਾ ਤੰਦਰੁਸਤੀ ਅਤੇ ਸੁਰੱਖਿਆ",
+            "Spend time outdoors safely, use sun protection appropriate to the conditions, keep your surroundings clean, avoid tobacco and vaping, and never use someone else's medicines. Ask a trusted adult or qualified professional when you are unsure about a health claim."
+            if not pa else
+            "ਬਾਹਰ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਸਮਾਂ ਬਿਤਾਓ, ਮੌਸਮ ਅਨੁਸਾਰ ਧੁੱਪ ਤੋਂ ਬਚਾਅ ਕਰੋ, ਆਲੇ-ਦੁਆਲੇ ਸਾਫ਼ ਰੱਖੋ, ਤੰਬਾਕੂ ਅਤੇ ਵੇਪਿੰਗ ਤੋਂ ਦੂਰ ਰਹੋ ਅਤੇ ਕਿਸੇ ਹੋਰ ਦੀ ਦਵਾਈ ਕਦੇ ਨਾ ਵਰਤੋ। ਸਿਹਤ ਬਾਰੇ ਕਿਸੇ ਗੱਲ 'ਤੇ ਸ਼ੱਕ ਹੋਵੇ ਤਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਜਾਂ ਯੋਗ ਮਾਹਿਰ ਤੋਂ ਪੁੱਛੋ।"
+        ),
+    ]
+    for _topic, _details in _health_topics:
+        with st.expander(_topic):
+            st.write(_details)
+
+    st.divider()
+    st.subheader("💡 " + ("Health knowledge check" if not pa else "ਸਿਹਤ ਜਾਣਕਾਰੀ ਦੀ ਜਾਂਚ"))
+    _health_q = st.radio(
+        "Which is a helpful everyday approach to health?" if not pa else "ਰੋਜ਼ਾਨਾ ਸਿਹਤ ਲਈ ਕਿਹੜਾ ਤਰੀਕਾ ਲਾਭਦਾਇਕ ਹੈ?",
+        [
+            "Skip meals to stay healthy" if not pa else "ਤੰਦਰੁਸਤ ਰਹਿਣ ਲਈ ਖਾਣਾ ਛੱਡਣਾ",
+            "Balance food, enjoyable movement, sleep and support" if not pa else "ਸੰਤੁਲਿਤ ਭੋਜਨ, ਮਨਪਸੰਦ ਸਰਗਰਮੀ, ਨੀਂਦ ਅਤੇ ਸਹਾਇਤਾ",
+            "Take medicines without asking an adult or professional" if not pa else "ਵੱਡੇ ਜਾਂ ਮਾਹਿਰ ਨੂੰ ਪੁੱਛੇ ਬਿਨਾਂ ਦਵਾਈ ਲੈਣਾ",
+        ],
+        index=None,
+        key="ds_health_quiz_v1"
+    )
+    if st.button("Check answer" if not pa else "ਜਵਾਬ ਵੇਖੋ", key="ds_health_check_v1"):
+        if _health_q is None:
+            st.warning("Choose an answer first." if not pa else "ਪਹਿਲਾਂ ਇੱਕ ਜਵਾਬ ਚੁਣੋ।")
+        elif _health_q == ("Balance food, enjoyable movement, sleep and support" if not pa else "ਸੰਤੁਲਿਤ ਭੋਜਨ, ਮਨਪਸੰਦ ਸਰਗਰਮੀ, ਨੀਂਦ ਅਤੇ ਸਹਾਇਤਾ"):
+            st.success("Correct! Health is supported by several connected habits and supportive environments." if not pa else "ਸਹੀ! ਸਿਹਤ ਕਈ ਆਪਸ ਵਿੱਚ ਜੁੜੀਆਂ ਆਦਤਾਂ ਅਤੇ ਸਹਾਇਕ ਵਾਤਾਵਰਣ ਨਾਲ ਮਜ਼ਬੂਤ ਹੁੰਦੀ ਹੈ।")
+        else:
+            st.info("Try again. Healthy routines include balanced meals, enjoyable activity, rest and asking for support." if not pa else "ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਚੰਗੀ ਰੁਟੀਨ ਵਿੱਚ ਸੰਤੁਲਿਤ ਭੋਜਨ, ਮਨਪਸੰਦ ਸਰਗਰਮੀ, ਆਰਾਮ ਅਤੇ ਲੋੜ ਪੈਣ 'ਤੇ ਮਦਦ ਲੈਣਾ ਸ਼ਾਮਲ ਹੈ।")
+    st.info(
+        "Health information here is general education, not a diagnosis or treatment plan. For personal concerns, speak with a trusted adult and a qualified healthcare professional."
+        if not pa else
+        "ਇੱਥੇ ਦਿੱਤੀ ਸਿਹਤ ਜਾਣਕਾਰੀ ਆਮ ਸਿੱਖਿਆ ਲਈ ਹੈ, ਨਿਦਾਨ ਜਾਂ ਇਲਾਜ ਦੀ ਯੋਜਨਾ ਨਹੀਂ। ਨਿੱਜੀ ਚਿੰਤਾ ਲਈ ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਅਤੇ ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ।"
+    )
+
 
 
 # Bottom navigation appears after each functional screen.
