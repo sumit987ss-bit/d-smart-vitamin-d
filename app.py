@@ -68,7 +68,7 @@ pa = language == "ਪੰਜਾਬੀ"
 
 if pa:
     title = "ਸਿਹਤ, ਸਫ਼ਾਈ ਅਤੇ ਸੈਨਿਟੇਸ਼ਨ ਸਹਾਇਕ"
-    intro = "ਆਪਣੀ ਸਿਹਤ ਬਾਰੇ ਸਿੱਖੋ ਅਤੇ ਵਿਟਾਮਿਨ D ਨੂੰ ਸਮਝੋ।"
+    intro = "ਵਿਟਾਮਿਨ D, ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ ਅਤੇ ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਬਾਰੇ ਸਿੱਖੋ।"
     notice = (
         "ਇਹ ਸਿੱਖਿਆ ਲਈ ਹੈ। ਇਹ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ "
         "ਅਤੇ ਡਾਕਟਰੀ ਸਲਾਹ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ।"
@@ -287,7 +287,7 @@ if st.session_state.ds_page == 0:
         <div class="ds-welcome">
           <div class="ds-sun">☀️</div>
           <div class="ds-brand">D-SMART</div>
-          <div class="ds-welcome-sub">{'ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ' if pa else 'Smart Health, Hygiene & Sanitation'}</div>
+          <div class="ds-welcome-sub">{'ਸਿਹਤ, ਸਫ਼ਾਈ ਅਤੇ ਸੈਨਿਟੇਸ਼ਨ ਸਹਾਇਕ' if pa else 'Smart Health, Hygiene & Sanitation'}</div>
           <div class="ds-welcome-copy">
             {'ਵਿਟਾਮਿਨ D, ਨਿੱਜੀ ਸਫ਼ਾਈ ਅਤੇ ਸਾਫ਼-ਸੁਥਰੇ ਵਾਤਾਵਰਣ ਬਾਰੇ ਸਿੱਖੋ।' if pa else 'Learn about Vitamin D, personal hygiene, safe water, sanitation and healthier everyday habits.'}
           </div>
@@ -944,10 +944,10 @@ if st.session_state.ds_page == 6:
         for _feature in [
             "🌐 ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਜਾਣਕਾਰੀ",
             "🧠 ਵਿਟਾਮਿਨ D ਬਾਰੇ ਇੰਟਰਐਕਟਿਵ ਜਾਗਰੂਕਤਾ ਕਵਿਜ਼",
-            "📘 ਇਕਾਈ ਸਪਸ਼ਟ ਨਾ ਹੋਣ 'ਤੇ ਦੋਵੇਂ ਸੰਭਾਵਨਾਵਾਂ ਦੀ ਵਿਆਖਿਆ",
-            "🖼️ ਲੈਬ ਰਿਪੋਰਟ ਦੀ ਤਸਵੀਰ ਅਪਲੋਡ ਕਰਕੇ ਵੇਖਣ ਦੀ ਸਹੂਲਤ",
-            "🤖 ਵਿਟਾਮਿਨ D ਬਾਰੇ ਆਮ ਸਵਾਲਾਂ ਲਈ AI ਸਹਾਇਕ",
-            "🎯 ਵਿਟਾਮਿਨ D ਬਾਰੇ ਵਿਸਤ੍ਰਿਤ ਚੈਲੰਜ ਕਵਿਜ਼",
+            "🧼 ਹੱਥਾਂ, ਮੂੰਹ, ਭੋਜਨ ਅਤੇ ਨਿੱਜੀ ਸਫ਼ਾਈ ਬਾਰੇ ਸਿੱਖਿਆ",
+            "💧 ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਟਾਇਲਟ ਸਫ਼ਾਈ ਅਤੇ ਕੂੜਾ ਪ੍ਰਬੰਧਨ",
+            "🌱 ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਲਈ ਇੰਟਰਐਕਟਿਵ ਟ੍ਰੈਕਰ",
+            "🤖 ਸਿਹਤ, ਸਫ਼ਾਈ ਅਤੇ ਸੈਨਿਟੇਸ਼ਨ ਲਈ AI ਸਹਾਇਕ",
         ]:
             st.markdown(f'<div class="ds-credit-feature">{_feature}</div>', unsafe_allow_html=True)
 
@@ -981,10 +981,10 @@ if st.session_state.ds_page == 6:
         for _feature in [
             "🌐 Bilingual learning: English and Punjabi",
             "🧠 Interactive Vitamin D awareness quiz",
-            "📘 Direct educational interpretation of Vitamin D results in nmol/L",
-            "🖼️ Laboratory report image upload and preview",
-            "🤖 AI assistant for general Vitamin D questions",
-            "🎯 Expanded Vitamin D Challenge Quiz",
+            "🧼 Hand, oral, food and personal hygiene learning",
+            "💧 Safe water, toilet hygiene and waste management",
+            "🌱 Interactive healthy-habits tracker",
+            "🤖 AI assistant for health, hygiene and sanitation education",
         ]:
             st.markdown(f'<div class="ds-credit-feature">{_feature}</div>', unsafe_allow_html=True)
 
