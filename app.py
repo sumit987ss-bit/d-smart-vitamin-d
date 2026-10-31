@@ -1,6 +1,6 @@
 import streamlit as st
 st.set_page_config(
-    page_title="D-SMART",
+    page_title="SEHAT SAATHI | ਸਿਹਤ ਸਾਥੀ",
     page_icon="☀️",
     layout="centered"
 )
@@ -68,7 +68,7 @@ pa = language == "ਪੰਜਾਬੀ"
 
 if pa:
     title = "ਸਿਹਤ, ਸਫ਼ਾਈ ਅਤੇ ਸੈਨਿਟੇਸ਼ਨ ਸਹਾਇਕ"
-    intro = "ਵਿਟਾਮਿਨ D, ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ ਅਤੇ ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਬਾਰੇ ਸਿੱਖੋ।"
+    intro = "ਸਿਹਤ, ਸਫ਼ਾਈ, ਸੈਨਿਟੇਸ਼ਨ ਅਤੇ ਚੰਗੀਆਂ ਆਦਤਾਂ ਰਾਹੀਂ ਤੰਦਰੁਸਤ ਭਾਰਤ ਵੱਲ ਕਦਮ ਵਧਾਓ।"
     notice = (
         "ਇਹ ਸਿੱਖਿਆ ਲਈ ਹੈ। ਇਹ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ "
         "ਅਤੇ ਡਾਕਟਰੀ ਸਲਾਹ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ।"
@@ -134,7 +134,7 @@ if pa:
     )
 else:
     title = "Smart Health, Hygiene & Sanitation"
-    intro = "Learn about Vitamin D and make informed health choices."
+    intro = "Explore health, hygiene, sanitation and healthy habits for a stronger, healthier India."
     notice = (
         "This is an educational tool. It cannot diagnose deficiency "
         "or replace professional medical advice."
@@ -203,7 +203,7 @@ else:
 
 # ---------- MOBILE SCREEN NAVIGATION ----------
 # Screen navigation preserves the existing feature code below.
-ds_pages = ["Welcome", "Home", "Awareness", "Learn", "Report", "Quiz", "About", "AI Assistant", "Hygiene", "Sanitation", "Healthy Habits"]
+ds_pages = ["Welcome", "Home", "Awareness", "Learn", "Report", "Quiz", "About", "AI Assistant", "Hygiene", "Sanitation", "Healthy Habits", "Community Challenge"]
 
 if "ds_page" not in st.session_state:
     st.session_state.ds_page = 0
@@ -282,10 +282,10 @@ if st.session_state.ds_page == 0:
         f"""
         <div class="ds-welcome">
           <div class="ds-sun">☀️</div>
-          <div class="ds-brand">D-SMART</div>
+          <div class="ds-brand">SEHAT SAATHI</div>
           <div class="ds-welcome-sub">{'ਸਿਹਤ, ਸਫ਼ਾਈ ਅਤੇ ਸੈਨਿਟੇਸ਼ਨ ਸਹਾਇਕ' if pa else 'Smart Health, Hygiene & Sanitation'}</div>
           <div class="ds-welcome-copy">
-            {'ਵਿਟਾਮਿਨ D, ਨਿੱਜੀ ਸਫ਼ਾਈ ਅਤੇ ਸਾਫ਼-ਸੁਥਰੇ ਵਾਤਾਵਰਣ ਬਾਰੇ ਸਿੱਖੋ।' if pa else 'Learn about Vitamin D, personal hygiene, safe water, sanitation and healthier everyday habits.'}
+            {'ਸਿਹਤਮੰਦ ਨਾਗਰਿਕ • ਸਵੱਛ ਸਮਾਜ • ਵਿਕਸਿਤ ਭਾਰਤ' if pa else 'Healthy Citizens • Clean Communities • Viksit Bharat @2047'}
           </div>
           <div class="ds-pill-row">
             <span class="ds-pill">🌐 {'ਪੰਜਾਬੀ + English' if pa else 'Punjabi + English'}</span>
@@ -305,7 +305,7 @@ if st.session_state.ds_page == 0:
     _welcome_left, _welcome_mid, _welcome_right = st.columns([1, 5, 1])
     with _welcome_mid:
         st.button(
-            "ਸ਼ੁਰੂ ਕਰੋ  →" if pa else "Start D-SMART  →",
+            "ਸ਼ੁਰੂ ਕਰੋ  →" if pa else "Enter SEHAT SAATHI  →",
             key="ds_start_app",
             on_click=_ds_move_page,
             args=(1,),
@@ -316,15 +316,17 @@ if st.session_state.ds_page == 0:
 if st.session_state.ds_page == 1:
     # Clean home screen: app introduction and health learning hub.
     
-    st.title("☀️ D-SMART")
+    st.title("☀️ SEHAT SAATHI")
     st.subheader(title)
     st.write(intro)
     st.markdown("### " + ("ਤੁਹਾਡਾ ਸਿਹਤ ਸਿੱਖਣ ਕੇਂਦਰ" if pa else "Your Health Learning Hub"))
-    _hub_cards = st.columns(3)
+    st.info("ਵਿਕਸਿਤ ਭਾਰਤ @2047 ਵੱਲ: ਸਿਹਤਮੰਦ ਨਾਗਰਿਕ, ਸਵੱਛ ਸਮਾਜ" if pa else "Towards Viksit Bharat @2047: Healthy citizens, clean communities and digital awareness.")
+    _hub_cards = st.columns(4)
     _hub_items = [
         ("🧼", "Hygiene" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ", "Hygiene"),
         ("💧", "Sanitation" if not pa else "ਸੈਨਿਟੇਸ਼ਨ", "Sanitation"),
         ("🌱", "Healthy Habits" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ", "Healthy Habits"),
+        ("🇮🇳", "Community Challenge" if not pa else "ਭਾਈਚਾਰਕ ਚੁਣੌਤੀ", "Community Challenge"),
     ]
     for _i, (_icon, _label, _dest) in enumerate(_hub_items):
         with _hub_cards[_i]:
@@ -460,14 +462,14 @@ if st.session_state.ds_page == 3:
     with st.expander(symptoms_title):
         st.write(symptoms_text)
     
-    st.caption("D-SMART | Science Exhibition Project")
+    st.caption("SEHAT SAATHI | Science Exhibition Project")
     
     st.divider()
     
     
 
 if st.session_state.ds_page == 4:
-    # ---------- D-SMART REPORT ASSISTANT ----------
+    # ---------- SEHAT SAATHI REPORT ASSISTANT ----------
     st.header(
         "🧪 Vitamin D Report Assistant"
         if not pa else
@@ -671,8 +673,8 @@ if st.session_state.ds_page == 5:
             "options": ["Yes, it replaces a blood test", "No, it is for education only", "Only from age"],
             "options_pa": ["ਹਾਂ, ਇਹ ਖੂਨ ਟੈਸਟ ਦੀ ਥਾਂ ਲੈਂਦਾ ਹੈ", "ਨਹੀਂ, ਇਹ ਸਿਰਫ਼ ਸਿੱਖਿਆ ਲਈ ਹੈ", "ਸਿਰਫ਼ ਉਮਰ ਤੋਂ"],
             "answer": 1,
-            "why": "D-SMART provides education only and cannot diagnose a condition.",
-            "why_pa": "D-SMART ਸਿਰਫ਼ ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ ਅਤੇ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ।"
+            "why": "SEHAT SAATHI provides education only and cannot diagnose a condition.",
+            "why_pa": "SEHAT SAATHI ਸਿਰਫ਼ ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ ਅਤੇ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ।"
         }
     ]
     
@@ -820,15 +822,15 @@ if st.session_state.ds_page == 6:
             """
             <div class="ds-credit-hero">
               <div class="ds-credit-sun">☀️</div>
-              <div class="ds-credit-title">D-SMART</div>
-              <div class="ds-credit-sub">ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ</div>
+              <div class="ds-credit-title">SEHAT SAATHI</div>
+              <div class="ds-credit-sub">AI ਸਿਹਤ, ਸਫ਼ਾਈ ਅਤੇ ਸੈਨਿਟੇਸ਼ਨ ਪਲੇਟਫਾਰਮ</div>
               <div><span class="ds-credit-tag">🔬 ਵਿਗਿਆਨ</span><span class="ds-credit-tag">💻 ਤਕਨਾਲੋਜੀ</span><span class="ds-credit-tag">💚 ਸਿਹਤ ਜਾਗਰੂਕਤਾ</span></div>
             </div>
             """,
             unsafe_allow_html=True
         )
         st.markdown("### 🎯 ਪ੍ਰੋਜੈਕਟ ਦਾ ਉਦੇਸ਼")
-        st.write("D-SMART ਵਿਟਾਮਿਨ D, ਨਿੱਜੀ ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸੈਨਿਟੇਸ਼ਨ, ਕੂੜਾ ਪ੍ਰਬੰਧਨ ਅਤੇ ਸਿਹਤਮੰਦ ਰੋਜ਼ਾਨਾ ਆਦਤਾਂ ਬਾਰੇ ਦੋ-ਭਾਸ਼ਾਈ ਸਿੱਖਿਆ ਪਲੇਟਫਾਰਮ ਹੈ।")
+        st.write("SEHAT SAATHI ਵਿਟਾਮਿਨ D, ਨਿੱਜੀ ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸੈਨਿਟੇਸ਼ਨ, ਕੂੜਾ ਪ੍ਰਬੰਧਨ ਅਤੇ ਸਿਹਤਮੰਦ ਰੋਜ਼ਾਨਾ ਆਦਤਾਂ ਬਾਰੇ ਦੋ-ਭਾਸ਼ਾਈ ਸਿੱਖਿਆ ਪਲੇਟਫਾਰਮ ਹੈ।")
 
         st.markdown("### 🤝 ਪ੍ਰੋਜੈਕਟ ਟੀਮ")
         _c1, _c2 = st.columns(2)
@@ -845,6 +847,8 @@ if st.session_state.ds_page == 6:
             "🧼 ਹੱਥਾਂ, ਮੂੰਹ, ਭੋਜਨ ਅਤੇ ਨਿੱਜੀ ਸਫ਼ਾਈ ਬਾਰੇ ਸਿੱਖਿਆ",
             "💧 ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਟਾਇਲਟ ਸਫ਼ਾਈ ਅਤੇ ਕੂੜਾ ਪ੍ਰਬੰਧਨ",
             "🌱 ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਲਈ ਇੰਟਰਐਕਟਿਵ ਟ੍ਰੈਕਰ",
+            "🇮🇳 ਭਾਈਚਾਰਕ ਸਿਹਤ ਜਾਗਰੂਕਤਾ ਚੁਣੌਤੀ",
+            "🎯 ਵਿਕਸਿਤ ਭਾਰਤ @2047 ਵਿੱਚ ਯੋਗਦਾਨ",
             "🤖 ਸਿਹਤ, ਸਫ਼ਾਈ ਅਤੇ ਸੈਨਿਟੇਸ਼ਨ ਲਈ AI ਸਹਾਇਕ",
         ]:
             st.markdown(f'<div class="ds-credit-feature">{_feature}</div>', unsafe_allow_html=True)
@@ -857,15 +861,15 @@ if st.session_state.ds_page == 6:
             """
             <div class="ds-credit-hero">
               <div class="ds-credit-sun">☀️</div>
-              <div class="ds-credit-title">D-SMART</div>
-              <div class="ds-credit-sub">Vitamin D Awareness Assistant</div>
+              <div class="ds-credit-title">SEHAT SAATHI</div>
+              <div class="ds-credit-sub">AI Health, Hygiene & Sanitation Platform</div>
               <div><span class="ds-credit-tag">🔬 Science</span><span class="ds-credit-tag">💻 Technology</span><span class="ds-credit-tag">💚 Health Awareness</span></div>
             </div>
             """,
             unsafe_allow_html=True
         )
         st.markdown("### 🎯 Project Purpose")
-        st.write("D-SMART is a bilingual educational platform covering Vitamin D awareness, personal hygiene, safe water, sanitation, waste management and healthier everyday habits.")
+        st.write("SEHAT SAATHI is a bilingual educational platform covering Vitamin D awareness, personal hygiene, safe water, sanitation, waste management and healthier everyday habits.")
 
         st.markdown("### 🤝 Project Team")
         _c1, _c2 = st.columns(2)
@@ -882,20 +886,22 @@ if st.session_state.ds_page == 6:
             "🧼 Hand, oral, food and personal hygiene learning",
             "💧 Safe water, toilet hygiene and waste management",
             "🌱 Interactive healthy-habits tracker",
+            "🇮🇳 Community Health Awareness Challenge",
+            "🎯 Contribution to Viksit Bharat @2047",
             "🤖 AI assistant for health, hygiene and sanitation education",
         ]:
             st.markdown(f'<div class="ds-credit-feature">{_feature}</div>', unsafe_allow_html=True)
 
-        st.warning("Important: D-SMART is for education and awareness only. It does not replace medical testing, diagnosis, treatment, or professional medical advice.")
+        st.warning("Important: SEHAT SAATHI is for education and awareness only. It does not replace medical testing, diagnosis, treatment, or professional medical advice.")
         st.markdown('<div class="ds-credit-footer">Science Exhibition Project • Academic Session 2026–27<br>Knowledge • Awareness • Better Health</div>', unsafe_allow_html=True)
 
 
 if st.session_state.ds_page == 7:
     # ---------- GEMINI-POWERED AI HEALTH EDUCATION ASSISTANT ----------
     st.header(
-        "🤖 D-SMART AI Assistant"
+        "🤖 SEHAT SAATHI AI Health Mentor"
         if not pa else
-        "🤖 D-SMART AI ਸਹਾਇਕ"
+        "🤖 SEHAT SAATHI AI ਸਿਹਤ ਸਾਥੀ"
     )
     st.write(
         "Ask about Vitamin D, hygiene, safe water, sanitation and healthy habits in simple language."
@@ -967,7 +973,7 @@ if st.session_state.ds_page == 7:
                 else "Answer in clear, simple English."
             )
             _ds_system_instruction = (
-                "You are D-SMART, an AI health-education assistant for general Vitamin D science, personal hygiene, food hygiene, safe drinking water, sanitation, waste management and healthy habits. "
+                "You are SEHAT SAATHI, an AI health-education assistant for general Vitamin D science, personal hygiene, food hygiene, safe drinking water, sanitation, waste management and healthy habits. "
                 "Provide concise, evidence-informed educational explanations for school students and the public. "
                 "Do not diagnose, estimate an individual's Vitamin D status, interpret a personal medical case, "
                 "prescribe treatment, or recommend supplement doses. Do not claim symptoms alone prove deficiency. "
@@ -983,8 +989,8 @@ if st.session_state.ds_page == 7:
                 from google import genai
                 _ds_client = genai.Client(api_key=_ds_gemini_key)
                 with st.spinner(
-                    "D-SMART AI is preparing an answer..." if not pa
-                    else "D-SMART AI ਜਵਾਬ ਤਿਆਰ ਕਰ ਰਿਹਾ ਹੈ..."
+                    "SEHAT SAATHI AI is preparing an answer..." if not pa
+                    else "SEHAT SAATHI AI ਜਵਾਬ ਤਿਆਰ ਕਰ ਰਿਹਾ ਹੈ..."
                 ):
                     _ds_response = _ds_client.models.generate_content(
                         model="gemini-3.8-flash",
@@ -1080,7 +1086,7 @@ if st.session_state.ds_page == 8:
             st.success("Correct! Hands can carry germs even when they look clean." if not pa else "ਸਹੀ! ਹੱਥ ਸਾਫ਼ ਦਿਸਣ ਦੇ ਬਾਵਜੂਦ ਉਨ੍ਹਾਂ 'ਤੇ ਕੀਟਾਣੂ ਹੋ ਸਕਦੇ ਹਨ।")
         else:
             st.info("Try again: wash before eating and after using the toilet, among other important times." if not pa else "ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ: ਖਾਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਟਾਇਲਟ ਤੋਂ ਬਾਅਦ ਸਮੇਤ ਹੋਰ ਜ਼ਰੂਰੀ ਸਮਿਆਂ 'ਤੇ ਹੱਥ ਧੋਵੋ।")
-    st.caption("D-SMART provides education, not individual medical advice." if not pa else "D-SMART ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ, ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਨਹੀਂ।")
+    st.caption("SEHAT SAATHI provides education, not individual medical advice." if not pa else "SEHAT SAATHI ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ, ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਨਹੀਂ।")
 
 
 if st.session_state.ds_page == 9:
@@ -1191,6 +1197,49 @@ if st.session_state.ds_page == 10:
     )
     st.caption("Your checklist is kept only in this app session and is not a medical record." if not pa else "ਤੁਹਾਡੀ ਸੂਚੀ ਸਿਰਫ਼ ਇਸ ਐਪ ਸੈਸ਼ਨ ਵਿੱਚ ਰਹਿੰਦੀ ਹੈ ਅਤੇ ਇਹ ਮੈਡੀਕਲ ਰਿਕਾਰਡ ਨਹੀਂ ਹੈ।")
 
+
+
+if st.session_state.ds_page == 11:
+    st.header("🇮🇳 " + ("Community Health Awareness Challenge" if not pa else "ਭਾਈਚਾਰਕ ਸਿਹਤ ਜਾਗਰੂਕਤਾ ਚੁਣੌਤੀ"))
+    st.write(
+        "Take this short learning challenge, then encourage your classmates or family to discuss one practical action for a healthier, cleaner community."
+        if not pa else
+        "ਇਹ ਛੋਟੀ ਸਿੱਖਣ ਚੁਣੌਤੀ ਪੂਰੀ ਕਰੋ ਅਤੇ ਫਿਰ ਆਪਣੇ ਸਾਥੀਆਂ ਜਾਂ ਪਰਿਵਾਰ ਨਾਲ ਤੰਦਰੁਸਤ ਤੇ ਸਾਫ਼ ਭਾਈਚਾਰੇ ਲਈ ਇੱਕ ਅਮਲੀ ਕਦਮ ਬਾਰੇ ਗੱਲ ਕਰੋ।"
+    )
+    st.info(
+        "Small actions, shared by many people, can support the Viksit Bharat @2047 vision."
+        if not pa else
+        "ਬਹੁਤ ਸਾਰੇ ਲੋਕਾਂ ਦੇ ਛੋਟੇ-ਛੋਟੇ ਕਦਮ ਵਿਕਸਿਤ ਭਾਰਤ @2047 ਦੇ ਸੁਪਨੇ ਨੂੰ ਮਜ਼ਬੂਤ ਕਰ ਸਕਦੇ ਹਨ।"
+    )
+    _community_questions = [
+        ("Which action helps prevent the spread of many infections?", "Wash hands with soap", ["Share drinking cups", "Skip handwashing"], "ਕਿਹੜਾ ਕਦਮ ਕਈ ਇਨਫੈਕਸ਼ਨਾਂ ਦੇ ਫੈਲਾਅ ਨੂੰ ਰੋਕਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ?", "ਸਾਬਣ ਨਾਲ ਹੱਥ ਧੋਣੇ", ["ਇੱਕੋ ਗਿਲਾਸ ਸਾਂਝਾ ਕਰਨਾ", "ਹੱਥ ਨਾ ਧੋਣਾ"]),
+        ("What should you do with a used battery?", "Take it to an approved collection point", ["Put it in wet waste", "Throw it into a drain"], "ਵਰਤੀ ਹੋਈ ਬੈਟਰੀ ਦਾ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?", "ਇਸ ਨੂੰ ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਇਕੱਠਾ ਕਰਨ ਵਾਲੀ ਥਾਂ ਦੇਣਾ", ["ਗਿੱਲੇ ਕੂੜੇ ਵਿੱਚ ਪਾਉਣਾ", "ਨਾਲੀ ਵਿੱਚ ਸੁੱਟਣਾ"]),
+        ("Which is important for safer drinking water?", "Use a safe source and proper treatment", ["Assume all clear water is safe", "Store it in an uncovered container"], "ਸੁਰੱਖਿਅਤ ਪੀਣ ਵਾਲੇ ਪਾਣੀ ਲਈ ਕੀ ਜ਼ਰੂਰੀ ਹੈ?", "ਸੁਰੱਖਿਅਤ ਸਰੋਤ ਅਤੇ ਢੁੱਕਵਾਂ ਸ਼ੁੱਧੀਕਰਨ", ["ਸਾਫ਼ ਦਿਸਦੇ ਹਰ ਪਾਣੀ ਨੂੰ ਸੁਰੱਖਿਅਤ ਮੰਨਣਾ", "ਖੁੱਲ੍ਹੇ ਭਾਂਡੇ ਵਿੱਚ ਰੱਖਣਾ"]),
+        ("Who helps create a cleaner community?", "Everyone, together", ["Only sanitation workers", "Only students"], "ਸਾਫ਼ ਭਾਈਚਾਰਾ ਬਣਾਉਣ ਵਿੱਚ ਕੌਣ ਯੋਗਦਾਨ ਪਾਉਂਦਾ ਹੈ?", "ਸਾਰੇ ਮਿਲ ਕੇ", ["ਸਿਰਫ਼ ਸਫ਼ਾਈ ਕਰਮਚਾਰੀ", "ਸਿਰਫ਼ ਵਿਦਿਆਰਥੀ"]),
+        ("What is a useful school-community action?", "Share reliable health and hygiene awareness", ["Spread unverified health claims", "Ignore leaking taps"], "ਸਕੂਲ ਅਤੇ ਭਾਈਚਾਰੇ ਲਈ ਕਿਹੜਾ ਕਦਮ ਲਾਭਦਾਇਕ ਹੈ?", "ਭਰੋਸੇਯੋਗ ਸਿਹਤ ਅਤੇ ਸਫ਼ਾਈ ਜਾਗਰੂਕਤਾ ਸਾਂਝੀ ਕਰਨੀ", ["ਬਿਨਾਂ ਜਾਂਚੀਆਂ ਸਿਹਤ ਗੱਲਾਂ ਫੈਲਾਉਣੀਆਂ", "ਟਪਕਦੇ ਨਲਾਂ ਨੂੰ ਅਣਡਿੱਠਾ ਕਰਨਾ"]),
+    ]
+    _community_answers = []
+    for _qi, _q in enumerate(_community_questions):
+        _prompt = _q[3] if pa else _q[0]
+        _correct = _q[4] if pa else _q[1]
+        _wrong = _q[5] if pa else _q[2]
+        _community_answers.append(st.radio(_prompt, [_correct] + _wrong, key="ds_community_q_" + str(_qi)))
+    if st.button("Check my challenge" if not pa else "ਮੇਰੀ ਚੁਣੌਤੀ ਦੇ ਜਵਾਬ ਵੇਖੋ", type="primary", key="ds_community_check"):
+        _score = sum(1 for _i, _answer in enumerate(_community_answers) if _answer == (_community_questions[_i][4] if pa else _community_questions[_i][1]))
+        st.success(
+            (f"You got {_score} out of 5. Keep learning and share one positive health action in your community!" if not pa else f"ਤੁਹਾਡੇ 5 ਵਿੱਚੋਂ {_score} ਜਵਾਬ ਸਹੀ ਹਨ। ਸਿੱਖਦੇ ਰਹੋ ਅਤੇ ਆਪਣੇ ਭਾਈਚਾਰੇ ਵਿੱਚ ਸਿਹਤ ਲਈ ਇੱਕ ਚੰਗਾ ਕਦਮ ਸਾਂਝਾ ਕਰੋ!")
+        )
+    st.markdown("### " + ("My community action" if not pa else "ਮੇਰਾ ਭਾਈਚਾਰਕ ਕਦਮ"))
+    st.write(
+        "Choose one realistic action: promote handwashing, keep drinking-water containers covered, use the correct waste bin, save water, or share trusted health information."
+        if not pa else
+        "ਇੱਕ ਅਮਲੀ ਕਦਮ ਚੁਣੋ: ਹੱਥ ਧੋਣ ਲਈ ਪ੍ਰੇਰਿਤ ਕਰਨਾ, ਪਾਣੀ ਦੇ ਭਾਂਡੇ ਢੱਕ ਕੇ ਰੱਖਣਾ, ਸਹੀ ਕੂੜੇਦਾਨ ਵਰਤਣਾ, ਪਾਣੀ ਬਚਾਉਣਾ ਜਾਂ ਭਰੋਸੇਯੋਗ ਸਿਹਤ ਜਾਣਕਾਰੀ ਸਾਂਝੀ ਕਰਨੀ।"
+    )
+    st.caption(
+        "This is a learning activity. It does not collect or publish personal information."
+        if not pa else
+        "ਇਹ ਸਿੱਖਣ ਦੀ ਗਤੀਵਿਧੀ ਹੈ। ਇਹ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਇਕੱਠੀ ਜਾਂ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਕਰਦੀ।"
+    )
 
 
 # Bottom navigation appears after each functional screen.
