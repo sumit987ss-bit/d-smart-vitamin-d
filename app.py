@@ -322,9 +322,9 @@ if st.session_state.ds_page == 3:
         "ਨਿੱਜੀ ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸੈਨਿਟੇਸ਼ਨ, ਕੂੜਾ ਪ੍ਰਬੰਧਨ ਅਤੇ ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਬਾਰੇ ਸਵਾਲ ਪੁੱਛੋ।"
     )
     st.info(
-        "Education only: the AI cannot diagnose a condition, interpret your personal case, or recommend supplement doses. Do not enter names, contact details, report photos, or other private health information."
+        "Education only: the AI provides general information, not personal medical advice. Do not enter names, contact details, medical reports, or other private health information."
         if not pa else
-        "ਸਿਰਫ਼ ਸਿੱਖਿਆ ਲਈ: AI ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ, ਨਿੱਜੀ ਮੈਡੀਕਲ ਕੇਸ ਦੀ ਵਿਆਖਿਆ ਜਾਂ ਸਪਲੀਮੈਂਟ ਦੀ ਖੁਰਾਕ ਨਹੀਂ ਦੱਸਦਾ। ਨਾਮ, ਸੰਪਰਕ ਵੇਰਵੇ, ਰਿਪੋਰਟ ਦੀਆਂ ਤਸਵੀਰਾਂ ਜਾਂ ਨਿੱਜੀ ਸਿਹਤ ਜਾਣਕਾਰੀ ਨਾ ਦਰਜ ਕਰੋ।"
+        "ਸਿਰਫ਼ ਸਿੱਖਿਆ ਲਈ: AI ਆਮ ਜਾਣਕਾਰੀ ਦਿੰਦਾ ਹੈ, ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਨਹੀਂ। ਨਾਮ, ਸੰਪਰਕ ਵੇਰਵੇ, ਮੈਡੀਕਲ ਰਿਪੋਰਟਾਂ ਜਾਂ ਹੋਰ ਨਿੱਜੀ ਸਿਹਤ ਜਾਣਕਾਰੀ ਨਾ ਦਰਜ ਕਰੋ।"
     )
 
     try:
@@ -389,8 +389,7 @@ if st.session_state.ds_page == 3:
                 "You are SEHAT SAATHI, an AI health-education assistant for personal hygiene, food hygiene, safe drinking water, sanitation, waste management and healthy habits. "
                 "Provide concise, evidence-informed educational explanations for school students and the public. "
                 "Do not diagnose or interpret a personal medical case, "
-                "prescribe treatment, or recommend supplement doses. Do not claim symptoms alone prove deficiency. "
-                "For personal lab results, medication/supplement questions, pregnancy, children, or ongoing symptoms, "
+                "or prescribe treatment. For personal medical concerns, medication questions, or ongoing symptoms, "
                 "recommend discussing the matter with a qualified healthcare professional. Never request identifying "
                 "or private health information. If a question is unrelated to general health, hygiene, sanitation or wellness education, "
                 "politely explain the assistant's limited scope. Be transparent about uncertainty and do not invent facts. "
