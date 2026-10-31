@@ -727,9 +727,43 @@ if st.session_state.ds_page == 4:
             "ਬਾਹਰ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਸਮਾਂ ਬਿਤਾਓ, ਮੌਸਮ ਅਨੁਸਾਰ ਧੁੱਪ ਤੋਂ ਬਚਾਅ ਕਰੋ, ਆਲੇ-ਦੁਆਲੇ ਸਾਫ਼ ਰੱਖੋ, ਤੰਬਾਕੂ ਅਤੇ ਵੇਪਿੰਗ ਤੋਂ ਦੂਰ ਰਹੋ ਅਤੇ ਕਿਸੇ ਹੋਰ ਦੀ ਦਵਾਈ ਕਦੇ ਨਾ ਵਰਤੋ। ਸਿਹਤ ਬਾਰੇ ਕਿਸੇ ਗੱਲ 'ਤੇ ਸ਼ੱਕ ਹੋਵੇ ਤਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਜਾਂ ਯੋਗ ਮਾਹਿਰ ਤੋਂ ਪੁੱਛੋ।"
         ),
     ]
-    for _topic, _details in _health_topics:
-        with st.expander(_topic):
-            st.write(_details)
+    _health_visuals = [
+        ("🥗", "A colourful plate, many food groups", "ਰੰਗ-ਬਿਰੰਗੀ ਥਾਲੀ, ਕਈ ਭੋਜਨ ਸਮੂਹ"),
+        ("🚴", "Move, play and enjoy being active", "ਹਿਲੋ-ਜੁਲੋ, ਖੇਡੋ ਅਤੇ ਸਰਗਰਮ ਰਹੋ"),
+        ("🌙", "Rest helps the mind and body recharge", "ਆਰਾਮ ਮਨ ਅਤੇ ਸਰੀਰ ਨੂੰ ਤਾਜ਼ਗੀ ਦਿੰਦਾ ਹੈ"),
+        ("💚", "Feelings matter. Talking can help.", "ਭਾਵਨਾਵਾਂ ਮਹੱਤਵਪੂਰਨ ਹਨ। ਗੱਲ ਕਰਨਾ ਮਦਦਗਾਰ ਹੈ।"),
+        ("🛡️", "Small protective habits make a difference", "ਛੋਟੀਆਂ ਸੁਰੱਖਿਅਤ ਆਦਤਾਂ ਵੱਡਾ ਫ਼ਰਕ ਪਾਉਂਦੀਆਂ ਹਨ"),
+        ("🩺", "Know when to ask a trusted adult for help", "ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਤੋਂ ਮਦਦ ਕਦੋਂ ਲੈਣੀ ਹੈ, ਜਾਣੋ"),
+        ("☀️", "Make safe choices every day", "ਹਰ ਰੋਜ਼ ਸੁਰੱਖਿਅਤ ਚੋਣਾਂ ਕਰੋ"),
+    ]
+    _health_palette = [
+        ("#e0f5e9", "#b6e7d0"), ("#e2f2ff", "#b8ddfa"),
+        ("#eee9ff", "#d8ceff"), ("#ffe9ef", "#ffd0dc"),
+        ("#e5f5f5", "#bce5e1"), ("#fff1df", "#ffdfb4"),
+        ("#fff7d9", "#ffe9a3"),
+    ]
+    _health_cols = st.columns(2, gap="medium")
+    for _idx, (_topic, _details) in enumerate(_health_topics):
+        _visual, _tag_en, _tag_pa = _health_visuals[_idx]
+        _bg1, _bg2 = _health_palette[_idx]
+        with _health_cols[_idx % 2]:
+            with st.container(border=True):
+                st.markdown(
+                    f"""
+                    <div style="background:linear-gradient(135deg,{_bg1},{_bg2});
+                                border-radius:15px;padding:20px 12px;text-align:center;
+                                min-height:128px;margin-bottom:10px;">
+                      <div style="font-size:54px;line-height:1.25;">{_visual}</div>
+                      <div style="font-size:15px;font-weight:600;color:#245b55;margin-top:8px;">
+                        {_tag_pa if pa else _tag_en}
+                      </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+                st.markdown(f"**{_topic}**")
+                with st.expander("Explore topic" if not pa else "ਵਿਸ਼ਾ ਵੇਖੋ"):
+                    st.write(_details)
 
     st.divider()
     st.subheader("💡 " + ("Health knowledge check" if not pa else "ਸਿਹਤ ਜਾਣਕਾਰੀ ਦੀ ਜਾਂਚ"))
