@@ -705,7 +705,7 @@ if st.session_state.ds_page == 4:
                 ("Chapati / phulka (plain)", "1 medium; made with about 30 g atta", "1 ਦਰਮਿਆਨੀ; ਲਗਭਗ 30 ਗ੍ਰਾਮ ਆਟੇ ਨਾਲ", 100),
                 ("Cooked white rice", "1 katori (150 g)", "1 ਕਟੋਰੀ (150 ਗ੍ਰਾਮ)", 195),
                 ("Cooked brown rice", "1 katori (150 g)", "1 ਕਟੋਰੀ (150 ਗ੍ਰਾਮ)", 165),
-                ("Cooked oats porridge, plain", "1 cup (about 230 g)", "1 ਕੱਪ (ਲਗਭਗ 230 ਗ੍ਰਾਮ)",  wa := 150),
+                ("Cooked oats porridge, plain", "1 cup (about 230 g)", "1 ਕੱਪ (ਲਗਭਗ 230 ਗ੍ਰਾਮ)", 150),
                 ("Plain idli", "1 medium piece", "1 ਦਰਮਿਆਨੀ ਇਡਲੀ", 60),
                 ("Plain dosa", "1 medium dosa", "1 ਦਰਮਿਆਨਾ ਡੋਸਾ", 150),
                 ("Cooked poha", "1 medium bowl (about 150 g)", "1 ਦਰਮਿਆਨੀ ਕਟੋਰੀ (ਲਗਭਗ 150 ਗ੍ਰਾਮ)", 210),
@@ -747,7 +747,7 @@ if st.session_state.ds_page == 4:
                 ("Potato, boiled", "1 medium (about 150 g)", "1 ਦਰਮਿਆਨਾ (ਲਗਭਗ 150 ਗ੍ਰਾਮ)", 130),
                 ("Cauliflower, cooked", "1 cup", "1 ਕੱਪ ਪੱਕੀ ਹੋਈ", 30),
                 ("Pumpkin, cooked", "1 cup", "1 ਕੱਪ ਪੱਕਾ ਹੋਇਆ", 50),
-                ("Okra / bhindi, cooked", "1 cup, lightly cooked", "1 ਕੱਪ, ਹਲਕੀ ਪੱਕੀ ਹੋਈ", 技巧 := 60),
+                ("Okra / bhindi, cooked", "1 cup, lightly cooked", "1 ਕੱਪ, ਹਲਕੀ ਪੱਕੀ ਹੋਈ", 60),
             ],
             "Milk, nuts & other foods": [
                 ("Toned milk", "1 glass (250 ml)", "1 ਗਲਾਸ (250 ਮਿ.ਲੀ.)", 150),
