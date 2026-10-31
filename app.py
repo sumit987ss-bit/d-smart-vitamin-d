@@ -1120,15 +1120,17 @@ if st.session_state.ds_page == 9:
         "Choose an item" if not pa else "ਇੱਕ ਚੀਜ਼ ਚੁਣੋ",
         ["Vegetable peels", "Clean paper/cardboard", "Plastic bottle", "Used battery"],
         format_func=lambda x: (
-            {"Vegetable peels":"Vegetable peels — wet/biodegradable",
-             "Clean paper/cardboard":"Clean paper/cardboard — dry recyclable",
-             "Plastic bottle":"Plastic bottle — dry recyclable where accepted",
-             "Used battery":"Used battery — household hazardous/e-waste collection"}
-            if not pa else
-            {"Vegetable peels":"ਸਬਜ਼ੀਆਂ ਦੇ ਛਿਲਕੇ — ਗਿੱਲਾ/ਜੈਵਿਕ ਕੂੜਾ",
-             "Clean paper/cardboard":"ਸਾਫ਼ ਕਾਗਜ਼/ਗੱਤਾ — ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਕੂੜਾ",
-             "Plastic bottle":"ਪਲਾਸਟਿਕ ਬੋਤਲ — ਜਿੱਥੇ ਸਵੀਕਾਰ ਹੋਵੇ ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਕੂੜਾ",
-             "Used battery":"ਵਰਤੀ ਬੈਟਰੀ — ਖਤਰਨਾਕ/ਈ-ਕੂੜਾ ਇਕੱਠਾ ਕਰਨ ਵਾਲੀ ਥਾਂ"}[x]
+            ({
+                "Vegetable peels":"Vegetable peels — wet/biodegradable",
+                "Clean paper/cardboard":"Clean paper/cardboard — dry recyclable",
+                "Plastic bottle":"Plastic bottle — dry recyclable where accepted",
+                "Used battery":"Used battery — household hazardous/e-waste collection"
+            } if not pa else {
+                "Vegetable peels":"ਸਬਜ਼ੀਆਂ ਦੇ ਛਿਲਕੇ — ਗਿੱਲਾ/ਜੈਵਿਕ ਕੂੜਾ",
+                "Clean paper/cardboard":"ਸਾਫ਼ ਕਾਗਜ਼/ਗੱਤਾ — ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਕੂੜਾ",
+                "Plastic bottle":"ਪਲਾਸਟਿਕ ਬੋਤਲ — ਜਿੱਥੇ ਸਵੀਕਾਰ ਹੋਵੇ ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਕੂੜਾ",
+                "Used battery":"ਵਰਤੀ ਬੈਟਰੀ — ਖਤਰਨਾਕ/ਈ-ਕੂੜਾ ਇਕੱਠਾ ਕਰਨ ਵਾਲੀ ਥਾਂ"
+            })[x]
         ),
         key="ds_waste_item"
     )
