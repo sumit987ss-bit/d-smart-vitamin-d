@@ -677,117 +677,194 @@ if st.session_state.ds_page == 8:
 
 
 if st.session_state.ds_page == 4:
-    st.header("❤️ " + ("Health Learning Hub" if not pa else "ਸਿਹਤ ਸਿੱਖਿਆ ਕੇਂਦਰ"))
-    st.write(
-        "Build health literacy with reliable, age-appropriate information about the body, daily wellbeing and prevention. Good health is supported by personal choices as well as safe homes, schools and communities."
-        if not pa else
-        "ਸਰੀਰ, ਰੋਜ਼ਾਨਾ ਤੰਦਰੁਸਤੀ ਅਤੇ ਬਿਮਾਰੀਆਂ ਤੋਂ ਬਚਾਅ ਬਾਰੇ ਭਰੋਸੇਯੋਗ ਅਤੇ ਉਮਰ-ਅਨੁਕੂਲ ਜਾਣਕਾਰੀ ਨਾਲ ਸਿਹਤ ਦੀ ਸਮਝ ਵਧਾਓ। ਚੰਗੀ ਸਿਹਤ ਲਈ ਨਿੱਜੀ ਆਦਤਾਂ ਦੇ ਨਾਲ ਸੁਰੱਖਿਅਤ ਘਰ, ਸਕੂਲ ਅਤੇ ਭਾਈਚਾਰਾ ਵੀ ਜ਼ਰੂਰੀ ਹਨ।"
+    st.header("❤️ " + ("Health Facts Explorer" if not pa else "ਸਿਹਤ ਤੱਥ ਐਕਸਪਲੋਰਰ"))
+    st.caption(
+        "Explore everyday food values, body facts and quick challenges." if not pa
+        else "ਰੋਜ਼ਾਨਾ ਭੋਜਨ ਦੇ ਪੋਸ਼ਕ ਤੱਥ, ਸਰੀਰ ਬਾਰੇ ਜਾਣਕਾਰੀ ਅਤੇ ਛੋਟੀਆਂ ਚੁਣੌਤੀਆਂ ਵੇਖੋ।"
     )
-    _health_topics = [
-        (
-            "🥗 Balanced nutrition" if not pa else "🥗 ਸੰਤੁਲਿਤ ਪੋਸ਼ਣ",
-            "Eat a variety of foods such as vegetables, fruits, pulses, whole grains, nuts and suitable protein sources. Drink safe water and enjoy meals without skipping or following extreme diets. Food needs vary with age, activity, culture and health; no single food provides everything."
+
+    _health_tabs = st.tabs([
+        "🥗 Food facts" if not pa else "🥗 ਭੋਜਨ ਤੱਥ",
+        "🏃 Move & play" if not pa else "🏃 ਖੇਡੋ ਤੇ ਹਿਲੋ",
+        "🌙 Sleep lab" if not pa else "🌙 ਨੀਂਦ ਲੈਬ",
+        "🧠 Mind matters" if not pa else "🧠 ਮਨ ਦੀ ਸੰਭਾਲ",
+        "🦠 Germ detective" if not pa else "🦠 ਕੀਟਾਣੂ ਜਾਸੂਸ",
+        "🩺 Body check" if not pa else "🩺 ਸਿਹਤ ਜਾਂਚ",
+        "☀️ Safety zone" if not pa else "☀️ ਸੁਰੱਖਿਆ ਜ਼ੋਨ",
+    ])
+
+    with _health_tabs[0]:
+        st.subheader("🍎 " + ("Indian food energy guide" if not pa else "ਭਾਰਤੀ ਭੋਜਨ ਦੀ ਊਰਜਾ ਜਾਣਕਾਰੀ"))
+        st.write(
+            "Choose a food group to see approximate energy in a familiar serving. Calories are energy—not a score for whether a food is good or bad."
             if not pa else
-            "ਸਬਜ਼ੀਆਂ, ਫਲ, ਦਾਲਾਂ, ਸਾਬਤ ਅਨਾਜ, ਮੇਵੇ ਅਤੇ ਢੁੱਕਵੇਂ ਪ੍ਰੋਟੀਨ ਵਾਲੇ ਵੱਖ-ਵੱਖ ਭੋਜਨ ਖਾਓ। ਸੁਰੱਖਿਅਤ ਪਾਣੀ ਪੀਓ ਅਤੇ ਖਾਣਾ ਛੱਡਣ ਜਾਂ ਬਹੁਤ ਸਖ਼ਤ ਡਾਇਟਾਂ ਦੀ ਥਾਂ ਸੰਤੁਲਿਤ ਭੋਜਨ ਚੁਣੋ। ਭੋਜਨ ਦੀ ਲੋੜ ਉਮਰ, ਸਰਗਰਮੀ, ਸੱਭਿਆਚਾਰ ਅਤੇ ਸਿਹਤ ਅਨੁਸਾਰ ਵੱਖ ਹੋ ਸਕਦੀ ਹੈ। ਕੋਈ ਇੱਕ ਭੋਜਨ ਸਾਰੇ ਪੋਸ਼ਕ ਤੱਤ ਨਹੀਂ ਦਿੰਦਾ।"
-        ),
-        (
-            "🏃 Physical activity and movement" if not pa else "🏃 ਸਰੀਰਕ ਸਰਗਰਮੀ ਅਤੇ ਹਿਲਜੁਲ",
-            "Regular enjoyable movement supports the heart, muscles, bones, mood and concentration. Walking, cycling, dancing, games and active play all count. Choose activities that are safe and suitable for your age and ability, take breaks, and avoid comparing your activity or body with others."
+            "ਆਮ ਖੁਰਾਕ ਦੀ ਇੱਕ ਮਾਤਰਾ ਵਿੱਚ ਲਗਭਗ ਊਰਜਾ ਵੇਖਣ ਲਈ ਭੋਜਨ ਸਮੂਹ ਚੁਣੋ। ਕੈਲੋਰੀ ਊਰਜਾ ਦੀ ਮਾਪ ਹੈ—ਇਹ ਭੋਜਨ ਦੇ ਚੰਗੇ ਜਾਂ ਮਾੜੇ ਹੋਣ ਦਾ ਅੰਕ ਨਹੀਂ।"
+        )
+        _food_groups = {
+            "Grains & breads": [
+                ("Chapati / phulka (plain)", "1 medium; made with about 30 g atta", "1 ਦਰਮਿਆਨੀ; ਲਗਭਗ 30 ਗ੍ਰਾਮ ਆਟੇ ਨਾਲ", 100),
+                ("Cooked white rice", "1 katori (150 g)", "1 ਕਟੋਰੀ (150 ਗ੍ਰਾਮ)", 195),
+                ("Cooked brown rice", "1 katori (150 g)", "1 ਕਟੋਰੀ (150 ਗ੍ਰਾਮ)", 165),
+                ("Cooked oats porridge, plain", "1 cup (about 230 g)", "1 ਕੱਪ (ਲਗਭਗ 230 ਗ੍ਰਾਮ)",  wa := 150),
+                ("Plain idli", "1 medium piece", "1 ਦਰਮਿਆਨੀ ਇਡਲੀ", 60),
+                ("Plain dosa", "1 medium dosa", "1 ਦਰਮਿਆਨਾ ਡੋਸਾ", 150),
+                ("Cooked poha", "1 medium bowl (about 150 g)", "1 ਦਰਮਿਆਨੀ ਕਟੋਰੀ (ਲਗਭਗ 150 ਗ੍ਰਾਮ)", 210),
+                ("Bajra roti", "1 medium; no added ghee", "1 ਦਰਮਿਆਨੀ; ਘਿਓ ਤੋਂ ਬਿਨਾਂ", 120),
+                ("Jowar roti", "1 medium; no added ghee", "1 ਦਰਮਿਆਨੀ; ਘਿਓ ਤੋਂ ਬਿਨਾਂ", 100),
+                ("Whole-wheat bread", "1 slice (about 30 g)", "1 ਸਲਾਈਸ (ਲਗਭਗ 30 ਗ੍ਰਾਮ)", 75),
+            ],
+            "Pulses & beans": [
+                ("Cooked moong dal", "1 katori (150 g), light tadka", "1 ਕਟੋਰੀ (150 ਗ੍ਰਾਮ), ਹਲਕੇ ਤੜਕੇ ਨਾਲ", 150),
+                ("Cooked masoor dal", "1 katori (150 g)", "1 ਕਟੋਰੀ (150 ਗ੍ਰਾਮ)", 160),
+                ("Cooked toor / arhar dal", "1 katori (150 g)", "1 ਕਟੋਰੀ (150 ਗ੍ਰਾਮ)", 170),
+                ("Cooked chana dal", "1 katori (150 g)", "1 ਕਟੋਰੀ (150 ਗ੍ਰਾਮ)", 180),
+                ("Boiled chickpeas / chana", "½ cup (about 80 g)", "½ ਕੱਪ (ਲਗਭਗ 80 ਗ੍ਰਾਮ)", 130),
+                ("Rajma curry", "1 katori (150 g)", "1 ਕਟੋਰੀ (150 ਗ੍ਰਾਮ)", 190),
+                ("Boiled whole moong", "½ cup (about 85 g)", "½ ਕੱਪ (ਲਗਭਗ 85 ਗ੍ਰਾਮ)", 105),
+                ("Boiled peas", "½ cup (about 80 g)", "½ ਕੱਪ (ਲਗਭਗ 80 ਗ੍ਰਾਮ)", 65),
+            ],
+            "Fruits": [
+                ("Apple", "1 medium (about 180 g)", "1 ਦਰਮਿਆਨਾ (ਲਗਭਗ 180 ਗ੍ਰਾਮ)", 95),
+                ("Banana", "1 medium", "1 ਦਰਮਿਆਲਾ", 105),
+                ("Orange", "1 medium", "1 ਦਰਮਿਆਨਾ", 60),
+                ("Guava", "1 medium (about 100 g)", "1 ਦਰਮਿਆਨਾ (ਲਗਭਗ 100 ਗ੍ਰਾਮ)", 68),
+                ("Mango", "1 cup pieces (about 165 g)", "1 ਕੱਪ ਟੁਕੜੇ (ਲਗਭਗ 165 ਗ੍ਰਾਮ)", 100),
+                ("Papaya", "1 cup pieces (about 140 g)", "1 ਕੱਪ ਟੁਕੜੇ (ਲਗਭਗ 140 ਗ੍ਰਾਮ)", 55),
+                ("Watermelon", "1 cup diced (about 150 g)", "1 ਕੱਪ ਕੱਟਿਆ ਹੋਇਆ (ਲਗਭਗ 150 ਗ੍ਰਾਮ)", 45),
+                ("Grapes", "1 cup (about 150 g)", "1 ਕੱਪ (ਲਗਭਗ 150 ਗ੍ਰਾਮ)", 100),
+                ("Pomegranate arils", "½ cup (about 85 g)", "½ ਕੱਪ ਦਾਣੇ (ਲਗਭਗ 85 ਗ੍ਰਾਮ)", 70),
+                ("Pineapple", "1 cup pieces (about 165 g)", "1 ਕੱਪ ਟੁਕੜੇ (ਲਗਭਗ 165 ਗ੍ਰਾਮ)", 82),
+                ("Sweet lime / mosambi", "1 medium", "1 ਦਰਮਿਆਨਾ", 65),
+                ("Pear", "1 medium", "1 ਦਰਮਿਆਨਾ", 100),
+                ("Chikoo", "1 medium", "1 ਦਰਮਿਆਨਾ", 85),
+                ("Litchi", "10 fruits (about 100 g edible)", "10 ਲੀਚੀਆਂ (ਲਗਭਗ 100 ਗ੍ਰਾਮ ਖਾਣਯੋਗ ਹਿੱਸਾ)", 66),
+            ],
+            "Vegetables": [
+                ("Cucumber", "1 cup slices (about 100 g)", "1 ਕੱਪ ਸਲਾਈਸ (ਲਗਭਗ 100 ਗ੍ਰਾਮ)", 15),
+                ("Tomato", "1 medium", "1 ਦਰਮਿਆਨਾ", 22),
+                ("Carrot", "1 medium", "1 ਦਰਮਿਆਨੀ", 25),
+                ("Spinach, cooked", "½ cup", "½ ਕੱਪ ਪੱਕੀ ਹੋਈ", 20),
+                ("Potato, boiled", "1 medium (about 150 g)", "1 ਦਰਮਿਆਨਾ (ਲਗਭਗ 150 ਗ੍ਰਾਮ)", 130),
+                ("Cauliflower, cooked", "1 cup", "1 ਕੱਪ ਪੱਕੀ ਹੋਈ", 30),
+                ("Pumpkin, cooked", "1 cup", "1 ਕੱਪ ਪੱਕਾ ਹੋਇਆ", 50),
+                ("Okra / bhindi, cooked", "1 cup, lightly cooked", "1 ਕੱਪ, ਹਲਕੀ ਪੱਕੀ ਹੋਈ", 技巧 := 60),
+            ],
+            "Milk, nuts & other foods": [
+                ("Toned milk", "1 glass (250 ml)", "1 ਗਲਾਸ (250 ਮਿ.ਲੀ.)", 150),
+                ("Plain curd", "1 small bowl (150 g)", "1 ਛੋਟੀ ਕਟੋਰੀ (150 ਗ੍ਰਾਮ)", 90),
+                ("Paneer", "50 g", "50 ਗ੍ਰਾਮ", 150),
+                ("Almonds", "10 nuts (about 12 g)", "10 ਬਦਾਮ (ਲਗਭਗ 12 ਗ੍ਰਾਮ)", 70),
+                ("Peanuts", "1 small handful (25 g)", "1 ਛੋਟੀ ਮੁੱਠੀ (25 ਗ੍ਰਾਮ)", 145),
+                ("Walnuts", "2 whole kernels (about 10 g)", "2 ਅਖਰੋਟ ਦੀਆਂ ਗਿਰੀਆਂ (ਲਗਭਗ 10 ਗ੍ਰਾਮ)", 65),
+                ("Boiled egg", "1 large", "1 ਵੱਡਾ", 75),
+            ],
+        }
+        _food_group = st.selectbox(
+            "Select food group" if not pa else "ਭੋਜਨ ਸਮੂਹ ਚੁਣੋ",
+            list(_food_groups.keys()),
+            key="health_food_group_v2",
+            format_func=lambda x: ({
+                "Grains & breads": "ਅਨਾਜ ਅਤੇ ਰੋਟੀਆਂ",
+                "Pulses & beans": "ਦਾਲਾਂ ਅਤੇ ਫਲੀਆਂ",
+                "Fruits": "ਫਲ",
+                "Vegetables": "ਸਬਜ਼ੀਆਂ",
+                "Milk, nuts & other foods": "ਦੁੱਧ, ਮੇਵੇ ਅਤੇ ਹੋਰ ਭੋਜਨ",
+            }.get(x, x) if pa else x)
+        )
+        _food_rows = _food_groups[_food_group]
+        st.dataframe(
+            [
+                {
+                    ("Food" if not pa else "ਭੋਜਨ"): row[0],
+                    ("Serving size" if not pa else "ਮਾਤਰਾ"): row[2] if pa else row[1],
+                    ("Approx. kcal" if not pa else "ਲਗਭਗ ਕਿਲੋਕੈਲੋਰੀ"): f"~{row[3]} kcal",
+                }
+                for row in _food_rows
+            ],
+            use_container_width=True,
+            hide_index=True,
+        )
+        st.info(
+            "Values are rounded estimates for the stated serving, not exact measurements. Recipe, size, water content, oil, ghee, sugar and cooking method change the value. Dal/cereal figures above are for the cooked serving shown—not dry raw weight. A varied diet matters more than counting every calorie."
             if not pa else
-            "ਨਿਯਮਿਤ ਅਤੇ ਮਨਪਸੰਦ ਸਰੀਰਕ ਸਰਗਰਮੀ ਦਿਲ, ਮਾਸਪੇਸ਼ੀਆਂ, ਹੱਡੀਆਂ, ਮਨੋਦਸ਼ਾ ਅਤੇ ਧਿਆਨ ਲਈ ਲਾਭਦਾਇਕ ਹੈ। ਤੁਰਨਾ, ਸਾਈਕਲ ਚਲਾਉਣਾ, ਨੱਚਣਾ, ਖੇਡਾਂ ਅਤੇ ਸਰਗਰਮ ਖੇਡਣਾ—ਸਭ ਗਿਣੇ ਜਾਂਦੇ ਹਨ। ਆਪਣੀ ਉਮਰ ਅਤੇ ਸਮਰੱਥਾ ਅਨੁਸਾਰ ਸੁਰੱਖਿਅਤ ਸਰਗਰਮੀ ਚੁਣੋ, ਵਿਚਕਾਰ ਆਰਾਮ ਕਰੋ ਅਤੇ ਆਪਣੀ ਤੁਲਨਾ ਹੋਰਾਂ ਨਾਲ ਨਾ ਕਰੋ।"
-        ),
-        (
-            "😴 Sleep and rest" if not pa else "😴 ਨੀਂਦ ਅਤੇ ਆਰਾਮ",
-            "A regular sleep routine helps learning, memory, mood and general wellbeing. Keep a calming bedtime routine, reduce bright screens close to bedtime when possible, and make the sleeping space comfortable and safe. If sleep problems persist and affect daily life, talk with a trusted adult and a healthcare professional."
-            if not pa else
-            "ਨਿਯਮਿਤ ਨੀਂਦ ਦੀ ਰੁਟੀਨ ਪੜ੍ਹਾਈ, ਯਾਦਦਾਸ਼ਤ, ਮਨੋਦਸ਼ਾ ਅਤੇ ਸਮੁੱਚੀ ਤੰਦਰੁਸਤੀ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ। ਸੌਣ ਤੋਂ ਪਹਿਲਾਂ ਸ਼ਾਂਤ ਰੁਟੀਨ ਬਣਾਓ, ਸੰਭਵ ਹੋਵੇ ਤਾਂ ਸੌਣ ਦੇ ਨੇੜੇ ਤੇਜ਼ ਸਕ੍ਰੀਨ ਦੀ ਵਰਤੋਂ ਘਟਾਓ ਅਤੇ ਸੌਣ ਵਾਲੀ ਥਾਂ ਆਰਾਮਦਾਇਕ ਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ। ਜੇ ਨੀਂਦ ਦੀ ਸਮੱਸਿਆ ਲਗਾਤਾਰ ਰਹੇ ਅਤੇ ਰੋਜ਼ਾਨਾ ਜੀਵਨ ਪ੍ਰਭਾਵਿਤ ਕਰੇ ਤਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਅਤੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ।"
-        ),
-        (
-            "🧠 Mental and emotional wellbeing" if not pa else "🧠 ਮਾਨਸਿਕ ਅਤੇ ਭਾਵਨਾਤਮਕ ਤੰਦਰੁਸਤੀ",
-            "Feelings are a normal part of life. Talking with a trusted person, spending time with supportive people, taking breaks, enjoying hobbies and asking for help can support emotional wellbeing. If worry, sadness or stress feels difficult to manage, speak with a trusted adult, school counsellor or qualified professional."
-            if not pa else
-            "ਭਾਵਨਾਵਾਂ ਜੀਵਨ ਦਾ ਕੁਦਰਤੀ ਹਿੱਸਾ ਹਨ। ਭਰੋਸੇਯੋਗ ਵਿਅਕਤੀ ਨਾਲ ਗੱਲ ਕਰਨਾ, ਸਹਾਇਕ ਲੋਕਾਂ ਨਾਲ ਸਮਾਂ ਬਿਤਾਉਣਾ, ਆਰਾਮ ਕਰਨਾ, ਮਨਪਸੰਦ ਕੰਮ ਕਰਨਾ ਅਤੇ ਮਦਦ ਮੰਗਣਾ ਭਾਵਨਾਤਮਕ ਤੰਦਰੁਸਤੀ ਵਿੱਚ ਸਹਾਇਕ ਹੈ। ਜੇ ਚਿੰਤਾ, ਉਦਾਸੀ ਜਾਂ ਤਣਾਅ ਸੰਭਾਲਣਾ ਔਖਾ ਲੱਗੇ ਤਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ, ਸਕੂਲ ਕੌਂਸਲਰ ਜਾਂ ਯੋਗ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ।"
-        ),
-        (
-            "🛡️ Preventing infections" if not pa else "🛡️ ਇਨਫੈਕਸ਼ਨਾਂ ਤੋਂ ਬਚਾਅ",
-            "Handwashing, safe food and water, good ventilation, covering coughs and sneezes, and staying up to date with recommended vaccinations all help reduce infection risks. Follow current advice from qualified healthcare professionals and local public-health authorities."
-            if not pa else
-            "ਹੱਥ ਧੋਣਾ, ਸੁਰੱਖਿਅਤ ਭੋਜਨ ਅਤੇ ਪਾਣੀ, ਹਵਾਦਾਰੀ, ਖੰਘਣ-ਛਿੱਕਣ ਵੇਲੇ ਮੂੰਹ ਢੱਕਣਾ ਅਤੇ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੇ ਟੀਕਾਕਰਨ ਬਾਰੇ ਅਪਡੇਟ ਰਹਿਣਾ ਇਨਫੈਕਸ਼ਨ ਦੇ ਖਤਰੇ ਘਟਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ। ਯੋਗ ਸਿਹਤ ਮਾਹਿਰਾਂ ਅਤੇ ਸਥਾਨਕ ਸਿਹਤ ਵਿਭਾਗ ਦੀ ਮੌਜੂਦਾ ਸਲਾਹ ਮੰਨੋ।"
-        ),
-        (
-            "🩺 Check-ups and asking for help" if not pa else "🩺 ਸਿਹਤ ਜਾਂਚ ਅਤੇ ਮਦਦ ਲੈਣਾ",
-            "Routine check-ups, dental care, vision checks and recommended vaccinations can support preventive health. Tell a trusted adult if you feel unwell or are worried about a health concern. Seek urgent help from an adult and local emergency services for severe or rapidly worsening symptoms. Do not self-diagnose or take medicines based only on app content."
-            if not pa else
-            "ਸਮੇਂ-ਸਮੇਂ 'ਤੇ ਸਿਹਤ ਜਾਂਚ, ਦੰਦਾਂ ਦੀ ਦੇਖਭਾਲ, ਨਜ਼ਰ ਦੀ ਜਾਂਚ ਅਤੇ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੇ ਟੀਕੇ ਰੋਕਥਾਮ ਵਾਲੀ ਸਿਹਤ ਸੰਭਾਲ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ। ਜੇ ਤਬੀਅਤ ਠੀਕ ਨਾ ਹੋਵੇ ਜਾਂ ਕਿਸੇ ਸਿਹਤ ਸਮੱਸਿਆ ਦੀ ਚਿੰਤਾ ਹੋਵੇ ਤਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਨੂੰ ਦੱਸੋ। ਗੰਭੀਰ ਜਾਂ ਤੇਜ਼ੀ ਨਾਲ ਵਧ ਰਹੇ ਲੱਛਣਾਂ ਵਿੱਚ ਵੱਡੇ ਦੀ ਮਦਦ ਨਾਲ ਤੁਰੰਤ ਸਥਾਨਕ ਐਮਰਜੈਂਸੀ ਸੇਵਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ। ਸਿਰਫ਼ ਐਪ ਦੀ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ 'ਤੇ ਆਪਣੀ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਜਾਂ ਦਵਾਈ ਨਾ ਕਰੋ।"
-        ),
-        (
-            "🌞 Everyday wellbeing and safety" if not pa else "🌞 ਰੋਜ਼ਾਨਾ ਤੰਦਰੁਸਤੀ ਅਤੇ ਸੁਰੱਖਿਆ",
-            "Spend time outdoors safely, use sun protection appropriate to the conditions, keep your surroundings clean, avoid tobacco and vaping, and never use someone else's medicines. Ask a trusted adult or qualified professional when you are unsure about a health claim."
-            if not pa else
-            "ਬਾਹਰ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਸਮਾਂ ਬਿਤਾਓ, ਮੌਸਮ ਅਨੁਸਾਰ ਧੁੱਪ ਤੋਂ ਬਚਾਅ ਕਰੋ, ਆਲੇ-ਦੁਆਲੇ ਸਾਫ਼ ਰੱਖੋ, ਤੰਬਾਕੂ ਅਤੇ ਵੇਪਿੰਗ ਤੋਂ ਦੂਰ ਰਹੋ ਅਤੇ ਕਿਸੇ ਹੋਰ ਦੀ ਦਵਾਈ ਕਦੇ ਨਾ ਵਰਤੋ। ਸਿਹਤ ਬਾਰੇ ਕਿਸੇ ਗੱਲ 'ਤੇ ਸ਼ੱਕ ਹੋਵੇ ਤਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਜਾਂ ਯੋਗ ਮਾਹਿਰ ਤੋਂ ਪੁੱਛੋ।"
-        ),
-    ]
-    _health_visuals = [
-        ("🥗", "A colourful plate, many food groups", "ਰੰਗ-ਬਿਰੰਗੀ ਥਾਲੀ, ਕਈ ਭੋਜਨ ਸਮੂਹ"),
-        ("🚴", "Move, play and enjoy being active", "ਹਿਲੋ-ਜੁਲੋ, ਖੇਡੋ ਅਤੇ ਸਰਗਰਮ ਰਹੋ"),
-        ("🌙", "Rest helps the mind and body recharge", "ਆਰਾਮ ਮਨ ਅਤੇ ਸਰੀਰ ਨੂੰ ਤਾਜ਼ਗੀ ਦਿੰਦਾ ਹੈ"),
-        ("💚", "Feelings matter. Talking can help.", "ਭਾਵਨਾਵਾਂ ਮਹੱਤਵਪੂਰਨ ਹਨ। ਗੱਲ ਕਰਨਾ ਮਦਦਗਾਰ ਹੈ।"),
-        ("🛡️", "Small protective habits make a difference", "ਛੋਟੀਆਂ ਸੁਰੱਖਿਅਤ ਆਦਤਾਂ ਵੱਡਾ ਫ਼ਰਕ ਪਾਉਂਦੀਆਂ ਹਨ"),
-        ("🩺", "Know when to ask a trusted adult for help", "ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਤੋਂ ਮਦਦ ਕਦੋਂ ਲੈਣੀ ਹੈ, ਜਾਣੋ"),
-        ("☀️", "Make safe choices every day", "ਹਰ ਰੋਜ਼ ਸੁਰੱਖਿਅਤ ਚੋਣਾਂ ਕਰੋ"),
-    ]
-    _health_palette = [
-        ("#e0f5e9", "#b6e7d0"), ("#e2f2ff", "#b8ddfa"),
-        ("#eee9ff", "#d8ceff"), ("#ffe9ef", "#ffd0dc"),
-        ("#e5f5f5", "#bce5e1"), ("#fff1df", "#ffdfb4"),
-        ("#fff7d9", "#ffe9a3"),
-    ]
-    _health_cols = st.columns(2, gap="medium")
-    for _idx, (_topic, _details) in enumerate(_health_topics):
-        _visual, _tag_en, _tag_pa = _health_visuals[_idx]
-        _bg1, _bg2 = _health_palette[_idx]
-        with _health_cols[_idx % 2]:
-            with st.container(border=True):
-                st.markdown(
-                    f"""
-                    <div style="background:linear-gradient(135deg,{_bg1},{_bg2});
-                                border-radius:15px;padding:20px 12px;text-align:center;
-                                min-height:128px;margin-bottom:10px;">
-                      <div style="font-size:54px;line-height:1.25;">{_visual}</div>
-                      <div style="font-size:15px;font-weight:600;color:#245b55;margin-top:8px;">
-                        {_tag_pa if pa else _tag_en}
-                      </div>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-                st.markdown(f"**{_topic}**")
-                with st.expander("Explore topic" if not pa else "ਵਿਸ਼ਾ ਵੇਖੋ"):
-                    st.write(_details)
+            "ਇਹ ਦਿੱਤੀ ਮਾਤਰਾ ਲਈ ਗੋਲ ਕੀਤੇ ਹੋਏ ਅੰਦਾਜ਼ੇ ਹਨ, ਬਿਲਕੁਲ ਸਹੀ ਮਾਪ ਨਹੀਂ। ਰੈਸਪੀ, ਆਕਾਰ, ਪਾਣੀ ਦੀ ਮਾਤਰਾ, ਤੇਲ, ਘਿਓ, ਖੰਡ ਅਤੇ ਪਕਾਉਣ ਦੇ ਢੰਗ ਨਾਲ ਮੁੱਲ ਬਦਲਦਾ ਹੈ। ਦਾਲਾਂ/ਅਨਾਜ ਦੇ ਅੰਕ ਪੱਕੀ ਹੋਈ ਮਾਤਰਾ ਲਈ ਹਨ, ਸੁੱਕੇ ਕੱਚੇ ਭਾਰ ਲਈ ਨਹੀਂ। ਹਰ ਕੈਲੋਰੀ ਗਿਣਨ ਨਾਲੋਂ ਵੱਖ-ਵੱਖ ਭੋਜਨ ਖਾਣਾ ਮਹੱਤਵਪੂਰਨ ਹੈ।"
+        )
+        st.caption("Reference basis: ICMR–NIN Indian Food Composition Tables (IFCT 2017); serving values are approximate household portions.")
+
+    with _health_tabs[1]:
+        st.subheader("🏃 " + ("Movement facts" if not pa else "ਸਰੀਰਕ ਸਰਗਰਮੀ ਦੇ ਤੱਥ"))
+        _move_facts = [
+            ("Your heart is a muscle that works all day.", "ਦਿਲ ਇੱਕ ਮਾਸਪੇਸ਼ੀ ਹੈ ਜੋ ਸਾਰਾ ਦਿਨ ਕੰਮ ਕਰਦਾ ਹੈ।"),
+            ("Walking, cycling, dancing and active games all count as movement.", "ਤੁਰਨਾ, ਸਾਈਕਲ ਚਲਾਉਣਾ, ਨੱਚਣਾ ਅਤੇ ਸਰਗਰਮ ਖੇਡਾਂ—ਸਭ ਸਰੀਰਕ ਹਿਲਜੁਲ ਹਨ।"),
+            ("Muscles and bones adapt and become stronger with suitable regular activity.", "ਢੁੱਕਵੀਂ ਨਿਯਮਿਤ ਸਰਗਰਮੀ ਨਾਲ ਮਾਸਪੇਸ਼ੀਆਂ ਅਤੇ ਹੱਡੀਆਂ ਮਜ਼ਬੂਤ ਹੁੰਦੀਆਂ ਹਨ।"),
+            ("Short movement breaks can help refresh attention during study.", "ਪੜ੍ਹਾਈ ਦੌਰਾਨ ਛੋਟੇ ਹਿਲਜੁਲ ਵਾਲੇ ਵਿਰਾਮ ਧਿਆਨ ਤਾਜ਼ਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।"),
+        ]
+        for _en, _pa_text in _move_facts:
+            st.success("💡 " + (_pa_text if pa else _en))
+        st.markdown("**" + ("Quick challenge" if not pa else "ਛੋਟੀ ਚੁਣੌਤੀ") + "**")
+        _move_q = st.radio("Which is also physical activity?" if not pa else "ਕਿਹੜੀ ਚੀਜ਼ ਵੀ ਸਰੀਰਕ ਸਰਗਰਮੀ ਹੈ?", ["Dancing" if not pa else "ਨੱਚਣਾ", "Only lifting weights" if not pa else "ਸਿਰਫ਼ ਭਾਰ ਚੁੱਕਣਾ", "None of these" if not pa else "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕੋਈ ਨਹੀਂ"], index=None, key="health_move_q")
+        if st.button("Reveal" if not pa else "ਜਵਾਬ ਵੇਖੋ", key="health_move_check"):
+            st.info(("Correct: dancing is movement too!" if _move_q == ("Dancing" if not pa else "ਨੱਚਣਾ") else "Dancing is also physical activity.") if not pa else ("ਸਹੀ: ਨੱਚਣਾ ਵੀ ਸਰੀਰਕ ਸਰਗਰਮੀ ਹੈ!" if _move_q == "ਨੱਚਣਾ" else "ਨੱਚਣਾ ਵੀ ਸਰੀਰਕ ਸਰਗਰਮੀ ਹੈ।"))
+
+    with _health_tabs[2]:
+        st.subheader("🌙 " + ("Sleep science" if not pa else "ਨੀਂਦ ਦਾ ਵਿਗਿਆਨ"))
+        _sleep_facts = [
+            ("The brain stays active during sleep; it helps organise learning and memory.", "ਨੀਂਦ ਦੌਰਾਨ ਦਿਮਾਗ ਸਰਗਰਮ ਰਹਿੰਦਾ ਹੈ; ਇਹ ਸਿੱਖੀ ਗੱਲਾਂ ਅਤੇ ਯਾਦਾਂ ਨੂੰ ਸੰਭਾਲਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।"),
+            ("Teenagers generally need 8–10 hours of sleep per 24 hours.", "ਕਿਸ਼ੋਰਾਂ ਨੂੰ ਆਮ ਤੌਰ 'ਤੇ 24 ਘੰਟਿਆਂ ਵਿੱਚ 8–10 ਘੰਟੇ ਨੀਂਦ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।"),
+            ("A steady sleep and wake time helps the body clock.", "ਸੌਣ ਅਤੇ ਜਾਗਣ ਦਾ ਨਿਯਮਿਤ ਸਮਾਂ ਸਰੀਰ ਦੀ ਘੜੀ ਨੂੰ ਸਹੀ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।"),
+            ("Caffeine late in the day can make it harder to fall asleep.", "ਦਿਨ ਦੇ ਅਖੀਰ ਵਿੱਚ ਕੈਫੀਨ ਲੈਣ ਨਾਲ ਨੀਂਦ ਆਉਣ ਵਿੱਚ ਮੁਸ਼ਕਲ ਹੋ ਸਕਦੀ ਹੈ।"),
+        ]
+        for _en, _pa_text in _sleep_facts:
+            st.info("🌟 " + (_pa_text if pa else _en))
+
+    with _health_tabs[3]:
+        st.subheader("🧠 " + ("Mind matters: fact or myth?" if not pa else "ਮਨ ਦੀ ਸੰਭਾਲ: ਸੱਚ ਜਾਂ ਗਲਤ?"))
+        _mind_q = st.radio(
+            "Asking a trusted person for support is a sign of strength." if not pa else "ਭਰੋਸੇਯੋਗ ਵਿਅਕਤੀ ਤੋਂ ਸਹਾਇਤਾ ਮੰਗਣਾ ਹਿੰਮਤ ਦੀ ਨਿਸ਼ਾਨੀ ਹੈ।",
+            ["Fact" if not pa else "ਸੱਚ", "Myth" if not pa else "ਗਲਤ"],
+            index=None, key="health_mind_q"
+        )
+        if st.button("Check" if not pa else "ਜਾਂਚੋ", key="health_mind_check"):
+            st.success("Correct. Everyone needs support sometimes." if _mind_q == ("Fact" if not pa else "ਸੱਚ") else "It is a fact: asking for support is a healthy skill." if not pa else "ਸਹੀ। ਹਰ ਕਿਸੇ ਨੂੰ ਕਦੇ-ਕਦੇ ਸਹਾਇਤਾ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।")
+
+    with _health_tabs[4]:
+        st.subheader("🦠 " + ("Germ detective" if not pa else "ਕੀਟਾਣੂ ਜਾਸੂਸ"))
+        _germ_facts = [
+            ("Soap helps lift oils and microbes from hands so they can be rinsed away.", "ਸਾਬਣ ਹੱਥਾਂ ਤੋਂ ਮੈਲ ਅਤੇ ਸੂਖਮ ਜੀਵਾਂ ਨੂੰ ਹਟਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ ਤਾਂ ਜੋ ਉਹ ਪਾਣੀ ਨਾਲ ਧੁਲ ਜਾਣ।"),
+            ("Wash hands with soap for at least 20 seconds.", "ਸਾਬਣ ਨਾਲ ਘੱਟੋ-ਘੱਟ 20 ਸਕਿੰਟ ਹੱਥ ਧੋਵੋ।"),
+            ("Antibiotics work against bacteria, not viruses; use them only when prescribed by a qualified professional.", "ਐਂਟੀਬਾਇਓਟਿਕ ਬੈਕਟੀਰੀਆ ਵਿਰੁੱਧ ਕੰਮ ਕਰਦੀਆਂ ਹਨ, ਵਾਇਰਸ ਵਿਰੁੱਧ ਨਹੀਂ; ਇਨ੍ਹਾਂ ਦੀ ਵਰਤੋਂ ਯੋਗ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਨਾਲ ਹੀ ਕਰੋ।"),
+            ("Ventilation helps fresh air move through indoor spaces.", "ਹਵਾਦਾਰੀ ਨਾਲ ਬੰਦ ਥਾਵਾਂ ਵਿੱਚ ਤਾਜ਼ੀ ਹਵਾ ਆਉਂਦੀ-ਜਾਂਦੀ ਰਹਿੰਦੀ ਹੈ।"),
+        ]
+        for _en, _pa_text in _germ_facts:
+            st.success("🔬 " + (_pa_text if pa else _en))
+
+    with _health_tabs[5]:
+        st.subheader("🩺 " + ("Know your health checks" if not pa else "ਸਿਹਤ ਜਾਂਚ ਬਾਰੇ ਜਾਣੋ"))
+        _check_facts = [
+            ("Dental check-ups help find tooth and gum problems early.", "ਦੰਦਾਂ ਦੀ ਜਾਂਚ ਨਾਲ ਦੰਦਾਂ ਅਤੇ ਮਸੂੜਿਆਂ ਦੀਆਂ ਸਮੱਸਿਆਵਾਂ ਜਲਦੀ ਪਤਾ ਲੱਗ ਸਕਦੀਆਂ ਹਨ।"),
+            ("Vision checks can identify eyesight problems that affect classroom learning.", "ਨਜ਼ਰ ਦੀ ਜਾਂਚ ਨਾਲ ਪੜ੍ਹਾਈ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰਨ ਵਾਲੀਆਂ ਨਜ਼ਰ ਦੀਆਂ ਸਮੱਸਿਆਵਾਂ ਪਤਾ ਲੱਗ ਸਕਦੀਆਂ ਹਨ।"),
+            ("Vaccines train the immune system to recognise specific infections.", "ਟੀਕੇ ਰੋਗ-ਰੋਧਕ ਪ੍ਰਣਾਲੀ ਨੂੰ ਖਾਸ ਇਨਫੈਕਸ਼ਨਾਂ ਦੀ ਪਛਾਣ ਕਰਨਾ ਸਿਖਾਉਂਦੇ ਹਨ।"),
+            ("A health professional can explain which check-ups are suitable for your age.", "ਸਿਹਤ ਮਾਹਿਰ ਤੁਹਾਡੀ ਉਮਰ ਅਨੁਸਾਰ ਢੁੱਕਵੀਆਂ ਜਾਂਚਾਂ ਬਾਰੇ ਦੱਸ ਸਕਦਾ ਹੈ।"),
+        ]
+        for _en, _pa_text in _check_facts:
+            st.info("📌 " + (_pa_text if pa else _en))
+
+    with _health_tabs[6]:
+        st.subheader("☀️ " + ("Everyday safety facts" if not pa else "ਰੋਜ਼ਾਨਾ ਸੁਰੱਖਿਆ ਦੇ ਤੱਥ"))
+        _safety_facts = [
+            ("UV rays can affect skin even when the day feels cool; shade, clothing and sunscreen can help.", "ਦਿਨ ਠੰਢਾ ਹੋਣ ਦੇ ਬਾਵਜੂਦ UV ਕਿਰਨਾਂ ਚਮੜੀ 'ਤੇ ਅਸਰ ਕਰ ਸਕਦੀਆਂ ਹਨ; ਛਾਂ, ਕੱਪੜੇ ਅਤੇ ਸਨਸਕ੍ਰੀਨ ਮਦਦ ਕਰ ਸਕਦੇ ਹਨ।"),
+            ("Never share prescription medicines or take someone else's medicine.", "ਕਿਸੇ ਦੀ ਤਜਵੀਜ਼ ਕੀਤੀ ਦਵਾਈ ਸਾਂਝੀ ਨਾ ਕਰੋ ਅਤੇ ਕਿਸੇ ਹੋਰ ਦੀ ਦਵਾਈ ਨਾ ਲਵੋ।"),
+            ("Read food labels to notice ingredients, allergens and use-by dates.", "ਭੋਜਨ ਦੇ ਲੇਬਲ ਪੜ੍ਹ ਕੇ ਸਮੱਗਰੀ, ਐਲਰਜੀ ਪੈਦਾ ਕਰਨ ਵਾਲੀਆਂ ਚੀਜ਼ਾਂ ਅਤੇ ਵਰਤੋਂ ਦੀ ਆਖਰੀ ਮਿਤੀ ਵੇਖੋ।"),
+            ("Keep drinking water in a clean, covered container.", "ਪੀਣ ਵਾਲਾ ਪਾਣੀ ਸਾਫ਼ ਅਤੇ ਢੱਕੇ ਹੋਏ ਬਰਤਨ ਵਿੱਚ ਰੱਖੋ।"),
+        ]
+        for _en, _pa_text in _safety_facts:
+            st.success("☀️ " + (_pa_text if pa else _en))
 
     st.divider()
-    st.subheader("💡 " + ("Health knowledge check" if not pa else "ਸਿਹਤ ਜਾਣਕਾਰੀ ਦੀ ਜਾਂਚ"))
-    _health_q = st.radio(
-        "Which is a helpful everyday approach to health?" if not pa else "ਰੋਜ਼ਾਨਾ ਸਿਹਤ ਲਈ ਕਿਹੜਾ ਤਰੀਕਾ ਲਾਭਦਾਇਕ ਹੈ?",
-        [
-            "Skip meals to stay healthy" if not pa else "ਤੰਦਰੁਸਤ ਰਹਿਣ ਲਈ ਖਾਣਾ ਛੱਡਣਾ",
-            "Balance food, enjoyable movement, sleep and support" if not pa else "ਸੰਤੁਲਿਤ ਭੋਜਨ, ਮਨਪਸੰਦ ਸਰਗਰਮੀ, ਨੀਂਦ ਅਤੇ ਸਹਾਇਤਾ",
-            "Take medicines without asking an adult or professional" if not pa else "ਵੱਡੇ ਜਾਂ ਮਾਹਿਰ ਨੂੰ ਪੁੱਛੇ ਬਿਨਾਂ ਦਵਾਈ ਲੈਣਾ",
-        ],
-        index=None,
-        key="ds_health_quiz_v1"
-    )
-    if st.button("Check answer" if not pa else "ਜਵਾਬ ਵੇਖੋ", key="ds_health_check_v1"):
-        if _health_q is None:
-            st.warning("Choose an answer first." if not pa else "ਪਹਿਲਾਂ ਇੱਕ ਜਵਾਬ ਚੁਣੋ।")
-        elif _health_q == ("Balance food, enjoyable movement, sleep and support" if not pa else "ਸੰਤੁਲਿਤ ਭੋਜਨ, ਮਨਪਸੰਦ ਸਰਗਰਮੀ, ਨੀਂਦ ਅਤੇ ਸਹਾਇਤਾ"):
-            st.success("Correct! Health is supported by several connected habits and supportive environments." if not pa else "ਸਹੀ! ਸਿਹਤ ਕਈ ਆਪਸ ਵਿੱਚ ਜੁੜੀਆਂ ਆਦਤਾਂ ਅਤੇ ਸਹਾਇਕ ਵਾਤਾਵਰਣ ਨਾਲ ਮਜ਼ਬੂਤ ਹੁੰਦੀ ਹੈ।")
-        else:
-            st.info("Try again. Healthy routines include balanced meals, enjoyable activity, rest and asking for support." if not pa else "ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਚੰਗੀ ਰੁਟੀਨ ਵਿੱਚ ਸੰਤੁਲਿਤ ਭੋਜਨ, ਮਨਪਸੰਦ ਸਰਗਰਮੀ, ਆਰਾਮ ਅਤੇ ਲੋੜ ਪੈਣ 'ਤੇ ਮਦਦ ਲੈਣਾ ਸ਼ਾਮਲ ਹੈ।")
-    st.info(
-        "Health information here is general education, not a diagnosis or treatment plan. For personal concerns, speak with a trusted adult and a qualified healthcare professional."
+    st.caption(
+        "Educational information only—not a personal diet plan, diagnosis or treatment advice. Food energy values are approximate and vary by recipe and portion."
         if not pa else
-        "ਇੱਥੇ ਦਿੱਤੀ ਸਿਹਤ ਜਾਣਕਾਰੀ ਆਮ ਸਿੱਖਿਆ ਲਈ ਹੈ, ਨਿਦਾਨ ਜਾਂ ਇਲਾਜ ਦੀ ਯੋਜਨਾ ਨਹੀਂ। ਨਿੱਜੀ ਚਿੰਤਾ ਲਈ ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਅਤੇ ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ।"
+        "ਇਹ ਸਿਰਫ਼ ਸਿੱਖਿਆ ਲਈ ਜਾਣਕਾਰੀ ਹੈ—ਨਿੱਜੀ ਡਾਇਟ, ਨਿਦਾਨ ਜਾਂ ਇਲਾਜ ਦੀ ਸਲਾਹ ਨਹੀਂ। ਭੋਜਨ ਦੀ ਊਰਜਾ ਦੇ ਅੰਕ ਅੰਦਾਜ਼ਨ ਹਨ ਅਤੇ ਰੈਸਪੀ ਤੇ ਮਾਤਰਾ ਅਨੁਸਾਰ ਬਦਲਦੇ ਹਨ।"
     )
 
 
