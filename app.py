@@ -340,7 +340,8 @@ if st.session_state.ds_page == 1:
                 ("Explore" if not pa else "ਖੋਲ੍ਹੋ") + " →",
                 key="ds_hub_" + str(_i),
                 use_container_width=True,
-                on_click=_ds_go_to_page,\n                args=(_dest,)
+                on_click=_ds_go_to_page,
+                args=(_dest,)
             )
     st.info(notice)
     
