@@ -77,7 +77,7 @@ else:
 
 # ---------- MOBILE SCREEN NAVIGATION ----------
 # Screen navigation preserves the existing feature code below.
-ds_pages = ["Welcome", "Home", "About", "AI Assistant", "Hygiene", "Sanitation", "Healthy Habits", "Community Challenge", "Health"]
+ds_pages = ["Welcome", "Home", "About", "AI Assistant", "Health", "Hygiene", "Sanitation", "Healthy Habits", "Community Challenge"]
 
 if "ds_page" not in st.session_state:
     st.session_state.ds_page = 0
@@ -169,10 +169,10 @@ if st.session_state.ds_page == 1:
     st.info("ਵਿਕਸਿਤ ਭਾਰਤ @2047 ਵੱਲ: ਸਿਹਤਮੰਦ ਨਾਗਰਿਕ, ਸਵੱਛ ਸਮਾਜ" if pa else "Towards Viksit Bharat @2047: Healthy citizens, clean communities and digital awareness.")
     _hub_cards = st.columns(4)
     _hub_items = [
+        ("❤️", "Health" if not pa else "ਸਿਹਤ", "Health"),
         ("🧼", "Hygiene" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ", "Hygiene"),
         ("💧", "Sanitation" if not pa else "ਸੈਨਿਟੇਸ਼ਨ", "Sanitation"),
         ("🌱", "Healthy Habits" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ", "Healthy Habits"),
-        ("❤️", "Health" if not pa else "ਸਿਹਤ", "Health"),
     ]
     for _i, (_icon, _label, _dest) in enumerate(_hub_items):
         with _hub_cards[_i]:
@@ -441,7 +441,7 @@ if st.session_state.ds_page == 3:
 
 
 # ---------- HEALTH, HYGIENE AND SANITATION LEARNING HUB ----------
-if st.session_state.ds_page == 4:
+if st.session_state.ds_page == 5:
     st.header("🧼 " + ("Hygiene Hub" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ ਕੇਂਦਰ"))
     st.write(
         "Small daily hygiene habits help reduce the spread of germs and support dignity and wellbeing."
@@ -502,7 +502,7 @@ if st.session_state.ds_page == 4:
     st.caption("SEHAT SAATHI provides education, not individual medical advice." if not pa else "SEHAT SAATHI ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ, ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਨਹੀਂ।")
 
 
-if st.session_state.ds_page == 5:
+if st.session_state.ds_page == 6:
     st.header("💧 " + ("Sanitation & Safe Water" if not pa else "ਸੈਨਿਟੇਸ਼ਨ ਅਤੇ ਸੁਰੱਖਿਅਤ ਪਾਣੀ"))
     st.write(
         "Clean surroundings, safe water, hygienic toilets and responsible waste handling help protect community health."
@@ -579,7 +579,7 @@ if st.session_state.ds_page == 5:
     st.caption("Waste categories and collection systems vary by location." if not pa else "ਕੂੜੇ ਦੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਅਤੇ ਇਕੱਠਾ ਕਰਨ ਦੇ ਨਿਯਮ ਥਾਂ ਅਨੁਸਾਰ ਵੱਖ ਹੋ ਸਕਦੇ ਹਨ।")
 
 
-if st.session_state.ds_page == 6:
+if st.session_state.ds_page == 7:
     st.header("🌱 " + ("Healthy Habits Tracker" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਟ੍ਰੈਕਰ"))
     st.write(
         "Use this optional checklist as a learning reminder. It is not a health score or a test of personal cleanliness."
@@ -614,7 +614,7 @@ if st.session_state.ds_page == 6:
 
 
 
-if st.session_state.ds_page == 7:
+if st.session_state.ds_page == 8:
     st.header("🇮🇳 " + ("Community Health Awareness Challenge" if not pa else "ਭਾਈਚਾਰਕ ਸਿਹਤ ਜਾਗਰੂਕਤਾ ਚੁਣੌਤੀ"))
     st.write(
         "Take this short learning challenge, then encourage your classmates or family to discuss one practical action for a healthier, cleaner community."
@@ -676,7 +676,7 @@ if st.session_state.ds_page == 7:
     )
 
 
-if st.session_state.ds_page == 8:
+if st.session_state.ds_page == 4:
     st.header("❤️ " + ("Health Learning Hub" if not pa else "ਸਿਹਤ ਸਿੱਖਿਆ ਕੇਂਦਰ"))
     st.write(
         "Build health literacy with reliable, age-appropriate information about the body, daily wellbeing and prevention. Good health is supported by personal choices as well as safe homes, schools and communities."
