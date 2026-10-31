@@ -321,12 +321,11 @@ if st.session_state.ds_page == 1:
     st.write(intro)
     st.markdown("### " + ("ਤੁਹਾਡਾ ਸਿਹਤ ਸਿੱਖਣ ਕੇਂਦਰ" if pa else "Your Health Learning Hub"))
     st.info("ਵਿਕਸਿਤ ਭਾਰਤ @2047 ਵੱਲ: ਸਿਹਤਮੰਦ ਨਾਗਰਿਕ, ਸਵੱਛ ਸਮਾਜ" if pa else "Towards Viksit Bharat @2047: Healthy citizens, clean communities and digital awareness.")
-    _hub_cards = st.columns(4)
+    _hub_cards = st.columns(3)
     _hub_items = [
         ("🧼", "Hygiene" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ", "Hygiene"),
         ("💧", "Sanitation" if not pa else "ਸੈਨਿਟੇਸ਼ਨ", "Sanitation"),
         ("🌱", "Healthy Habits" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ", "Healthy Habits"),
-        ("🇮🇳", "Community Challenge" if not pa else "ਭਾਈਚਾਰਕ ਚੁਣੌਤੀ", "Community Challenge"),
     ]
     for _i, (_icon, _label, _dest) in enumerate(_hub_items):
         with _hub_cards[_i]:
@@ -341,6 +340,13 @@ if st.session_state.ds_page == 1:
                 on_click=_ds_go_to_page,
                 args=(_dest,)
             )
+    st.button(
+        "🇮🇳 Community Health Awareness Challenge →" if not pa else "🇮🇳 ਭਾਈਚਾਰਕ ਸਿਹਤ ਜਾਗਰੂਕਤਾ ਚੁਣੌਤੀ →",
+        key="ds_community_home",
+        use_container_width=True,
+        on_click=_ds_go_to_page,
+        args=("Community Challenge",)
+    )
     st.info(notice)
     
     st.divider()
