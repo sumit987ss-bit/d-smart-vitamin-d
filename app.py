@@ -69,141 +69,15 @@ pa = language == "ਪੰਜਾਬੀ"
 if pa:
     title = "ਸਿਹਤ, ਸਫ਼ਾਈ ਅਤੇ ਸੈਨਿਟੇਸ਼ਨ ਸਹਾਇਕ"
     intro = "ਸਿਹਤ, ਸਫ਼ਾਈ, ਸੈਨਿਟੇਸ਼ਨ ਅਤੇ ਚੰਗੀਆਂ ਆਦਤਾਂ ਰਾਹੀਂ ਤੰਦਰੁਸਤ ਭਾਰਤ ਵੱਲ ਕਦਮ ਵਧਾਓ।"
-    notice = (
-        "ਇਹ ਸਿੱਖਿਆ ਲਈ ਹੈ। ਇਹ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ "
-        "ਅਤੇ ਡਾਕਟਰੀ ਸਲਾਹ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ।"
-    )
-    heading = "ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਪ੍ਰਸ਼ਨਾਵਲੀ"
-    age_label = "ਤੁਹਾਡੀ ਉਮਰ (ਸਾਲ)"
-    sun_label = "ਤੁਸੀਂ ਦਿਨ ਵੇਲੇ ਬਾਹਰ ਕਿੰਨੀ ਵਾਰ ਜਾਂਦੇ ਹੋ?"
-    sun_options = ["ਰੋਜ਼ਾਨਾ", "ਹਫ਼ਤੇ ਵਿੱਚ ਕਈ ਵਾਰ", "ਬਹੁਤ ਘੱਟ"]
-    food_label = "ਤੁਸੀਂ ਵਿਟਾਮਿਨ D ਵਾਲੇ ਭੋਜਨ ਕਿੰਨੀ ਵਾਰ ਖਾਂਦੇ ਹੋ?"
-    food_options = ["ਅਕਸਰ", "ਕਦੇ-ਕਦੇ", "ਬਹੁਤ ਘੱਟ", "ਪਤਾ ਨਹੀਂ"]
-    concern_label = "ਕੀ ਤੁਹਾਨੂੰ ਹੱਡੀਆਂ ਜਾਂ ਮਾਸਪੇਸ਼ੀਆਂ ਬਾਰੇ ਚਿੰਤਾ ਹੈ?"
-    concern_options = ["ਨਹੀਂ", "ਹਾਂ", "ਪੱਕਾ ਨਹੀਂ"]
-    test_label = "ਕੀ ਤੁਸੀਂ ਵਿਟਾਮਿਨ D ਦਾ ਖੂਨ ਟੈਸਟ ਕਰਵਾਇਆ ਹੈ?"
-    test_options = ["ਹਾਂ", "ਨਹੀਂ", "ਪਤਾ ਨਹੀਂ"]
-    role_label = "ਕੀ ਤੁਹਾਨੂੰ ਵਿਟਾਮਿਨ D ਦਾ ਮੁੱਖ ਕੰਮ ਪਤਾ ਹੈ?"
-    role_options = ["ਹਾਂ", "ਥੋੜ੍ਹਾ ਜਿਹਾ", "ਨਹੀਂ"]
-    fortified_label = "ਕੀ ਤੁਸੀਂ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਭੋਜਨ ਖਾਂਦੇ ਹੋ?"
-    fortified_options = ["ਅਕਸਰ", "ਕਦੇ-ਕਦੇ", "ਨਹੀਂ / ਪਤਾ ਨਹੀਂ"]
-    supplement_label = "ਵਿਟਾਮਿਨ D ਸਪਲੀਮੈਂਟ ਬਾਰੇ ਤੁਹਾਡੀ ਸਥਿਤੀ ਕੀ ਹੈ?"
-    supplement_options = ["ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਨਾਲ", "ਨਹੀਂ ਲੈਂਦਾ/ਲੈਂਦੀ", "ਪਤਾ ਨਹੀਂ / ਸਲਾਹ ਲੈਣੀ ਹੈ"]
-    symptom_label = "ਕੀ ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਪੱਕੀ ਹੋ ਸਕਦੀ ਹੈ?"
-    symptom_options = ["ਨਹੀਂ", "ਹਾਂ", "ਪਤਾ ਨਹੀਂ"]
-    button = "ਮੇਰੀ ਜਾਗਰੂਕਤਾ ਗਾਈਡ ਦਿਖਾਓ"
-    result_title = "ਤੁਹਾਡੀ ਸਿੱਖਣ ਲਈ ਗਾਈਡ"
-    sun_advice = (
-        "ਸੁਰੱਖਿਅਤ ਧੁੱਪ ਅਤੇ ਦਿਨ ਦੀ ਰੌਸ਼ਨੀ ਬਾਰੇ ਸਿੱਖੋ। "
-        "ਲੋੜੀਂਦੀ ਧੁੱਪ ਹਰ ਵਿਅਕਤੀ ਲਈ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਹੈ।"
-    )
-    food_advice = (
-        "ਵਿਟਾਮਿਨ D ਦੇ ਸਰੋਤਾਂ ਵਿੱਚ ਚਰਬੀ ਵਾਲੀ ਮੱਛੀ, "
-        "ਅੰਡੇ ਦੀ ਜ਼ਰਦੀ ਅਤੇ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਭੋਜਨ ਸ਼ਾਮਲ ਹਨ।"
-    )
-    health_advice = (
-        "ਹੱਡੀਆਂ ਜਾਂ ਮਾਸਪੇਸ਼ੀਆਂ ਦੀਆਂ ਸਮੱਸਿਆਵਾਂ ਦੇ ਕਈ ਕਾਰਨ ਹੋ ਸਕਦੇ ਹਨ। "
-        "ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
-    )
-    test_advice = (
-        "ਹਰ ਵਿਅਕਤੀ ਲਈ ਖੂਨ ਟੈਸਟ ਜ਼ਰੂਰੀ ਨਹੀਂ ਹੁੰਦਾ। "
-        "ਸਿਹਤ ਮਾਹਿਰ ਦੱਸ ਸਕਦਾ ਹੈ ਕਿ ਟੈਸਟ ਦੀ ਲੋੜ ਹੈ ਜਾਂ ਨਹੀਂ।"
-    )
-    report_advice = (
-        "ਰਿਪੋਰਟ ਨੂੰ ਸਮਝਣ ਲਈ ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲਵੋ।"
-    )
-    safe_end = (
-        "ਇਹ ਪ੍ਰਸ਼ਨਾਵਲੀ ਸਿਰਫ਼ ਜਾਗਰੂਕਤਾ ਲਈ ਹੈ। "
-        "ਇਹ ਤੁਹਾਡੇ ਵਿਟਾਮਿਨ D ਦੇ ਪੱਧਰ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਕਰਦੀ।"
-    )
-    learn_title = "ਵਿਟਾਮਿਨ D ਬਾਰੇ ਜਾਣੋ"
-    why_title = "ਵਿਟਾਮਿਨ D ਕਿਉਂ ਜ਼ਰੂਰੀ ਹੈ?"
-    why_text = (
-        "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ "
-        "ਅਤੇ ਹੱਡੀਆਂ ਤੇ ਮਾਸਪੇਸ਼ੀਆਂ ਦੀ ਸਿਹਤ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹੈ।"
-    )
-    sources_title = "ਵਿਟਾਮਿਨ D ਦੇ ਭੋਜਨ ਸਰੋਤ"
-    sources_text = (
-        "ਚਰਬੀ ਵਾਲੀ ਮੱਛੀ, ਅੰਡੇ ਦੀ ਜ਼ਰਦੀ ਅਤੇ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ "
-        "ਭੋਜਨ ਇਸ ਦੇ ਸਰੋਤ ਹਨ।"
-    )
-    symptoms_title = "ਕੀ ਲੱਛਣਾਂ ਨਾਲ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਸਕਦੀ ਹੈ?"
-    symptoms_text = (
-        "ਨਹੀਂ। ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੁੰਦੀ। "
-        "ਲੋੜ ਪੈਣ 'ਤੇ ਡਾਕਟਰੀ ਜਾਂਚ ਅਤੇ ਖੂਨ ਟੈਸਟ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
-    )
+    notice = "ਇਹ ਸਿੱਖਿਆ ਲਈ ਹੈ। ਇਹ ਡਾਕਟਰੀ ਜਾਂਚ ਜਾਂ ਪੇਸ਼ੇਵਰ ਸਿਹਤ ਸਲਾਹ ਦਾ ਬਦਲ ਨਹੀਂ ਹੈ।"
 else:
     title = "Smart Health, Hygiene & Sanitation"
     intro = "Explore health, hygiene, sanitation and healthy habits for a stronger, healthier India."
-    notice = (
-        "This is an educational tool. It cannot diagnose deficiency "
-        "or replace professional medical advice."
-    )
-    heading = "Your Vitamin D Awareness Check"
-    age_label = "Your age (years)"
-    sun_label = "How often are you outdoors in daylight?"
-    sun_options = ["Daily", "Several days a week", "Rarely"]
-    food_label = "How often do you eat Vitamin D-containing foods?"
-    food_options = ["Often", "Sometimes", "Rarely", "Not sure"]
-    concern_label = "Any concerns about bone or muscle health?"
-    concern_options = ["No particular concern", "Yes, I have concerns", "Not sure"]
-    test_label = "Have you had a Vitamin D blood test?"
-    test_options = ["Yes", "No", "Not sure"]
-    role_label = "Do you know the main role of Vitamin D?"
-    role_options = ["Yes", "A little", "No"]
-    fortified_label = "Do you eat foods fortified with Vitamin D?"
-    fortified_options = ["Often", "Sometimes", "No / Not sure"]
-    supplement_label = "Which best describes your approach to Vitamin D supplements?"
-    supplement_options = ["Only with healthcare professional advice", "I do not take them", "Not sure / need advice"]
-    symptom_label = "Can symptoms alone confirm Vitamin D deficiency?"
-    symptom_options = ["No", "Yes", "Not sure"]
-    button = "Get My Awareness Guidance"
-    result_title = "Your Learning Guide"
-    sun_advice = (
-        "Learn about safe daylight exposure. Requirements vary "
-        "depending on several personal and environmental factors."
-    )
-    food_advice = (
-        "Sources include oily fish, egg yolks and foods fortified "
-        "with Vitamin D."
-    )
-    health_advice = (
-        "Bone or muscle concerns can have many causes. "
-        "Consult a healthcare professional."
-    )
-    test_advice = (
-        "A blood test is not necessary for everyone. "
-        "A healthcare professional can advise whether it is appropriate."
-    )
-    report_advice = (
-        "Ask a healthcare professional to interpret your report "
-        "in the context of your health."
-    )
-    safe_end = (
-        "This questionnaire provides awareness guidance only. "
-        "It cannot determine your Vitamin D level."
-    )
-    learn_title = "Learn About Vitamin D"
-    why_title = "Why is Vitamin D important?"
-    why_text = (
-        "Vitamin D helps your body absorb calcium and supports "
-        "healthy bones and muscles."
-    )
-    sources_title = "Food sources of Vitamin D"
-    sources_text = (
-        "Sources include oily fish, egg yolks and foods fortified "
-        "with Vitamin D."
-    )
-    symptoms_title = "Can symptoms confirm deficiency?"
-    symptoms_text = (
-        "No. Symptoms alone cannot confirm deficiency. "
-        "Clinical assessment and, when appropriate, a blood test are used."
-    )
-
+    notice = "This is an educational platform. It does not replace professional healthcare advice."
 
 # ---------- MOBILE SCREEN NAVIGATION ----------
 # Screen navigation preserves the existing feature code below.
-ds_pages = ["Welcome", "Home", "Awareness", "Learn", "Report", "Quiz", "About", "AI Assistant", "Hygiene", "Sanitation", "Healthy Habits", "Community Challenge"]
+ds_pages = ["Welcome", "Home", "About", "AI Assistant", "Hygiene", "Sanitation", "Healthy Habits", "Community Challenge"]
 
 if "ds_page" not in st.session_state:
     st.session_state.ds_page = 0
@@ -325,443 +199,6 @@ if st.session_state.ds_page == 1:
     
 
 if st.session_state.ds_page == 2:
-    st.header(heading)
-    
-    age = st.number_input(
-        age_label, min_value=1, max_value=120, value=18
-    )
-    
-    
-    sunlight = st.selectbox(sun_label, sun_options)
-    food = st.selectbox(food_label, food_options)
-    concern = st.selectbox(concern_label, concern_options)
-    tested = st.radio(test_label, test_options)
-    role_knowledge = st.selectbox(role_label, role_options)
-    fortified_food = st.selectbox(fortified_label, fortified_options)
-    supplement_approach = st.selectbox(supplement_label, supplement_options)
-    symptom_knowledge = st.selectbox(symptom_label, symptom_options)
-    
-    
-    if st.button(button, type="primary"):
-        st.subheader(result_title)
-    
-        # Daylight guidance
-        if sunlight == sun_options[2]:
-            st.write(sun_advice)
-        elif sunlight == sun_options[1]:
-            st.write(
-                "Consider learning more about safe daylight exposure "
-                "and how individual needs can differ."
-                if not pa else
-                "ਸੁਰੱਖਿਅਤ ਧੁੱਪ ਅਤੇ ਦਿਨ ਦੀ ਰੌਸ਼ਨੀ ਬਾਰੇ ਹੋਰ ਜਾਣੋ। "
-                "ਹਰ ਵਿਅਕਤੀ ਦੀ ਲੋੜ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਹੈ।"
-            )
-    
-        # Food guidance
-        if food in food_options[2:]:
-            st.write(food_advice)
-        elif food == food_options[1]:
-            st.write(
-                "Explore food sources of Vitamin D and check whether "
-                "foods fortified with Vitamin D are available to you."
-                if not pa else
-                "ਵਿਟਾਮਿਨ D ਵਾਲੇ ਭੋਜਨ ਸਰੋਤਾਂ ਬਾਰੇ ਜਾਣੋ ਅਤੇ ਵੇਖੋ ਕਿ "
-                "ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਭੋਜਨ ਉਪਲਬਧ ਹੈ ਜਾਂ ਨਹੀਂ।"
-            )
-    
-        # Age-aware educational note
-        if age < 18:
-            st.info(
-                "If you have health concerns, discuss them with a parent "
-                "or trusted adult and a healthcare professional."
-                if not pa else
-                "ਜੇ ਸਿਹਤ ਬਾਰੇ ਚਿੰਤਾ ਹੈ, ਤਾਂ ਮਾਪਿਆਂ ਜਾਂ ਭਰੋਸੇਯੋਗ ਵੱਡੇ "
-                "ਅਤੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਗੱਲ ਕਰੋ।"
-            )
-    
-        # Health concerns
-        if concern == concern_options[1]:
-            st.warning(health_advice)
-        elif concern == concern_options[2]:
-            st.write(
-                "If you are unsure, a healthcare professional can help "
-                "you decide whether any assessment is needed."
-                if not pa else
-                "ਜੇ ਤੁਹਾਨੂੰ ਪੱਕਾ ਪਤਾ ਨਹੀਂ, ਤਾਂ ਸਿਹਤ ਮਾਹਿਰ ਦੱਸ ਸਕਦਾ ਹੈ "
-                "ਕਿ ਜਾਂਚ ਦੀ ਲੋੜ ਹੈ ਜਾਂ ਨਹੀਂ।"
-            )
-    
-        # Knowledge and food-awareness guidance
-        if role_knowledge != role_options[0]:
-            st.info(
-                "Vitamin D helps the body absorb calcium and supports bone and muscle health."
-                if not pa else
-                "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ ਅਤੇ ਹੱਡੀਆਂ ਤੇ ਮਾਸਪੇਸ਼ੀਆਂ ਦੀ ਸਿਹਤ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹੈ।"
-            )
-        if fortified_food == fortified_options[2]:
-            st.write(
-                "Check food labels where available: some milk, plant drinks, cereals and other foods may be fortified with Vitamin D."
-                if not pa else
-                "ਜਿੱਥੇ ਉਪਲਬਧ ਹੋਵੇ, ਭੋਜਨ ਦਾ ਲੇਬਲ ਵੇਖੋ: ਕੁਝ ਦੁੱਧ, ਪੌਦਿਆਂ ਤੋਂ ਬਣੇ ਪੇਅ, ਸੀਰੀਅਲ ਅਤੇ ਹੋਰ ਭੋਜਨ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਹੋ ਸਕਦਾ ਹੈ।"
-            )
-        if supplement_approach == supplement_options[2]:
-            st.warning(
-                "Do not guess a supplement dose. Ask a qualified healthcare professional whether a supplement is appropriate for you."
-                if not pa else
-                "ਸਪਲੀਮੈਂਟ ਦੀ ਖੁਰਾਕ ਦਾ ਅੰਦਾਜ਼ਾ ਨਾ ਲਗਾਓ। ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਤੋਂ ਪੁੱਛੋ ਕਿ ਤੁਹਾਡੇ ਲਈ ਸਪਲੀਮੈਂਟ ਢੁੱਕਵਾਂ ਹੈ ਜਾਂ ਨਹੀਂ।"
-            )
-        if symptom_knowledge != symptom_options[0]:
-            st.info(
-                "Symptoms alone cannot confirm Vitamin D deficiency. A healthcare professional can advise whether assessment is needed."
-                if not pa else
-                "ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੁੰਦੀ। ਸਿਹਤ ਮਾਹਿਰ ਦੱਸ ਸਕਦਾ ਹੈ ਕਿ ਜਾਂਚ ਦੀ ਲੋੜ ਹੈ ਜਾਂ ਨਹੀਂ।"
-            )
-
-        # Testing guidance
-        if tested == test_options[1] or tested == test_options[2]:
-            st.write(test_advice)
-        elif tested == test_options[0]:
-            st.write(report_advice)
-    
-        st.success(safe_end)
-    
-    st.divider()
-    
-
-if st.session_state.ds_page == 3:
-    st.header(learn_title)
-    
-    with st.expander(why_title):
-        st.write(why_text)
-    
-    with st.expander(sources_title):
-        st.write(sources_text)
-    
-    with st.expander(symptoms_title):
-        st.write(symptoms_text)
-    
-    st.caption("SEHAT SAATHI | Science Exhibition Project")
-    
-    st.divider()
-    
-    
-
-if st.session_state.ds_page == 4:
-    # ---------- SEHAT SAATHI REPORT ASSISTANT ----------
-    st.header(
-        "🧪 Vitamin D Report Assistant"
-        if not pa else
-        "🧪 ਵਿਟਾਮਿਨ D ਰਿਪੋਰਟ ਸਹਾਇਕ"
-    )
-    st.write(
-        "Enter the Vitamin D blood-test result exactly as reported in nmol/L."
-        if not pa else
-        "ਵਿਟਾਮਿਨ D ਦੇ ਖੂਨ ਟੈਸਟ ਦਾ ਨਤੀਜਾ ਰਿਪੋਰਟ ਅਨੁਸਾਰ nmol/L ਵਿੱਚ ਦਰਜ ਕਰੋ।"
-    )
-    st.info(
-        "Use the 25-hydroxyvitamin D [25(OH)D] result. This is an educational guide, not a diagnosis."
-        if not pa else
-        "25-hydroxyvitamin D [25(OH)D] ਦਾ ਨਤੀਜਾ ਵਰਤੋ। ਇਹ ਸਿੱਖਿਆ ਲਈ ਹੈ, ਡਾਕਟਰੀ ਨਿਦਾਨ ਨਹੀਂ।"
-    )
-
-    sex = st.selectbox(
-        "Sex / ਲਿੰਗ",
-        ["Male", "Female"] if not pa else ["ਪੁਰਸ਼", "ਇਸਤਰੀ"],
-        key="report_sex"
-    )
-    value_nmol = st.number_input(
-        "Vitamin D result (nmol/L) / ਵਿਟਾਮਿਨ D ਦਾ ਨਤੀਜਾ (nmol/L)",
-        min_value=0.0,
-        max_value=2500.0,
-        value=50.0,
-        step=1.0,
-        key="report_value_nmol"
-    )
-
-    if st.button(
-        "Interpret My Result" if not pa else "ਮੇਰਾ ਨਤੀਜਾ ਸਮਝਾਓ",
-        key="nmol_explain",
-        use_container_width=True
-    ):
-        st.subheader("Your result" if not pa else "ਤੁਹਾਡਾ ਨਤੀਜਾ")
-        st.metric(
-            "Vitamin D [25(OH)D]" if not pa else "ਵਿਟਾਮਿਨ D [25(OH)D]",
-            f"{value_nmol:.1f} nmol/L"
-        )
-        st.write(
-            ("Sex selected: " if not pa else "ਚੁਣਿਆ ਲਿੰਗ: ") + sex
-        )
-        if not pa:
-            st.info(
-                f"For a {sex.lower()}, this Vitamin D level is interpreted using the same general adult thresholds used for males and females."
-            )
-        else:
-            st.info(
-                f"{sex} ਲਈ ਇਸ ਵਿਟਾਮਿਨ D ਪੱਧਰ ਦੀ ਆਮ ਵਿਆਖਿਆ ਪੁਰਸ਼ਾਂ ਅਤੇ ਇਸਤਰੀਆਂ ਲਈ ਵਰਤੀਆਂ ਜਾਣ ਵਾਲੀਆਂ ਇੱਕੋ ਜਿਹੀਆਂ ਆਮ ਸੀਮਾਵਾਂ ਅਨੁਸਾਰ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।"
-            )
-
-        if value_nmol < 30:
-            st.error(
-                "This result is below 30 nmol/L and is associated with increased risk of Vitamin D deficiency. Please discuss it with a qualified healthcare professional."
-                if not pa else
-                "ਇਹ ਨਤੀਜਾ 30 nmol/L ਤੋਂ ਘੱਟ ਹੈ ਅਤੇ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੇ ਵਧੇ ਹੋਏ ਜੋਖਮ ਨਾਲ ਜੁੜਿਆ ਹੈ। ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
-            )
-        elif value_nmol < 50:
-            st.warning(
-                "This result is 30 to below 50 nmol/L. It may be inadequate for some people; discuss it with a qualified healthcare professional and check your laboratory's reference range."
-                if not pa else
-                "ਇਹ ਨਤੀਜਾ 30 ਤੋਂ 50 nmol/L ਤੋਂ ਘੱਟ ਦੀ ਸੀਮਾ ਵਿੱਚ ਹੈ। ਇਹ ਕੁਝ ਲੋਕਾਂ ਲਈ ਨਾਕਾਫ਼ੀ ਹੋ ਸਕਦਾ ਹੈ; ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ ਅਤੇ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੇਖੋ।"
-            )
-        elif value_nmol <= 125:
-            st.success(
-                "This result is at least 50 nmol/L, a level considered adequate for most people under the NIH framework. Check your laboratory's reference range and discuss personal results with a healthcare professional."
-                if not pa else
-                "ਇਹ ਨਤੀਜਾ 50 ਤੋਂ 125 nmol/L ਦੀ ਸੀਮਾ ਵਿੱਚ ਹੈ; NIH ਦੇ ਹਵਾਲਾ ਢਾਂਚੇ ਅਨੁਸਾਰ 50 nmol/L ਜਾਂ ਵੱਧ ਪੱਧਰ ਬਹੁਤੇ ਲੋਕਾਂ ਲਈ ਕਾਫ਼ੀ ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ। ਆਪਣੀ ਲੈਬ ਦੀ ਹਵਾਲਾ ਸੀਮਾ ਵੇਖੋ ਅਤੇ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ।"
-            )
-        else:
-            st.warning(
-                "This result is above 125 nmol/L. Levels this high may be associated with adverse effects. Please contact a qualified healthcare professional for advice; do not take additional Vitamin D supplements unless advised."
-                if not pa else
-                "ਇਹ ਨਤੀਜਾ 125 nmol/L ਤੋਂ ਵੱਧ ਹੈ। ਇੰਨਾ ਉੱਚਾ ਪੱਧਰ ਨੁਕਸਾਨਦੇਹ ਪ੍ਰਭਾਵਾਂ ਨਾਲ ਜੁੜਿਆ ਹੋ ਸਕਦਾ ਹੈ। ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਸਲਾਹ ਕਰੋ ਅਤੇ ਸਲਾਹ ਤੋਂ ਬਿਨਾਂ ਹੋਰ ਵਿਟਾਮਿਨ D ਸਪਲੀਮੈਂਟ ਨਾ ਲਵੋ।"
-            )
-
-        st.caption(
-            "The same general interpretation thresholds are used for males and females; sex alone does not change these cut-offs. Laboratory ranges and individual circumstances can differ. Do not start high-dose supplements based on this result alone."
-            if not pa else
-            "ਪੁਰਸ਼ਾਂ ਅਤੇ ਇਸਤਰੀਆਂ ਲਈ ਆਮ ਤੌਰ 'ਤੇ ਇਹੀ ਵਿਆਖਿਆ ਸੀਮਾਵਾਂ ਵਰਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ; ਸਿਰਫ਼ ਲਿੰਗ ਨਾਲ ਇਹ ਸੀਮਾਵਾਂ ਨਹੀਂ ਬਦਲਦੀਆਂ। ਲੈਬ ਦੀਆਂ ਹਵਾਲਾ ਸੀਮਾਵਾਂ ਅਤੇ ਵਿਅਕਤੀਗਤ ਹਾਲਾਤ ਵੱਖਰੇ ਹੋ ਸਕਦੇ ਹਨ। ਸਿਰਫ਼ ਇਸ ਨਤੀਜੇ ਦੇ ਆਧਾਰ 'ਤੇ ਵੱਧ ਖੁਰਾਕ ਵਾਲੇ ਸਪਲੀਮੈਂਟ ਸ਼ੁਰੂ ਨਾ ਕਰੋ।"
-        )
-
-    st.divider()
-
-
-if st.session_state.ds_page == 5:
-    st.header(
-        "🎯 Vitamin D Challenge Zone"
-        if not pa else
-        "🎯 ਵਿਟਾਮਿਨ D ਚੈਲੰਜ ਜ਼ੋਨ"
-    )
-    
-    st.write(
-        "Test your knowledge and earn points!"
-        if not pa else
-        "ਆਪਣੇ ਗਿਆਨ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਅੰਕ ਪ੍ਰਾਪਤ ਕਰੋ!"
-    )
-    
-    questions = [
-        {
-            "q": "What does Vitamin D help the body absorb?",
-            "pa": "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੀ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ?",
-            "options": ["Iron", "Calcium", "Sodium"],
-            "options_pa": ["ਆਇਰਨ", "ਕੈਲਸ਼ੀਅਮ", "ਸੋਡੀਅਮ"],
-            "answer": 1,
-            "why": "Vitamin D helps the body absorb calcium.",
-            "why_pa": "ਵਿਟਾਮਿਨ D ਸਰੀਰ ਨੂੰ ਕੈਲਸ਼ੀਅਮ ਜਜ਼ਬ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।"
-        },
-        {
-            "q": "Which is a source of Vitamin D?",
-            "pa": "ਵਿਟਾਮਿਨ D ਦਾ ਇੱਕ ਸਰੋਤ ਕਿਹੜਾ ਹੈ?",
-            "options": ["Egg yolk", "Plain sugar", "Salt"],
-            "options_pa": ["ਅੰਡੇ ਦੀ ਜ਼ਰਦੀ", "ਸਾਦੀ ਖੰਡ", "ਨਮਕ"],
-            "answer": 0,
-            "why": "Egg yolk contains Vitamin D.",
-            "why_pa": "ਅੰਡੇ ਦੀ ਜ਼ਰਦੀ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਹੁੰਦਾ ਹੈ।"
-        },
-        {
-            "q": "Can symptoms alone confirm Vitamin D deficiency?",
-            "pa": "ਕੀ ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਹੋ ਸਕਦੀ ਹੈ?",
-            "options": ["Yes", "No", "Always"],
-            "options_pa": ["ਹਾਂ", "ਨਹੀਂ", "ਹਮੇਸ਼ਾ"],
-            "answer": 1,
-            "why": "Symptoms alone cannot confirm deficiency.",
-            "why_pa": "ਸਿਰਫ਼ ਲੱਛਣਾਂ ਨਾਲ ਕਮੀ ਦੀ ਪੁਸ਼ਟੀ ਨਹੀਂ ਹੁੰਦੀ।"
-        },
-        {
-            "q": "Which test measures Vitamin D status?",
-            "pa": "ਵਿਟਾਮਿਨ D ਦਾ ਪੱਧਰ ਜਾਣਨ ਲਈ ਕਿਹੜਾ ਟੈਸਟ ਕੀਤਾ ਜਾਂਦਾ ਹੈ?",
-            "options": [
-                "25-hydroxyvitamin D blood test",
-                "Eye test",
-                "Hearing test"
-            ],
-            "options_pa": [
-                "25-ਹਾਈਡ੍ਰੋਕਸੀ ਵਿਟਾਮਿਨ D ਖੂਨ ਟੈਸਟ",
-                "ਅੱਖਾਂ ਦਾ ਟੈਸਟ",
-                "ਸੁਣਨ ਦਾ ਟੈਸਟ"
-            ],
-            "answer": 0,
-            "why": "The 25-hydroxyvitamin D blood test is commonly used.",
-            "why_pa": "25-ਹਾਈਡ੍ਰੋਕਸੀ ਵਿਟਾਮਿਨ D ਦਾ ਖੂਨ ਟੈਸਟ ਆਮ ਤੌਰ 'ਤੇ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।"
-        },
-        {
-            "q": "What should you do before taking high-dose supplements?",
-            "pa": "ਵੱਧ ਖੁਰਾਕ ਵਾਲੇ ਸਪਲੀਮੈਂਟ ਲੈਣ ਤੋਂ ਪਹਿਲਾਂ ਕੀ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ?",
-            "options": [
-                "Take them without advice",
-                "Seek professional advice",
-                "Guess the dose"
-            ],
-            "options_pa": [
-                "ਬਿਨਾਂ ਸਲਾਹ ਲੈਣਾ",
-                "ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲੈਣਾ",
-                "ਖੁਰਾਕ ਦਾ ਅੰਦਾਜ਼ਾ ਲਗਾਉਣਾ"
-            ],
-            "answer": 1,
-            "why": "Professional advice helps avoid inappropriate dosing.",
-            "why_pa": "ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਗਲਤ ਖੁਰਾਕ ਤੋਂ ਬਚਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।"
-        },
-        {
-            "q": "Which statement about sunlight is most accurate?",
-            "pa": "ਧੁੱਪ ਬਾਰੇ ਕਿਹੜਾ ਬਿਆਨ ਸਭ ਤੋਂ ਸਹੀ ਹੈ?",
-            "options": ["Everyone needs exactly the same amount", "Needs vary by person and conditions", "Sunburn is necessary"],
-            "options_pa": ["ਹਰ ਕਿਸੇ ਨੂੰ ਬਿਲਕੁਲ ਇੱਕੋ ਜਿੰਨੀ ਧੁੱਪ ਚਾਹੀਦੀ ਹੈ", "ਲੋੜ ਵਿਅਕਤੀ ਅਤੇ ਹਾਲਾਤਾਂ ਅਨੁਸਾਰ ਬਦਲਦੀ ਹੈ", "ਚਮੜੀ ਸੜਨਾ ਜ਼ਰੂਰੀ ਹੈ"],
-            "answer": 1,
-            "why": "Sunlight needs vary with factors such as location, season, skin and other conditions; avoid sunburn.",
-            "why_pa": "ਧੁੱਪ ਦੀ ਲੋੜ ਸਥਾਨ, ਮੌਸਮ, ਚਮੜੀ ਅਤੇ ਹੋਰ ਹਾਲਾਤਾਂ ਨਾਲ ਬਦਲਦੀ ਹੈ; ਚਮੜੀ ਸੜਨ ਤੋਂ ਬਚੋ।"
-        },
-        {
-            "q": "Which food may be fortified with Vitamin D?",
-            "pa": "ਕਿਹੜੇ ਭੋਜਨ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਹੋ ਸਕਦਾ ਹੈ?",
-            "options": ["Some fortified milk or cereals", "Plain table sugar", "Salt always contains it"],
-            "options_pa": ["ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਕੁਝ ਦੁੱਧ ਜਾਂ ਸੀਰੀਅਲ", "ਸਾਦੀ ਖੰਡ", "ਨਮਕ ਵਿੱਚ ਹਮੇਸ਼ਾ ਹੁੰਦਾ ਹੈ"],
-            "answer": 0,
-            "why": "Some foods and drinks are fortified with Vitamin D; check the label.",
-            "why_pa": "ਕੁਝ ਭੋਜਨ ਅਤੇ ਪੇਅ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਮਿਲਾਇਆ ਜਾਂਦਾ ਹੈ; ਲੇਬਲ ਵੇਖੋ।"
-        },
-        {
-            "q": "Which rays from sunlight help the skin make Vitamin D?",
-            "pa": "ਸੂਰਜ ਦੀ ਰੌਸ਼ਨੀ ਦੀਆਂ ਕਿਹੜੀਆਂ ਕਿਰਨਾਂ ਚਮੜੀ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀਆਂ ਹਨ?",
-            "options": ["UV-B rays", "Infrared rays", "X-rays"],
-            "options_pa": ["UV-B ਕਿਰਨਾਂ", "ਇਨਫਰਾਰੈੱਡ ਕਿਰਨਾਂ", "ਐਕਸ-ਰੇ ਕਿਰਨਾਂ"],
-            "answer": 0,
-            "why": "UV-B rays help the skin produce Vitamin D.",
-            "why_pa": "UV-B ਕਿਰਨਾਂ ਚਮੜੀ ਵਿੱਚ ਵਿਟਾਮਿਨ D ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀਆਂ ਹਨ।"
-        },
-        {
-            "q": "Should you start high-dose Vitamin D supplements just because a friend takes them?",
-            "pa": "ਕੀ ਸਿਰਫ਼ ਦੋਸਤ ਦੇ ਲੈਣ ਕਰਕੇ ਵੱਧ ਖੁਰਾਕ ਵਾਲੇ ਵਿਟਾਮਿਨ D ਸਪਲੀਮੈਂਟ ਸ਼ੁਰੂ ਕਰਨੇ ਚਾਹੀਦੇ ਹਨ?",
-            "options": ["Yes, the same dose suits everyone", "No, seek professional advice", "Take a guessed dose"],
-            "options_pa": ["ਹਾਂ, ਇੱਕੋ ਖੁਰਾਕ ਸਭ ਲਈ ਠੀਕ ਹੈ", "ਨਹੀਂ, ਸਿਹਤ ਮਾਹਿਰ ਦੀ ਸਲਾਹ ਲਵੋ", "ਅੰਦਾਜ਼ੇ ਨਾਲ ਖੁਰਾਕ ਲਵੋ"],
-            "answer": 1,
-            "why": "Supplement needs and doses differ. Do not start high-dose supplements without qualified advice.",
-            "why_pa": "ਸਪਲੀਮੈਂਟ ਦੀ ਲੋੜ ਅਤੇ ਖੁਰਾਕ ਵੱਖਰੀ ਹੋ ਸਕਦੀ ਹੈ। ਯੋਗ ਸਲਾਹ ਤੋਂ ਬਿਨਾਂ ਵੱਧ ਖੁਰਾਕ ਸ਼ੁਰੂ ਨਾ ਕਰੋ।"
-        },
-        {
-            "q": "Can this app or a short quiz diagnose Vitamin D deficiency?",
-            "pa": "ਕੀ ਇਹ ਐਪ ਜਾਂ ਛੋਟਾ ਕਵਿਜ਼ ਵਿਟਾਮਿਨ D ਦੀ ਕਮੀ ਦੀ ਪਛਾਣ ਕਰ ਸਕਦਾ ਹੈ?",
-            "options": ["Yes, it replaces a blood test", "No, it is for education only", "Only from age"],
-            "options_pa": ["ਹਾਂ, ਇਹ ਖੂਨ ਟੈਸਟ ਦੀ ਥਾਂ ਲੈਂਦਾ ਹੈ", "ਨਹੀਂ, ਇਹ ਸਿਰਫ਼ ਸਿੱਖਿਆ ਲਈ ਹੈ", "ਸਿਰਫ਼ ਉਮਰ ਤੋਂ"],
-            "answer": 1,
-            "why": "SEHAT SAATHI provides education only and cannot diagnose a condition.",
-            "why_pa": "SEHAT SAATHI ਸਿਰਫ਼ ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ ਅਤੇ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ।"
-        }
-    ]
-    
-    answers = []
-    
-    for i, question in enumerate(questions):
-        q_text = question["pa"] if pa else question["q"]
-        opts = question["options_pa"] if pa else question["options"]
-    
-        choice = st.radio(
-            f"{i + 1}. {q_text}",
-            opts,
-            index=None,
-            key=f"vitd_quiz_{i}"
-        )
-        answers.append(choice)
-    
-    if st.button(
-        "Check My Score" if not pa else "ਮੇਰੇ ਅੰਕ ਦਿਖਾਓ",
-        type="primary"
-    ):
-        if any(a is None for a in answers):
-            st.warning(
-                "Please answer all questions first."
-                if not pa else
-                "ਕਿਰਪਾ ਕਰਕੇ ਪਹਿਲਾਂ ਸਾਰੇ ਪ੍ਰਸ਼ਨਾਂ ਦੇ ਜਵਾਬ ਦਿਓ।"
-            )
-        else:
-            score = sum(
-                answers[i] == (
-                    questions[i]["options_pa"][questions[i]["answer"]]
-                    if pa else
-                    questions[i]["options"][questions[i]["answer"]]
-                )
-                for i in range(len(questions))
-            )
-    
-            st.subheader(
-                f"Your score: {score}/{len(questions)}"
-                if not pa else
-                f"ਤੁਹਾਡੇ ਅੰਕ: {score}/{len(questions)}"
-            )
-    
-            st.progress(score / len(questions))
-    
-            if score == len(questions):
-                st.balloons()
-                st.success(
-                    "Perfect score! Vitamin D Champion!"
-                    if not pa else
-                    "ਸ਼ਾਨਦਾਰ! ਤੁਸੀਂ ਵਿਟਾਮਿਨ D ਚੈਂਪੀਅਨ ਹੋ!"
-                )
-            elif score >= (len(questions) * 0.6):
-                st.success(
-                    "Good work! Keep learning."
-                    if not pa else
-                    "ਬਹੁਤ ਵਧੀਆ! ਸਿੱਖਦੇ ਰਹੋ।"
-                )
-            else:
-                st.info(
-                    "Keep learning and try again."
-                    if not pa else
-                    "ਸਿੱਖਦੇ ਰਹੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
-                )
-    
-            # Review answers for every completed quiz
-            with st.expander(
-                "📘 Review Answers & Explanations"
-                if not pa else
-                "📘 ਸਹੀ ਜਵਾਬ ਅਤੇ ਵਿਆਖਿਆ ਵੇਖੋ"
-            ):
-                for i, question in enumerate(questions):
-                    correct = (
-                        question["options_pa"][question["answer"]]
-                        if pa else
-                        question["options"][question["answer"]]
-                    )
-    
-                    explanation = (
-                        question["why_pa"] if pa else question["why"]
-                    )
-    
-                    selected = answers[i]
-    
-                    if selected == correct:
-                        st.success(
-                            f"{i + 1}. {correct}"
-                            if not pa else
-                            f"{i + 1}. {correct} — ਸਹੀ ਜਵਾਬ"
-                        )
-                    else:
-                        st.error(
-                            f"{i + 1}. Correct answer: {correct}"
-                            if not pa else
-                            f"{i + 1}. ਸਹੀ ਜਵਾਬ: {correct}"
-                        )
-                        st.caption(
-                            (
-                                f"Your answer: {selected}"
-                                if not pa else
-                                f"ਤੁਹਾਡਾ ਜਵਾਬ: {selected}"
-                            )
-                        )
-    
-                    st.write(explanation)
-    
-    
-
-if st.session_state.ds_page == 6:
     # ================= VISUAL PROJECT & CREDITS SCREEN =================
     _credits_pa = language == "ਪੰਜਾਬੀ"
 
@@ -808,7 +245,7 @@ if st.session_state.ds_page == 6:
             unsafe_allow_html=True
         )
         st.markdown("### 🎯 ਪ੍ਰੋਜੈਕਟ ਦਾ ਉਦੇਸ਼")
-        st.write("SEHAT SAATHI ਵਿਟਾਮਿਨ D, ਨਿੱਜੀ ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸੈਨਿਟੇਸ਼ਨ, ਕੂੜਾ ਪ੍ਰਬੰਧਨ ਅਤੇ ਸਿਹਤਮੰਦ ਰੋਜ਼ਾਨਾ ਆਦਤਾਂ ਬਾਰੇ ਦੋ-ਭਾਸ਼ਾਈ ਸਿੱਖਿਆ ਪਲੇਟਫਾਰਮ ਹੈ।")
+        st.write("SEHAT SAATHI ਨਿੱਜੀ ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸੈਨਿਟੇਸ਼ਨ, ਕੂੜਾ ਪ੍ਰਬੰਧਨ ਅਤੇ ਸਿਹਤਮੰਦ ਰੋਜ਼ਾਨਾ ਆਦਤਾਂ ਬਾਰੇ ਦੋ-ਭਾਸ਼ਾਈ ਸਿੱਖਿਆ ਪਲੇਟਫਾਰਮ ਹੈ।")
 
         st.markdown("### 🤝 ਪ੍ਰੋਜੈਕਟ ਟੀਮ")
         _c1, _c2 = st.columns(2)
@@ -821,7 +258,6 @@ if st.session_state.ds_page == 6:
         st.markdown("### ✨ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ")
         for _feature in [
             "🌐 ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਜਾਣਕਾਰੀ",
-            "🧠 ਵਿਟਾਮਿਨ D ਬਾਰੇ ਇੰਟਰਐਕਟਿਵ ਜਾਗਰੂਕਤਾ ਕਵਿਜ਼",
             "🧼 ਹੱਥਾਂ, ਮੂੰਹ, ਭੋਜਨ ਅਤੇ ਨਿੱਜੀ ਸਫ਼ਾਈ ਬਾਰੇ ਸਿੱਖਿਆ",
             "💧 ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਟਾਇਲਟ ਸਫ਼ਾਈ ਅਤੇ ਕੂੜਾ ਪ੍ਰਬੰਧਨ",
             "🌱 ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਲਈ ਇੰਟਰਐਕਟਿਵ ਟ੍ਰੈਕਰ",
@@ -847,7 +283,7 @@ if st.session_state.ds_page == 6:
             unsafe_allow_html=True
         )
         st.markdown("### 🎯 Project Purpose")
-        st.write("SEHAT SAATHI is a bilingual educational platform covering Vitamin D awareness, personal hygiene, safe water, sanitation, waste management and healthier everyday habits.")
+        st.write("SEHAT SAATHI is a bilingual educational platform covering personal hygiene, safe water, sanitation, waste management and healthier everyday habits.")
 
         st.markdown("### 🤝 Project Team")
         _c1, _c2 = st.columns(2)
@@ -860,7 +296,6 @@ if st.session_state.ds_page == 6:
         st.markdown("### ✨ Key Features")
         for _feature in [
             "🌐 Bilingual learning: English and Punjabi",
-            "🧠 Interactive Vitamin D awareness quiz",
             "🧼 Hand, oral, food and personal hygiene learning",
             "💧 Safe water, toilet hygiene and waste management",
             "🌱 Interactive healthy-habits tracker",
@@ -874,7 +309,7 @@ if st.session_state.ds_page == 6:
         st.markdown('<div class="ds-credit-footer">Science Exhibition Project • Academic Session 2026–27<br>Knowledge • Awareness • Better Health</div>', unsafe_allow_html=True)
 
 
-if st.session_state.ds_page == 7:
+if st.session_state.ds_page == 3:
     # ---------- GEMINI-POWERED AI HEALTH EDUCATION ASSISTANT ----------
     st.header(
         "🤖 SEHAT SAATHI AI Health Mentor"
@@ -882,9 +317,9 @@ if st.session_state.ds_page == 7:
         "🤖 SEHAT SAATHI AI ਸਿਹਤ ਸਾਥੀ"
     )
     st.write(
-        "Ask about Vitamin D, hygiene, safe water, sanitation and healthy habits in simple language."
+        "Ask about hygiene, safe water, sanitation, waste management and healthy habits in simple language."
         if not pa else
-        "ਵਿਟਾਮਿਨ D, ਨਿੱਜੀ ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸੈਨਿਟੇਸ਼ਨ ਅਤੇ ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਬਾਰੇ ਸਵਾਲ ਪੁੱਛੋ।"
+        "ਨਿੱਜੀ ਸਫ਼ਾਈ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸੈਨਿਟੇਸ਼ਨ, ਕੂੜਾ ਪ੍ਰਬੰਧਨ ਅਤੇ ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਬਾਰੇ ਸਵਾਲ ਪੁੱਛੋ।"
     )
     st.info(
         "Education only: the AI cannot diagnose a condition, interpret your personal case, or recommend supplement doses. Do not enter names, contact details, report photos, or other private health information."
@@ -951,9 +386,9 @@ if st.session_state.ds_page == 7:
                 else "Answer in clear, simple English."
             )
             _ds_system_instruction = (
-                "You are SEHAT SAATHI, an AI health-education assistant for general Vitamin D science, personal hygiene, food hygiene, safe drinking water, sanitation, waste management and healthy habits. "
+                "You are SEHAT SAATHI, an AI health-education assistant for personal hygiene, food hygiene, safe drinking water, sanitation, waste management and healthy habits. "
                 "Provide concise, evidence-informed educational explanations for school students and the public. "
-                "Do not diagnose, estimate an individual's Vitamin D status, interpret a personal medical case, "
+                "Do not diagnose or interpret a personal medical case, "
                 "prescribe treatment, or recommend supplement doses. Do not claim symptoms alone prove deficiency. "
                 "For personal lab results, medication/supplement questions, pregnancy, children, or ongoing symptoms, "
                 "recommend discussing the matter with a qualified healthcare professional. Never request identifying "
@@ -1006,7 +441,7 @@ if st.session_state.ds_page == 7:
 
 
 # ---------- HEALTH, HYGIENE AND SANITATION LEARNING HUB ----------
-if st.session_state.ds_page == 8:
+if st.session_state.ds_page == 4:
     st.header("🧼 " + ("Hygiene Hub" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ ਕੇਂਦਰ"))
     st.write(
         "Small daily hygiene habits help reduce the spread of germs and support dignity and wellbeing."
@@ -1067,7 +502,7 @@ if st.session_state.ds_page == 8:
     st.caption("SEHAT SAATHI provides education, not individual medical advice." if not pa else "SEHAT SAATHI ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ, ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਨਹੀਂ।")
 
 
-if st.session_state.ds_page == 9:
+if st.session_state.ds_page == 5:
     st.header("💧 " + ("Sanitation & Safe Water" if not pa else "ਸੈਨਿਟੇਸ਼ਨ ਅਤੇ ਸੁਰੱਖਿਅਤ ਪਾਣੀ"))
     st.write(
         "Clean surroundings, safe water, hygienic toilets and responsible waste handling help protect community health."
@@ -1144,7 +579,7 @@ if st.session_state.ds_page == 9:
     st.caption("Waste categories and collection systems vary by location." if not pa else "ਕੂੜੇ ਦੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਅਤੇ ਇਕੱਠਾ ਕਰਨ ਦੇ ਨਿਯਮ ਥਾਂ ਅਨੁਸਾਰ ਵੱਖ ਹੋ ਸਕਦੇ ਹਨ।")
 
 
-if st.session_state.ds_page == 10:
+if st.session_state.ds_page == 6:
     st.header("🌱 " + ("Healthy Habits Tracker" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਟ੍ਰੈਕਰ"))
     st.write(
         "Use this optional checklist as a learning reminder. It is not a health score or a test of personal cleanliness."
@@ -1179,7 +614,7 @@ if st.session_state.ds_page == 10:
 
 
 
-if st.session_state.ds_page == 11:
+if st.session_state.ds_page == 7:
     st.header("🇮🇳 " + ("Community Health Awareness Challenge" if not pa else "ਭਾਈਚਾਰਕ ਸਿਹਤ ਜਾਗਰੂਕਤਾ ਚੁਣੌਤੀ"))
     st.write(
         "Take this short learning challenge, then encourage your classmates or family to discuss one practical action for a healthier, cleaner community."
