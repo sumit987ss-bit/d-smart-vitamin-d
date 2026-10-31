@@ -247,12 +247,8 @@ div[data-testid="stSelectbox"] { margin-bottom: 0.25rem; }
 """, unsafe_allow_html=True)
 
 if st.session_state.ds_page > 0:
-    st.selectbox(
-        "Go to screen / ਸਕ੍ਰੀਨ ਚੁਣੋ",
-        ds_pages[1:],
-        key="ds_nav",
-        on_change=_ds_sync_nav
-    )
+    # Keep the interface simple: language selector remains at the top;
+    # screen selection dropdown is removed. Use Back/Next and home hub cards.
     _nav_left, _nav_right = st.columns(2)
     with _nav_left:
         st.button(
