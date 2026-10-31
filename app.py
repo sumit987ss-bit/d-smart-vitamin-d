@@ -321,9 +321,9 @@ if st.session_state.ds_page == 1:
     st.markdown("### " + ("ਤੁਹਾਡਾ ਸਿਹਤ ਸਿੱਖਣ ਕੇਂਦਰ" if pa else "Your Health Learning Hub"))
     _hub_cards = st.columns(3)
     _hub_items = [
-        ("🧼", "Hygiene" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ", "Hygiene" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ"),
-        ("💧", "Sanitation" if not pa else "ਸੈਨਿਟੇਸ਼ਨ", "Sanitation" if not pa else "ਸੈਨਿਟੇਸ਼ਨ"),
-        ("🌱", "Healthy Habits" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ", "Healthy Habits" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ"),
+        ("🧼", "Hygiene" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ", "Hygiene"),
+        ("💧", "Sanitation" if not pa else "ਸੈਨਿਟੇਸ਼ਨ", "Sanitation"),
+        ("🌱", "Healthy Habits" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ", "Healthy Habits"),
     ]
     for _i, (_icon, _label, _dest) in enumerate(_hub_items):
         with _hub_cards[_i]:
