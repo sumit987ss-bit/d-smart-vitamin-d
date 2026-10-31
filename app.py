@@ -472,41 +472,119 @@ if st.session_state.ds_page == 5:
         if not pa else
         "ਰੋਜ਼ਾਨਾ ਦੀਆਂ ਸਫ਼ਾਈ ਵਾਲੀਆਂ ਆਦਤਾਂ ਕੀਟਾਣੂਆਂ ਦੇ ਫੈਲਾਅ ਨੂੰ ਘਟਾਉਣ ਅਤੇ ਸਿਹਤ ਤੇ ਸਨਮਾਨ ਦੀ ਰੱਖਿਆ ਵਿੱਚ ਮਦਦ ਕਰਦੀਆਂ ਹਨ।"
     )
-    _hygiene_topics = [
-        (
-            "👐 Handwashing" if not pa else "👐 ਹੱਥ ਧੋਣਾ",
-            "Wet hands with clean running water, apply soap, scrub all hand surfaces for at least 20 seconds, rinse, and dry with a clean towel or air-dry. Wash before preparing or eating food and after using the toilet, coughing, sneezing, or handling waste."
+    _hygiene_tabs = st.tabs([
+        "👐 Handwash lab" if not pa else "👐 ਹੱਥ ਧੋਣ ਦੀ ਲੈਬ",
+        "🦷 Smile studio" if not pa else "🦷 ਦੰਦਾਂ ਦੀ ਸੰਭਾਲ",
+        "🥗 Food safety" if not pa else "🥗 ਭੋਜਨ ਸੁਰੱਖਿਆ",
+        "🤧 Germ shield" if not pa else "🤧 ਕੀਟਾਣੂਆਂ ਤੋਂ ਬਚਾਅ",
+        "🌸 Period care" if not pa else "🌸 ਮਹਾਵਾਰੀ ਦੀ ਸੰਭਾਲ",
+    ])
+
+    with _hygiene_tabs[0]:
+        st.subheader("⏱️ " + ("20-second handwash challenge" if not pa else "20 ਸਕਿੰਟ ਹੱਥ ਧੋਣ ਦੀ ਚੁਣੌਤੀ"))
+        st.metric("20 seconds" if not pa else "20 ਸਕਿੰਟ", "Scrub with soap" if not pa else "ਸਾਬਣ ਨਾਲ ਰਗੜੋ")
+        st.write(
+            "Rub with soap for at least 20 seconds, covering every surface. Then rinse and dry completely."
             if not pa else
-            "ਸਾਫ਼ ਵਗਦੇ ਪਾਣੀ ਨਾਲ ਹੱਥ ਗਿੱਲੇ ਕਰੋ, ਸਾਬਣ ਲਗਾਓ, ਹੱਥਾਂ ਦੇ ਸਾਰੇ ਹਿੱਸੇ ਘੱਟੋ-ਘੱਟ 20 ਸਕਿੰਟ ਰਗੜੋ, ਫਿਰ ਧੋ ਕੇ ਸਾਫ਼ ਤੌਲੀਏ ਨਾਲ ਸੁਕਾਓ ਜਾਂ ਹਵਾ ਵਿੱਚ ਸੁੱਕਣ ਦਿਓ। ਖਾਣਾ ਬਣਾਉਣ ਜਾਂ ਖਾਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਟਾਇਲਟ ਵਰਤਣ, ਖੰਘਣ, ਛਿੱਕਣ ਜਾਂ ਕੂੜਾ ਸੰਭਾਲਣ ਤੋਂ ਬਾਅਦ ਹੱਥ ਧੋਵੋ।"
-        ),
-        (
-            "🦷 Oral hygiene" if not pa else "🦷 ਮੂੰਹ ਅਤੇ ਦੰਦਾਂ ਦੀ ਸਫ਼ਾਈ",
-            "Brush teeth twice a day with fluoride toothpaste, clean between teeth when possible, and arrange dental care for persistent pain or bleeding."
+            "ਸਾਬਣ ਨਾਲ ਘੱਟੋ-ਘੱਟ 20 ਸਕਿੰਟ ਹੱਥਾਂ ਦੇ ਹਰ ਹਿੱਸੇ ਨੂੰ ਰਗੜੋ। ਫਿਰ ਪਾਣੀ ਨਾਲ ਧੋ ਕੇ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸੁਕਾਓ।"
+        )
+        _hand_steps = [
+            ("1. 💧 Wet", "Wet hands with clean running water.", "1. 💧 ਗਿੱਲੇ ਕਰੋ", "ਸਾਫ਼ ਵਗਦੇ ਪਾਣੀ ਨਾਲ ਹੱਥ ਗਿੱਲੇ ਕਰੋ।"),
+            ("2. 🧼 Soap", "Apply enough soap to cover both hands.", "2. 🧼 ਸਾਬਣ", "ਦੋਵੇਂ ਹੱਥਾਂ 'ਤੇ ਚੰਗੀ ਤਰ੍ਹਾਂ ਸਾਬਣ ਲਗਾਓ।"),
+            ("3. 🤲 Palms", "Rub palms together.", "3. 🤲 ਹਥੇਲੀਆਂ", "ਦੋਵੇਂ ਹਥੇਲੀਆਂ ਆਪਸ ਵਿੱਚ ਰਗੜੋ।"),
+            ("4. 🔄 Backs & fingers", "Clean the backs of hands and between fingers.", "4. 🔄 ਪਿੱਠ ਅਤੇ ਉਂਗਲਾਂ", "ਹੱਥਾਂ ਦੀ ਪਿੱਠ ਅਤੇ ਉਂਗਲਾਂ ਦੇ ਵਿਚਕਾਰ ਸਾਫ਼ ਕਰੋ।"),
+            ("5. 👍 Thumbs & nails", "Rub each thumb and fingertips, including around nails.", "5. 👍 ਅੰਗੂਠੇ ਅਤੇ ਨਹੁੰ", "ਹਰ ਅੰਗੂਠੇ ਅਤੇ ਨਹੁੰਆਂ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਉਂਗਲਾਂ ਦੇ ਸਿਰੇ ਰਗੜੋ।"),
+            ("6. 🚿 Rinse & dry", "Rinse well and dry with a clean towel or air-dry.", "6. 🚿 ਧੋਵੋ ਅਤੇ ਸੁਕਾਓ", "ਚੰਗੀ ਤਰ੍ਹਾਂ ਧੋਵੋ ਅਤੇ ਸਾਫ਼ ਤੌਲੀਏ ਨਾਲ ਜਾਂ ਹਵਾ ਵਿੱਚ ਸੁਕਾਓ।"),
+        ]
+        for _i in range(0, len(_hand_steps), 2):
+            _cols = st.columns(2)
+            for _j, _col in enumerate(_cols):
+                _step = _hand_steps[_i + _j]
+                with _col:
+                    with st.container(border=True):
+                        st.markdown("### " + (_step[2] if pa else _step[0]))
+                        st.write(_step[3] if pa else _step[1])
+        st.info(
+            "Wash before eating or preparing food, after using the toilet, after coughing/sneezing or blowing your nose, and whenever hands are visibly dirty."
             if not pa else
-            "ਦਿਨ ਵਿੱਚ ਦੋ ਵਾਰ ਫਲੋਰਾਈਡ ਵਾਲੇ ਟੂਥਪੇਸਟ ਨਾਲ ਦੰਦ ਸਾਫ਼ ਕਰੋ। ਸੰਭਵ ਹੋਵੇ ਤਾਂ ਦੰਦਾਂ ਵਿਚਕਾਰ ਵੀ ਸਫ਼ਾਈ ਕਰੋ ਅਤੇ ਲਗਾਤਾਰ ਦਰਦ ਜਾਂ ਖੂਨ ਆਉਣ 'ਤੇ ਦੰਦਾਂ ਦੇ ਡਾਕਟਰ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।"
-        ),
-        (
-            "🥗 Food hygiene" if not pa else "🥗 ਭੋਜਨ ਦੀ ਸਫ਼ਾਈ",
-            "Wash hands and produce with safe water, keep raw foods separate from cooked foods, use clean utensils, and refrigerate perishable food promptly."
-            if not pa else
-            "ਹੱਥ ਅਤੇ ਫਲ-ਸਬਜ਼ੀਆਂ ਸੁਰੱਖਿਅਤ ਪਾਣੀ ਨਾਲ ਧੋਵੋ, ਕੱਚੇ ਅਤੇ ਪੱਕੇ ਭੋਜਨ ਨੂੰ ਵੱਖ ਰੱਖੋ, ਸਾਫ਼ ਬਰਤਨ ਵਰਤੋ ਅਤੇ ਜਲਦੀ ਖਰਾਬ ਹੋਣ ਵਾਲਾ ਭੋਜਨ ਸਮੇਂ ਸਿਰ ਫਰਿੱਜ ਵਿੱਚ ਰੱਖੋ।"
-        ),
-        (
-            "🤧 Cough and sneeze etiquette" if not pa else "🤧 ਖੰਘਣ ਅਤੇ ਛਿੱਕਣ ਦੇ ਸਹੀ ਤਰੀਕੇ",
-            "Cover coughs and sneezes with a tissue or your bent elbow, dispose of tissues safely, and clean your hands."
-            if not pa else
-            "ਖੰਘਣ ਜਾਂ ਛਿੱਕਣ ਵੇਲੇ ਟਿਸ਼ੂ ਜਾਂ ਮੁੜੀ ਹੋਈ ਕੂਹਣੀ ਵਰਤੋ, ਟਿਸ਼ੂ ਢੰਗ ਨਾਲ ਸੁੱਟੋ ਅਤੇ ਹੱਥ ਸਾਫ਼ ਕਰੋ।"
-        ),
-        (
-            "🌸 Menstrual hygiene" if not pa else "🌸 ਮਹਾਵਾਰੀ ਦੌਰਾਨ ਸਫ਼ਾਈ",
-            "Use clean menstrual products, change them as directed, wash hands before and after changing, and dispose of used products safely according to local facilities. Menstruation is normal and should be discussed without shame."
-            if not pa else
-            "ਸਾਫ਼ ਮਹਾਵਾਰੀ ਉਤਪਾਦ ਵਰਤੋ ਅਤੇ ਹਦਾਇਤਾਂ ਅਨੁਸਾਰ ਬਦਲੋ। ਉਤਪਾਦ ਬਦਲਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ ਹੱਥ ਧੋਵੋ ਅਤੇ ਵਰਤੇ ਉਤਪਾਦਾਂ ਦਾ ਸਥਾਨਕ ਸਹੂਲਤਾਂ ਅਨੁਸਾਰ ਸੁਰੱਖਿਅਤ ਨਿਪਟਾਰਾ ਕਰੋ। ਮਹਾਵਾਰੀ ਇੱਕ ਕੁਦਰਤੀ ਪ੍ਰਕਿਰਿਆ ਹੈ; ਇਸ ਬਾਰੇ ਬਿਨਾਂ ਝਿਜਕ ਗੱਲ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ।"
-        ),
-    ]
-    for _topic, _details in _hygiene_topics:
-        with st.expander(_topic):
-            st.write(_details)
+            "ਖਾਣ ਜਾਂ ਭੋਜਨ ਬਣਾਉਣ ਤੋਂ ਪਹਿਲਾਂ, ਟਾਇਲਟ ਤੋਂ ਬਾਅਦ, ਖੰਘਣ/ਛਿੱਕਣ ਜਾਂ ਨੱਕ ਸਾਫ਼ ਕਰਨ ਤੋਂ ਬਾਅਦ ਅਤੇ ਜਦੋਂ ਹੱਥ ਗੰਦੇ ਹੋਣ ਤਾਂ ਧੋਵੋ।"
+        )
+        st.caption("Fact check: CDC and WHO community hand-hygiene guidance.")
+
+    with _hygiene_tabs[1]:
+        st.subheader("🦷 " + ("Your smile routine" if not pa else "ਦੰਦਾਂ ਦੀ ਰੋਜ਼ਾਨਾ ਸੰਭਾਲ"))
+        st.metric("2 times a day" if not pa else "ਦਿਨ ਵਿੱਚ 2 ਵਾਰ", "Brush with fluoride toothpaste" if not pa else "ਫਲੋਰਾਈਡ ਟੂਥਪੇਸਟ ਨਾਲ ਬੁਰਸ਼")
+        _oral_cards = [
+            ("🌅 Morning", "Brush after waking up using a soft toothbrush and fluoride toothpaste.", "🌅 ਸਵੇਰ", "ਉੱਠਣ ਤੋਂ ਬਾਅਦ ਨਰਮ ਬੁਰਸ਼ ਅਤੇ ਫਲੋਰਾਈਡ ਟੂਥਪੇਸਟ ਨਾਲ ਦੰਦ ਸਾਫ਼ ਕਰੋ।"),
+            ("🌙 Before bed", "Brush again before sleeping. Spit out the toothpaste; avoid rinsing vigorously straight away.", "🌙 ਸੌਣ ਤੋਂ ਪਹਿਲਾਂ", "ਸੌਣ ਤੋਂ ਪਹਿਲਾਂ ਦੁਬਾਰਾ ਬੁਰਸ਼ ਕਰੋ। ਟੂਥਪੇਸਟ ਥੁੱਕ ਦਿਓ; ਤੁਰੰਤ ਬਹੁਤ ਜ਼ਿਆਦਾ ਕੁੱਲ੍ਹੇ ਨਾ ਕਰੋ।"),
+            ("🪥 Gentle technique", "Clean the outer, inner and chewing surfaces gently; do not scrub hard.", "🪥 ਨਰਮ ਤਰੀਕਾ", "ਦੰਦਾਂ ਦੀ ਬਾਹਰੀ, ਅੰਦਰਲੀ ਅਤੇ ਚਬਾਉਣ ਵਾਲੀ ਸਤ੍ਹਾ ਨਰਮੀ ਨਾਲ ਸਾਫ਼ ਕਰੋ; ਜ਼ੋਰ ਨਾਲ ਨਾ ਰਗੜੋ।"),
+            ("🥤 Everyday example", "Choose water often; frequent sugary drinks and snacks can increase the risk of tooth decay.", "🥤 ਰੋਜ਼ਾਨਾ ਉਦਾਹਰਨ", "ਪਾਣੀ ਨੂੰ ਤਰਜੀਹ ਦਿਓ; ਵਾਰ-ਵਾਰ ਮਿੱਠੇ ਪੇਅ ਅਤੇ ਸਨੈਕਸ ਲੈਣ ਨਾਲ ਦੰਦਾਂ ਵਿੱਚ ਸੜਨ ਦਾ ਖਤਰਾ ਵਧ ਸਕਦਾ ਹੈ।"),
+        ]
+        for _i in range(0, len(_oral_cards), 2):
+            _cols=st.columns(2)
+            for _j,_col in enumerate(_cols):
+                _card=_oral_cards[_i+_j]
+                with _col:
+                    with st.container(border=True):
+                        st.markdown("### "+(_card[2] if pa else _card[0]))
+                        st.write(_card[3] if pa else _card[1])
+        st.caption("Persistent toothache, swelling or bleeding gums should be discussed with a dentist.")
+
+    with _hygiene_tabs[2]:
+        st.subheader("🥗 " + ("Kitchen safety: spot the safe choice" if not pa else "ਰਸੋਈ ਸੁਰੱਖਿਆ: ਸਹੀ ਚੋਣ ਪਛਾਣੋ"))
+        _food_safety = [
+            ("🚿 Wash produce", "Rinse apples, tomatoes and leafy vegetables under safe running water before eating or cutting.", "🚿 ਫਲ-ਸਬਜ਼ੀਆਂ ਧੋਵੋ", "ਸੇਬ, ਟਮਾਟਰ ਅਤੇ ਪੱਤੇਦਾਰ ਸਬਜ਼ੀਆਂ ਖਾਣ ਜਾਂ ਕੱਟਣ ਤੋਂ ਪਹਿਲਾਂ ਸੁਰੱਖਿਅਤ ਵਗਦੇ ਪਾਣੀ ਨਾਲ ਧੋਵੋ।"),
+            ("🔪 Keep separate", "Keep raw foods separate from cooked or ready-to-eat foods. Use clean boards and utensils.", "🔪 ਕੱਚਾ ਅਤੇ ਪੱਕਾ ਵੱਖ", "ਕੱਚੇ ਭੋਜਨ ਨੂੰ ਪੱਕੇ ਜਾਂ ਸਿੱਧੇ ਖਾਣ ਵਾਲੇ ਭੋਜਨ ਤੋਂ ਵੱਖ ਰੱਖੋ। ਸਾਫ਼ ਕੱਟਣ ਵਾਲੇ ਬੋਰਡ ਅਤੇ ਬਰਤਨ ਵਰਤੋ।"),
+            ("🫙 Cover & store", "Keep food covered; refrigerate foods that need chilling promptly.", "🫙 ਢੱਕੋ ਅਤੇ ਸੰਭਾਲੋ", "ਭੋਜਨ ਢੱਕ ਕੇ ਰੱਖੋ; ਜਿਨ੍ਹਾਂ ਭੋਜਨਾਂ ਨੂੰ ਠੰਢਾ ਰੱਖਣਾ ਲੋੜੀਂਦਾ ਹੈ, ਉਨ੍ਹਾਂ ਨੂੰ ਸਮੇਂ ਸਿਰ ਫਰਿੱਜ ਵਿੱਚ ਰੱਖੋ।"),
+            ("🥛 Check before use", "Check expiry/use-by dates and avoid food with unusual smell, appearance or damaged packaging.", "🥛 ਵਰਤਣ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂਚੋ", "ਮਿਆਦ ਦੀ ਮਿਤੀ ਵੇਖੋ ਅਤੇ ਅਜੀਬ ਗੰਧ, ਰੂਪ ਜਾਂ ਖਰਾਬ ਪੈਕਿੰਗ ਵਾਲਾ ਭੋਜਨ ਨਾ ਵਰਤੋ।"),
+        ]
+        for _i in range(0,len(_food_safety),2):
+            _cols=st.columns(2)
+            for _j,_col in enumerate(_cols):
+                _card=_food_safety[_i+_j]
+                with _col:
+                    with st.container(border=True):
+                        st.markdown("### "+(_card[2] if pa else _card[0]))
+                        st.write(_card[3] if pa else _card[1])
+        st.info("Example: wash a cucumber before slicing it, and never use the same unwashed board for raw and ready-to-eat foods.")
+        st.caption("Food-safety principles based on FSSAI and WHO safer-food guidance.")
+
+    with _hygiene_tabs[3]:
+        st.subheader("🤧 " + ("Cough & sneeze: block the spread" if not pa else "ਖੰਘ ਅਤੇ ਛਿੱਕ: ਕੀਟਾਣੂਆਂ ਦਾ ਫੈਲਾਅ ਰੋਕੋ"))
+        _cough_cards=[
+            ("💪 Use your elbow", "Cough or sneeze into your bent elbow if a tissue is not ready.", "💪 ਕੂਹਣੀ ਵਰਤੋ", "ਜੇ ਟਿਸ਼ੂ ਕੋਲ ਨਹੀਂ ਤਾਂ ਮੁੜੀ ਹੋਈ ਕੂਹਣੀ ਵਿੱਚ ਖੰਘੋ ਜਾਂ ਛਿੱਕੋ।"),
+            ("🧻 Use a tissue once", "Cover nose and mouth with a tissue; put it in a bin after use.", "🧻 ਟਿਸ਼ੂ ਇੱਕ ਵਾਰ ਵਰਤੋ", "ਨੱਕ ਅਤੇ ਮੂੰਹ ਟਿਸ਼ੂ ਨਾਲ ਢੱਕੋ; ਵਰਤਣ ਤੋਂ ਬਾਅਦ ਕੂੜੇਦਾਨ ਵਿੱਚ ਪਾਓ।"),
+            ("🧼 Clean your hands", "Wash hands after coughing, sneezing or blowing your nose.", "🧼 ਹੱਥ ਸਾਫ਼ ਕਰੋ", "ਖੰਘਣ, ਛਿੱਕਣ ਜਾਂ ਨੱਕ ਸਾਫ਼ ਕਰਨ ਤੋਂ ਬਾਅਦ ਹੱਥ ਧੋਵੋ।"),
+            ("↔️ Give space", "If you feel unwell, avoid close contact where possible and tell a trusted adult.", "↔️ ਥੋੜ੍ਹੀ ਦੂਰੀ ਰੱਖੋ", "ਜੇ ਤਬੀਅਤ ਠੀਕ ਨਹੀਂ ਤਾਂ ਸੰਭਵ ਹੋਵੇ ਤਾਂ ਨੇੜਲੇ ਸੰਪਰਕ ਤੋਂ ਬਚੋ ਅਤੇ ਭਰੋਸੇਯੋਗ ਵੱਡੇ ਨੂੰ ਦੱਸੋ।"),
+        ]
+        for _i in range(0,len(_cough_cards),2):
+            _cols=st.columns(2)
+            for _j,_col in enumerate(_cols):
+                _card=_cough_cards[_i+_j]
+                with _col:
+                    with st.container(border=True):
+                        st.markdown("### "+(_card[2] if pa else _card[0]))
+                        st.write(_card[3] if pa else _card[1])
+        st.success("Best example: sneeze into your elbow, dispose of a tissue safely, then wash your hands.")
+
+    with _hygiene_tabs[4]:
+        st.subheader("🌸 " + ("Period care: facts without myths" if not pa else "ਮਹਾਵਾਰੀ ਦੀ ਸੰਭਾਲ: ਬਿਨਾਂ ਝਿਜਕ ਸਹੀ ਜਾਣਕਾਰੀ"))
+        _period_cards=[
+            ("🌷 Normal body process", "Menstruation is a natural process. It is not dirty and is not something to be ashamed of.", "🌷 ਕੁਦਰਤੀ ਪ੍ਰਕਿਰਿਆ", "ਮਹਾਵਾਰੀ ਇੱਕ ਕੁਦਰਤੀ ਪ੍ਰਕਿਰਿਆ ਹੈ। ਇਹ ਗੰਦੀ ਨਹੀਂ ਅਤੇ ਇਸ ਬਾਰੇ ਸ਼ਰਮਾਉਣ ਦੀ ਲੋੜ ਨਹੀਂ।"),
+            ("🩸 Choose suitable products", "Use clean, suitable menstrual products and follow the product instructions for changing or washing them.", "🩸 ਢੁੱਕਵੇਂ ਉਤਪਾਦ ਚੁਣੋ", "ਸਾਫ਼ ਅਤੇ ਢੁੱਕਵੇਂ ਮਹਾਵਾਰੀ ਉਤਪਾਦ ਵਰਤੋ ਅਤੇ ਬਦਲਣ ਜਾਂ ਧੋਣ ਲਈ ਉਤਪਾਦ ਦੀਆਂ ਹਦਾਇਤਾਂ ਮੰਨੋ।"),
+            ("🧼 Clean hands", "Wash hands before and after changing a pad or other menstrual product.", "🧼 ਹੱਥ ਸਾਫ਼ ਰੱਖੋ", "ਪੈਡ ਜਾਂ ਹੋਰ ਮਹਾਵਾਰੀ ਉਤਪਾਦ ਬਦਲਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ ਹੱਥ ਧੋਵੋ।"),
+            ("🗑️ Safe disposal & privacy", "Wrap and dispose of used disposable products in a bin; never flush them. Reusable products need proper washing and complete drying as directed.", "🗑️ ਸੁਰੱਖਿਅਤ ਨਿਪਟਾਰਾ ਅਤੇ ਨਿੱਜਤਾ", "ਵਰਤੇ ਡਿਸਪੋਜ਼ੇਬਲ ਉਤਪਾਦ ਨੂੰ ਲਪੇਟ ਕੇ ਕੂੜੇਦਾਨ ਵਿੱਚ ਪਾਓ; ਟਾਇਲਟ ਵਿੱਚ ਨਾ ਸੁੱਟੋ। ਦੁਬਾਰਾ ਵਰਤਣ ਵਾਲੇ ਉਤਪਾਦਾਂ ਨੂੰ ਹਦਾਇਤਾਂ ਅਨੁਸਾਰ ਧੋ ਕੇ ਪੂਰੀ ਤਰ੍ਹਾਂ ਸੁਕਾਓ।"),
+        ]
+        for _i in range(0,len(_period_cards),2):
+            _cols=st.columns(2)
+            for _j,_col in enumerate(_cols):
+                _card=_period_cards[_i+_j]
+                with _col:
+                    with st.container(border=True):
+                        st.markdown("### "+(_card[2] if pa else _card[0]))
+                        st.write(_card[3] if pa else _card[1])
+        st.info("Ask a trusted adult or health professional for help with severe pain, very heavy bleeding, or concerns. Everyone deserves privacy, clean facilities and respectful support.")
+        st.caption("Menstrual-health information follows WHO guidance.")
     st.divider()
     st.subheader("🧠 " + ("Hygiene Quick Quiz" if not pa else "ਸਫ਼ਾਈ ਬਾਰੇ ਛੋਟਾ ਕਵਿਜ਼"))
     _hq = st.radio(
