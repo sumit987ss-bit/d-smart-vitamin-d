@@ -83,19 +83,43 @@ if "ds_page" not in st.session_state:
     st.session_state.ds_page = 0
 if "ds_nav" not in st.session_state:
     st.session_state.ds_nav = ds_pages[0]
+if "ds_history" not in st.session_state:
+    st.session_state.ds_history = []
 
 def _ds_sync_nav():
-    st.session_state.ds_page = ds_pages.index(st.session_state.ds_nav)
+    target_page = ds_pages.index(st.session_state.ds_nav)
+    if target_page != st.session_state.ds_page:
+        st.session_state.ds_history.append(st.session_state.ds_page)
+        st.session_state.ds_page = target_page
 
 def _ds_move_page(delta):
-    new_page = max(0, min(len(ds_pages) - 1, st.session_state.ds_page + delta))
-    st.session_state.ds_page = new_page
-    st.session_state.ds_nav = ds_pages[new_page]
+    current_page = st.session_state.ds_page
+    new_page = max(0, min(len(ds_pages) - 1, current_page + delta))
+    if new_page != current_page:
+        if delta < 0:
+            _ds_go_back()
+            return
+        st.session_state.ds_history.append(current_page)
+        st.session_state.ds_page = new_page
+        st.session_state.ds_nav = ds_pages[new_page]
 
 def _ds_go_to_page(page_name):
     if page_name in ds_pages:
-        st.session_state.ds_page = ds_pages.index(page_name)
+        target_page = ds_pages.index(page_name)
+        if target_page != st.session_state.ds_page:
+            st.session_state.ds_history.append(st.session_state.ds_page)
+        st.session_state.ds_page = target_page
         st.session_state.ds_nav = page_name
+
+def _ds_go_back():
+    if st.session_state.ds_history:
+        previous_page = st.session_state.ds_history.pop()
+    elif st.session_state.ds_page > 1:
+        previous_page = 1
+    else:
+        previous_page = 0
+    st.session_state.ds_page = previous_page
+    st.session_state.ds_nav = ds_pages[previous_page]
 
 st.markdown("""
 <style>
@@ -877,8 +901,7 @@ if st.session_state.ds_page > 0:
             "← Back" if not pa else "← ਪਿੱਛੇ",
             key="ds_bottom_back",
             disabled=st.session_state.ds_page == 0,
-            on_click=_ds_move_page,
-            args=(-1,),
+            on_click=_ds_go_back,
             use_container_width=True
         )
     with _nav_bottom_right:
