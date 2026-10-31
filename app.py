@@ -67,7 +67,7 @@ language = st.selectbox(
 pa = language == "ਪੰਜਾਬੀ"
 
 if pa:
-    title = "ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ"
+    title = "ਸਿਹਤ, ਸਫ਼ਾਈ ਅਤੇ ਸੈਨਿਟੇਸ਼ਨ ਸਹਾਇਕ"
     intro = "ਆਪਣੀ ਸਿਹਤ ਬਾਰੇ ਸਿੱਖੋ ਅਤੇ ਵਿਟਾਮਿਨ D ਨੂੰ ਸਮਝੋ।"
     notice = (
         "ਇਹ ਸਿੱਖਿਆ ਲਈ ਹੈ। ਇਹ ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ ਨਹੀਂ ਕਰਦਾ "
@@ -133,7 +133,7 @@ if pa:
         "ਲੋੜ ਪੈਣ 'ਤੇ ਡਾਕਟਰੀ ਜਾਂਚ ਅਤੇ ਖੂਨ ਟੈਸਟ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
     )
 else:
-    title = "Your Vitamin D Awareness Assistant"
+    title = "Smart Health, Hygiene & Sanitation"
     intro = "Learn about Vitamin D and make informed health choices."
     notice = (
         "This is an educational tool. It cannot diagnose deficiency "
@@ -203,7 +203,7 @@ else:
 
 # ---------- MOBILE SCREEN NAVIGATION ----------
 # Screen navigation preserves the existing feature code below.
-ds_pages = ["Welcome", "Home", "Awareness", "Learn", "Report", "Quiz", "About", "AI Assistant"]
+ds_pages = ["Welcome", "Home", "Awareness", "Learn", "Report", "Quiz", "About", "AI Assistant", "Hygiene", "Sanitation", "Healthy Habits"]
 
 if "ds_page" not in st.session_state:
     st.session_state.ds_page = 0
@@ -282,9 +282,9 @@ if st.session_state.ds_page == 0:
         <div class="ds-welcome">
           <div class="ds-sun">☀️</div>
           <div class="ds-brand">D-SMART</div>
-          <div class="ds-welcome-sub">{'ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ' if pa else 'Vitamin D Awareness Assistant'}</div>
+          <div class="ds-welcome-sub">{'ਵਿਟਾਮਿਨ D ਜਾਗਰੂਕਤਾ ਸਹਾਇਕ' if pa else 'Smart Health, Hygiene & Sanitation'}</div>
           <div class="ds-welcome-copy">
-            {'ਵਿਗਿਆਨ ਅਤੇ ਤਕਨਾਲੋਜੀ ਰਾਹੀਂ ਸਿਹਤ ਬਾਰੇ ਸਿੱਖੋ।' if pa else 'A brighter way to learn about Vitamin D, understand reports, and build health awareness.'}
+            {'ਵਿਟਾਮਿਨ D, ਨਿੱਜੀ ਸਫ਼ਾਈ ਅਤੇ ਸਾਫ਼-ਸੁਥਰੇ ਵਾਤਾਵਰਣ ਬਾਰੇ ਸਿੱਖੋ।' if pa else 'Learn about Vitamin D, personal hygiene, safe water, sanitation and healthier everyday habits.'}
           </div>
           <div class="ds-pill-row">
             <span class="ds-pill">🌐 {'ਪੰਜਾਬੀ + English' if pa else 'Punjabi + English'}</span>
@@ -318,6 +318,25 @@ if st.session_state.ds_page == 1:
     st.title("☀️ D-SMART")
     st.subheader(title)
     st.write(intro)
+    st.markdown("### " + ("ਤੁਹਾਡਾ ਸਿਹਤ ਸਿੱਖਣ ਕੇਂਦਰ" if pa else "Your Health Learning Hub"))
+    _hub_cards = st.columns(3)
+    _hub_items = [
+        ("🧼", "Hygiene" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ", "Hygiene" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ"),
+        ("💧", "Sanitation" if not pa else "ਸੈਨਿਟੇਸ਼ਨ", "Sanitation" if not pa else "ਸੈਨਿਟੇਸ਼ਨ"),
+        ("🌱", "Healthy Habits" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ", "Healthy Habits" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ"),
+    ]
+    for _i, (_icon, _label, _dest) in enumerate(_hub_items):
+        with _hub_cards[_i]:
+            st.markdown(
+                f'<div style="background:#f2fbf8;border:1px solid #cce8e4;border-radius:16px;padding:14px 8px;text-align:center;min-height:105px"><div style="font-size:30px">{_icon}</div><b style="color:#176b5b">{_label}</b></div>',
+                unsafe_allow_html=True
+            )
+            st.button(
+                ("Explore" if not pa else "ਖੋਲ੍ਹੋ") + " →",
+                key="ds_hub_" + str(_i),
+                use_container_width=True,
+                on_click=lambda page=_dest: setattr(st.session_state, "ds_nav", page)
+            )
     st.info(notice)
     
     # ---------- SCIENCE EXHIBITION MODE ----------
@@ -1095,6 +1114,179 @@ if st.session_state.ds_page == 7:
         if not pa else
         "AI ਤੋਂ ਮਿਲੀ ਜਾਣਕਾਰੀ ਅਧੂਰੀ ਜਾਂ ਗਲਤ ਹੋ ਸਕਦੀ ਹੈ। ਮਹੱਤਵਪੂਰਨ ਸਿਹਤ ਜਾਣਕਾਰੀ ਦੀ ਪੁਸ਼ਟੀ ਯੋਗ ਸਿਹਤ ਮਾਹਿਰ ਨਾਲ ਕਰੋ।"
     )
+
+
+
+# ---------- HEALTH, HYGIENE AND SANITATION LEARNING HUB ----------
+if st.session_state.ds_page == 8:
+    st.header("🧼 " + ("Hygiene Hub" if not pa else "ਨਿੱਜੀ ਸਫ਼ਾਈ ਕੇਂਦਰ"))
+    st.write(
+        "Small daily hygiene habits help reduce the spread of germs and support dignity and wellbeing."
+        if not pa else
+        "ਰੋਜ਼ਾਨਾ ਦੀਆਂ ਸਫ਼ਾਈ ਵਾਲੀਆਂ ਆਦਤਾਂ ਕੀਟਾਣੂਆਂ ਦੇ ਫੈਲਾਅ ਨੂੰ ਘਟਾਉਣ ਅਤੇ ਸਿਹਤ ਤੇ ਸਨਮਾਨ ਦੀ ਰੱਖਿਆ ਵਿੱਚ ਮਦਦ ਕਰਦੀਆਂ ਹਨ।"
+    )
+    _hygiene_topics = [
+        (
+            "👐 Handwashing" if not pa else "👐 ਹੱਥ ਧੋਣਾ",
+            "Wet hands with clean running water, apply soap, scrub all hand surfaces for at least 20 seconds, rinse, and dry with a clean towel or air-dry. Wash before preparing or eating food and after using the toilet, coughing, sneezing, or handling waste."
+            if not pa else
+            "ਸਾਫ਼ ਵਗਦੇ ਪਾਣੀ ਨਾਲ ਹੱਥ ਗਿੱਲੇ ਕਰੋ, ਸਾਬਣ ਲਗਾਓ, ਹੱਥਾਂ ਦੇ ਸਾਰੇ ਹਿੱਸੇ ਘੱਟੋ-ਘੱਟ 20 ਸਕਿੰਟ ਰਗੜੋ, ਫਿਰ ਧੋ ਕੇ ਸਾਫ਼ ਤੌਲੀਏ ਨਾਲ ਸੁਕਾਓ ਜਾਂ ਹਵਾ ਵਿੱਚ ਸੁੱਕਣ ਦਿਓ। ਖਾਣਾ ਬਣਾਉਣ ਜਾਂ ਖਾਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਟਾਇਲਟ ਵਰਤਣ, ਖੰਘਣ, ਛਿੱਕਣ ਜਾਂ ਕੂੜਾ ਸੰਭਾਲਣ ਤੋਂ ਬਾਅਦ ਹੱਥ ਧੋਵੋ।"
+        ),
+        (
+            "🦷 Oral hygiene" if not pa else "🦷 ਮੂੰਹ ਅਤੇ ਦੰਦਾਂ ਦੀ ਸਫ਼ਾਈ",
+            "Brush teeth twice a day with fluoride toothpaste, clean between teeth when possible, and arrange dental care for persistent pain or bleeding."
+            if not pa else
+            "ਦਿਨ ਵਿੱਚ ਦੋ ਵਾਰ ਫਲੋਰਾਈਡ ਵਾਲੇ ਟੂਥਪੇਸਟ ਨਾਲ ਦੰਦ ਸਾਫ਼ ਕਰੋ। ਸੰਭਵ ਹੋਵੇ ਤਾਂ ਦੰਦਾਂ ਵਿਚਕਾਰ ਵੀ ਸਫ਼ਾਈ ਕਰੋ ਅਤੇ ਲਗਾਤਾਰ ਦਰਦ ਜਾਂ ਖੂਨ ਆਉਣ 'ਤੇ ਦੰਦਾਂ ਦੇ ਡਾਕਟਰ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।"
+        ),
+        (
+            "🥗 Food hygiene" if not pa else "🥗 ਭੋਜਨ ਦੀ ਸਫ਼ਾਈ",
+            "Wash hands and produce with safe water, keep raw foods separate from cooked foods, use clean utensils, and refrigerate perishable food promptly."
+            if not pa else
+            "ਹੱਥ ਅਤੇ ਫਲ-ਸਬਜ਼ੀਆਂ ਸੁਰੱਖਿਅਤ ਪਾਣੀ ਨਾਲ ਧੋਵੋ, ਕੱਚੇ ਅਤੇ ਪੱਕੇ ਭੋਜਨ ਨੂੰ ਵੱਖ ਰੱਖੋ, ਸਾਫ਼ ਬਰਤਨ ਵਰਤੋ ਅਤੇ ਜਲਦੀ ਖਰਾਬ ਹੋਣ ਵਾਲਾ ਭੋਜਨ ਸਮੇਂ ਸਿਰ ਫਰਿੱਜ ਵਿੱਚ ਰੱਖੋ।"
+        ),
+        (
+            "🤧 Cough and sneeze etiquette" if not pa else "🤧 ਖੰਘਣ ਅਤੇ ਛਿੱਕਣ ਦੇ ਸਹੀ ਤਰੀਕੇ",
+            "Cover coughs and sneezes with a tissue or your bent elbow, dispose of tissues safely, and clean your hands."
+            if not pa else
+            "ਖੰਘਣ ਜਾਂ ਛਿੱਕਣ ਵੇਲੇ ਟਿਸ਼ੂ ਜਾਂ ਮੁੜੀ ਹੋਈ ਕੂਹਣੀ ਵਰਤੋ, ਟਿਸ਼ੂ ਢੰਗ ਨਾਲ ਸੁੱਟੋ ਅਤੇ ਹੱਥ ਸਾਫ਼ ਕਰੋ।"
+        ),
+        (
+            "🌸 Menstrual hygiene" if not pa else "🌸 ਮਹਾਵਾਰੀ ਦੌਰਾਨ ਸਫ਼ਾਈ",
+            "Use clean menstrual products, change them as directed, wash hands before and after changing, and dispose of used products safely according to local facilities. Menstruation is normal and should be discussed without shame."
+            if not pa else
+            "ਸਾਫ਼ ਮਹਾਵਾਰੀ ਉਤਪਾਦ ਵਰਤੋ ਅਤੇ ਹਦਾਇਤਾਂ ਅਨੁਸਾਰ ਬਦਲੋ। ਉਤਪਾਦ ਬਦਲਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਬਾਅਦ ਹੱਥ ਧੋਵੋ ਅਤੇ ਵਰਤੇ ਉਤਪਾਦਾਂ ਦਾ ਸਥਾਨਕ ਸਹੂਲਤਾਂ ਅਨੁਸਾਰ ਸੁਰੱਖਿਅਤ ਨਿਪਟਾਰਾ ਕਰੋ। ਮਹਾਵਾਰੀ ਇੱਕ ਕੁਦਰਤੀ ਪ੍ਰਕਿਰਿਆ ਹੈ; ਇਸ ਬਾਰੇ ਬਿਨਾਂ ਝਿਜਕ ਗੱਲ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ।"
+        ),
+    ]
+    for _topic, _details in _hygiene_topics:
+        with st.expander(_topic):
+            st.write(_details)
+    st.divider()
+    st.subheader("🧠 " + ("Hygiene Quick Quiz" if not pa else "ਸਫ਼ਾਈ ਬਾਰੇ ਛੋਟਾ ਕਵਿਜ਼"))
+    _hq = st.radio(
+        "When is handwashing especially important?" if not pa else "ਹੱਥ ਕਦੋਂ ਧੋਣੇ ਖਾਸ ਤੌਰ 'ਤੇ ਜ਼ਰੂਰੀ ਹਨ?",
+        [
+            "Only in the morning" if not pa else "ਸਿਰਫ਼ ਸਵੇਰੇ",
+            "Before eating and after using the toilet" if not pa else "ਖਾਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਟਾਇਲਟ ਤੋਂ ਬਾਅਦ",
+            "Only when hands look dirty" if not pa else "ਸਿਰਫ਼ ਜਦੋਂ ਹੱਥ ਗੰਦੇ ਦਿਸਣ",
+        ],
+        key="ds_hygiene_quiz"
+    )
+    if st.button("Check answer" if not pa else "ਜਵਾਬ ਵੇਖੋ", key="ds_hygiene_check"):
+        if _hq == ("Before eating and after using the toilet" if not pa else "ਖਾਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਟਾਇਲਟ ਤੋਂ ਬਾਅਦ"):
+            st.success("Correct! Hands can carry germs even when they look clean." if not pa else "ਸਹੀ! ਹੱਥ ਸਾਫ਼ ਦਿਸਣ ਦੇ ਬਾਵਜੂਦ ਉਨ੍ਹਾਂ 'ਤੇ ਕੀਟਾਣੂ ਹੋ ਸਕਦੇ ਹਨ।")
+        else:
+            st.info("Try again: wash before eating and after using the toilet, among other important times." if not pa else "ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ: ਖਾਣ ਤੋਂ ਪਹਿਲਾਂ ਅਤੇ ਟਾਇਲਟ ਤੋਂ ਬਾਅਦ ਸਮੇਤ ਹੋਰ ਜ਼ਰੂਰੀ ਸਮਿਆਂ 'ਤੇ ਹੱਥ ਧੋਵੋ।")
+    st.caption("D-SMART provides education, not individual medical advice." if not pa else "D-SMART ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ, ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਨਹੀਂ।")
+
+
+if st.session_state.ds_page == 9:
+    st.header("💧 " + ("Sanitation & Safe Water" if not pa else "ਸੈਨਿਟੇਸ਼ਨ ਅਤੇ ਸੁਰੱਖਿਅਤ ਪਾਣੀ"))
+    st.write(
+        "Clean surroundings, safe water, hygienic toilets and responsible waste handling help protect community health."
+        if not pa else
+        "ਸਾਫ਼ ਵਾਤਾਵਰਣ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸਾਫ਼ ਟਾਇਲਟ ਅਤੇ ਕੂੜੇ ਦਾ ਢੰਗ ਨਾਲ ਪ੍ਰਬੰਧ ਸਮੁਦਾਇਕ ਸਿਹਤ ਦੀ ਰੱਖਿਆ ਕਰਦੇ ਹਨ।"
+    )
+    _san_topics = [
+        (
+            "🚰 Safe drinking water" if not pa else "🚰 ਸੁਰੱਖਿਅਤ ਪੀਣ ਵਾਲਾ ਪਾਣੀ",
+            "Water that looks clear is not always safe. Use a reliable approved source; when safety is uncertain, follow local public-health advice on treatment. Store drinking water in a clean, covered, food-safe container and avoid dipping unwashed hands or cups into it."
+            if not pa else
+            "ਸਾਫ਼ ਦਿਸਣ ਵਾਲਾ ਪਾਣੀ ਹਮੇਸ਼ਾ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਹੁੰਦਾ। ਭਰੋਸੇਯੋਗ ਅਤੇ ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਸਰੋਤ ਵਰਤੋ। ਜੇ ਪਾਣੀ ਦੀ ਸੁਰੱਖਿਆ ਬਾਰੇ ਸ਼ੱਕ ਹੋਵੇ ਤਾਂ ਸਥਾਨਕ ਸਿਹਤ ਵਿਭਾਗ ਦੀ ਸਲਾਹ ਅਨੁਸਾਰ ਇਲਾਜ ਕਰੋ। ਪੀਣ ਵਾਲਾ ਪਾਣੀ ਸਾਫ਼, ਢੱਕੇ ਹੋਏ ਅਤੇ ਭੋਜਨ ਲਈ ਸੁਰੱਖਿਅਤ ਬਰਤਨ ਵਿੱਚ ਰੱਖੋ।"
+        ),
+        (
+            "🚽 Toilet hygiene" if not pa else "🚽 ਟਾਇਲਟ ਦੀ ਸਫ਼ਾਈ",
+            "Use toilets safely, keep facilities as clean as possible, wash hands with soap afterwards, and report broken water supplies or sanitation facilities to a responsible adult or local authority."
+            if not pa else
+            "ਟਾਇਲਟ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਵਰਤੋ, ਜਿੱਥੇ ਸੰਭਵ ਹੋਵੇ ਸਹੂਲਤਾਂ ਸਾਫ਼ ਰੱਖੋ, ਬਾਅਦ ਵਿੱਚ ਸਾਬਣ ਨਾਲ ਹੱਥ ਧੋਵੋ ਅਤੇ ਪਾਣੀ ਜਾਂ ਸਫ਼ਾਈ ਦੀ ਸਹੂਲਤ ਖਰਾਬ ਹੋਣ 'ਤੇ ਜ਼ਿੰਮੇਵਾਰ ਵੱਡੇ ਜਾਂ ਸਥਾਨਕ ਅਧਿਕਾਰੀ ਨੂੰ ਦੱਸੋ।"
+        ),
+        (
+            "♻️ Waste segregation" if not pa else "♻️ ਕੂੜੇ ਦੀ ਵੱਖ-ਵੱਖ ਛਾਂਟ",
+            "Separate wet/biodegradable waste, dry recyclable waste and household hazardous waste according to local collection rules. Do not burn mixed waste or handle sharp, chemical or medical waste without proper support."
+            if not pa else
+            "ਸਥਾਨਕ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਗਿੱਲਾ/ਜੈਵਿਕ ਕੂੜਾ, ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਹੋਣ ਵਾਲਾ ਕੂੜਾ ਅਤੇ ਘਰੇਲੂ ਖਤਰਨਾਕ ਕੂੜਾ ਵੱਖ ਕਰੋ। ਮਿਲਿਆ-ਜੁਲਿਆ ਕੂੜਾ ਨਾ ਸਾੜੋ ਅਤੇ ਤਿੱਖੇ, ਰਸਾਇਣਕ ਜਾਂ ਮੈਡੀਕਲ ਕੂੜੇ ਨੂੰ ਸਹੀ ਸਹਾਇਤਾ ਤੋਂ ਬਿਨਾਂ ਨਾ ਛੂਹੋ।"
+        ),
+        (
+            "🦟 Mosquito prevention" if not pa else "🦟 ਮੱਛਰਾਂ ਤੋਂ ਬਚਾਅ",
+            "Remove or cover standing water where practical, keep water-storage containers covered, and follow local public-health advice. Do not enter drains or handle chemicals to control mosquitoes."
+            if not pa else
+            "ਜਿੱਥੇ ਸੰਭਵ ਹੋਵੇ ਖੜ੍ਹਾ ਪਾਣੀ ਹਟਾਓ ਜਾਂ ਢੱਕੋ ਅਤੇ ਪਾਣੀ ਸੰਭਾਲਣ ਵਾਲੇ ਬਰਤਨ ਢੱਕ ਕੇ ਰੱਖੋ। ਸਥਾਨਕ ਸਿਹਤ ਵਿਭਾਗ ਦੀ ਸਲਾਹ ਮੰਨੋ। ਮੱਛਰਾਂ ਨੂੰ ਕਾਬੂ ਕਰਨ ਲਈ ਨਾਲਿਆਂ ਵਿੱਚ ਨਾ ਉਤਰੋ ਅਤੇ ਰਸਾਇਣ ਆਪਣੇ ਆਪ ਨਾ ਵਰਤੋ।"
+        ),
+        (
+            "🏫 Clean school checklist" if not pa else "🏫 ਸਾਫ਼ ਸਕੂਲ ਦੀ ਜਾਂਚ-ਸੂਚੀ",
+            "Look for accessible drinking water, usable and reasonably clean toilets, soap or another approved handwashing option, covered bins, and clear reporting of leaks or stagnant water. Report problems to staff; students should not handle sewage, sharps or unknown chemicals."
+            if not pa else
+            "ਪੀਣ ਵਾਲੇ ਪਾਣੀ, ਵਰਤਣਯੋਗ ਅਤੇ ਸਾਫ਼ ਟਾਇਲਟ, ਸਾਬਣ ਜਾਂ ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਹੱਥ ਧੋਣ ਦੀ ਸਹੂਲਤ, ਢੱਕੇ ਕੂੜੇਦਾਨ ਅਤੇ ਲੀਕੇਜ ਜਾਂ ਖੜ੍ਹੇ ਪਾਣੀ ਦੀ ਜਾਂਚ ਕਰੋ। ਸਮੱਸਿਆ ਅਧਿਆਪਕਾਂ ਜਾਂ ਸਟਾਫ਼ ਨੂੰ ਦੱਸੋ; ਵਿਦਿਆਰਥੀ ਸੀਵਰੇਜ, ਤਿੱਖੀਆਂ ਚੀਜ਼ਾਂ ਜਾਂ ਅਣਜਾਣ ਰਸਾਇਣ ਨਾ ਸੰਭਾਲਣ।"
+        ),
+        (
+            "🌍 Water conservation" if not pa else "🌍 ਪਾਣੀ ਦੀ ਬਚਤ",
+            "Turn off taps when not needed, report leaks, and avoid wasting clean water. Never compromise drinking-water safety to save water."
+            if not pa else
+            "ਲੋੜ ਨਾ ਹੋਣ 'ਤੇ ਨਲ ਬੰਦ ਕਰੋ, ਲੀਕੇਜ ਦੀ ਸੂਚਨਾ ਦਿਓ ਅਤੇ ਸਾਫ਼ ਪਾਣੀ ਬਰਬਾਦ ਨਾ ਕਰੋ। ਪਾਣੀ ਬਚਾਉਣ ਲਈ ਪੀਣ ਵਾਲੇ ਪਾਣੀ ਦੀ ਸੁਰੱਖਿਆ ਨਾਲ ਸਮਝੌਤਾ ਨਾ ਕਰੋ।"
+        ),
+    ]
+    for _topic, _details in _san_topics:
+        with st.expander(_topic):
+            st.write(_details)
+    st.subheader("🗑️ " + ("Waste sorting activity" if not pa else "ਕੂੜਾ ਛਾਂਟਣ ਦੀ ਗਤੀਵਿਧੀ"))
+    _waste_item = st.selectbox(
+        "Choose an item" if not pa else "ਇੱਕ ਚੀਜ਼ ਚੁਣੋ",
+        ["Vegetable peels", "Clean paper/cardboard", "Plastic bottle", "Used battery"],
+        format_func=lambda x: (
+            {"Vegetable peels":"Vegetable peels — wet/biodegradable",
+             "Clean paper/cardboard":"Clean paper/cardboard — dry recyclable",
+             "Plastic bottle":"Plastic bottle — dry recyclable where accepted",
+             "Used battery":"Used battery — household hazardous/e-waste collection"}
+            if not pa else
+            {"Vegetable peels":"ਸਬਜ਼ੀਆਂ ਦੇ ਛਿਲਕੇ — ਗਿੱਲਾ/ਜੈਵਿਕ ਕੂੜਾ",
+             "Clean paper/cardboard":"ਸਾਫ਼ ਕਾਗਜ਼/ਗੱਤਾ — ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਕੂੜਾ",
+             "Plastic bottle":"ਪਲਾਸਟਿਕ ਬੋਤਲ — ਜਿੱਥੇ ਸਵੀਕਾਰ ਹੋਵੇ ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਕੂੜਾ",
+             "Used battery":"ਵਰਤੀ ਬੈਟਰੀ — ਖਤਰਨਾਕ/ਈ-ਕੂੜਾ ਇਕੱਠਾ ਕਰਨ ਵਾਲੀ ਥਾਂ"}[x]
+        ),
+        key="ds_waste_item"
+    )
+    _waste_explanations = {
+        "Vegetable peels": ("Put in the wet/biodegradable stream if local collection supports it." if not pa else "ਜੇ ਸਥਾਨਕ ਪ੍ਰਬੰਧ ਹੋਵੇ ਤਾਂ ਗਿੱਲੇ/ਜੈਵਿਕ ਕੂੜੇ ਵਿੱਚ ਪਾਓ।"),
+        "Clean paper/cardboard": ("Keep clean and dry for recycling where accepted." if not pa else "ਜਿੱਥੇ ਰੀਸਾਈਕਲ ਹੁੰਦਾ ਹੋਵੇ, ਸਾਫ਼ ਅਤੇ ਸੁੱਕਾ ਰੱਖੋ।"),
+        "Plastic bottle": ("Empty it and follow local recycling rules." if not pa else "ਬੋਤਲ ਖਾਲੀ ਕਰੋ ਅਤੇ ਸਥਾਨਕ ਰੀਸਾਈਕਲ ਨਿਯਮ ਮੰਨੋ।"),
+        "Used battery": ("Do not put batteries in ordinary mixed waste; use an approved collection point." if not pa else "ਬੈਟਰੀ ਆਮ ਮਿਲੇ-ਜੁਲੇ ਕੂੜੇ ਵਿੱਚ ਨਾ ਪਾਓ; ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਇਕੱਠਾ ਕਰਨ ਵਾਲੀ ਥਾਂ ਵਰਤੋ।"),
+    }
+    st.info(_waste_explanations[_waste_item])
+    st.caption("Waste categories and collection systems vary by location." if not pa else "ਕੂੜੇ ਦੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਅਤੇ ਇਕੱਠਾ ਕਰਨ ਦੇ ਨਿਯਮ ਥਾਂ ਅਨੁਸਾਰ ਵੱਖ ਹੋ ਸਕਦੇ ਹਨ।")
+
+
+if st.session_state.ds_page == 10:
+    st.header("🌱 " + ("Healthy Habits Tracker" if not pa else "ਸਿਹਤਮੰਦ ਆਦਤਾਂ ਟ੍ਰੈਕਰ"))
+    st.write(
+        "Use this optional checklist as a learning reminder. It is not a health score or a test of personal cleanliness."
+        if not pa else
+        "ਇਸ ਵਿਕਲਪਿਕ ਸੂਚੀ ਨੂੰ ਸਿੱਖਣ ਲਈ ਯਾਦ ਦਿਹਾਨੀ ਵਜੋਂ ਵਰਤੋ। ਇਹ ਸਿਹਤ ਅੰਕ ਜਾਂ ਨਿੱਜੀ ਸਫ਼ਾਈ ਦੀ ਜਾਂਚ ਨਹੀਂ ਹੈ।"
+    )
+    _habits = [
+        ("Wash hands with soap at important times", "ਮਹੱਤਵਪੂਰਨ ਸਮਿਆਂ 'ਤੇ ਸਾਬਣ ਨਾਲ ਹੱਥ ਧੋਣੇ"),
+        ("Brush teeth morning and night", "ਸਵੇਰੇ ਅਤੇ ਰਾਤ ਦੰਦ ਸਾਫ਼ ਕਰਨੇ"),
+        ("Choose safe drinking water", "ਸੁਰੱਖਿਅਤ ਪੀਣ ਵਾਲਾ ਪਾਣੀ ਚੁਣਨਾ"),
+        ("Keep food and utensils clean", "ਭੋਜਨ ਅਤੇ ਬਰਤਨ ਸਾਫ਼ ਰੱਖਣੇ"),
+        ("Put waste in the appropriate bin", "ਕੂੜਾ ਢੁੱਕਵੇਂ ਕੂੜੇਦਾਨ ਵਿੱਚ ਪਾਉਣਾ"),
+        ("Save water and report leaks", "ਪਾਣੀ ਬਚਾਉਣਾ ਅਤੇ ਲੀਕੇਜ ਦੀ ਸੂਚਨਾ ਦੇਣੀ"),
+    ]
+    st.caption("Tick only what you did or learned today; missed items are reminders, not a reason for shame." if not pa else "ਅੱਜ ਕੀਤੇ ਜਾਂ ਸਿੱਖੇ ਕੰਮਾਂ 'ਤੇ ਹੀ ਨਿਸ਼ਾਨ ਲਗਾਓ; ਰਹਿ ਗਈਆਂ ਗੱਲਾਂ ਸਿਰਫ਼ ਯਾਦ ਦਿਹਾਨੀਆਂ ਹਨ, ਸ਼ਰਮ ਦਾ ਕਾਰਨ ਨਹੀਂ।")
+    _done_habits = []
+    for _i, (_en, _pa) in enumerate(_habits):
+        _done_habits.append(st.checkbox(_pa if pa else _en, key="ds_habit_" + str(_i)))
+    _habit_count = sum(_done_habits)
+    st.progress(_habit_count / len(_habits))
+    st.success(
+        (str(_habit_count) + " of " + str(len(_habits)) + " learning reminders checked.")
+        if not pa else
+        (str(_habit_count) + " ਵਿੱਚੋਂ " + str(len(_habits)) + " ਸਿੱਖਣ ਵਾਲੀਆਂ ਯਾਦ ਦਿਹਾਨੀਆਂ ਚੁਣੀਆਂ।")
+    )
+    st.info(
+        "Healthy environments also depend on access to clean water, soap, safe toilets and reliable waste services—not only individual choices."
+        if not pa else
+        "ਸਿਹਤਮੰਦ ਵਾਤਾਵਰਣ ਲਈ ਸਾਫ਼ ਪਾਣੀ, ਸਾਬਣ, ਸੁਰੱਖਿਅਤ ਟਾਇਲਟ ਅਤੇ ਕੂੜਾ ਪ੍ਰਬੰਧਨ ਦੀਆਂ ਸਹੂਲਤਾਂ ਵੀ ਲੋੜੀਂਦੀਆਂ ਹਨ; ਸਿਰਫ਼ ਨਿੱਜੀ ਆਦਤਾਂ ਕਾਫ਼ੀ ਨਹੀਂ।"
+    )
+    st.caption("Your checklist is kept only in this app session and is not a medical record." if not pa else "ਤੁਹਾਡੀ ਸੂਚੀ ਸਿਰਫ਼ ਇਸ ਐਪ ਸੈਸ਼ਨ ਵਿੱਚ ਰਹਿੰਦੀ ਹੈ ਅਤੇ ਇਹ ਮੈਡੀਕਲ ਰਿਕਾਰਡ ਨਹੀਂ ਹੈ।")
+
 
 
 # Bottom navigation appears after each functional screen.
