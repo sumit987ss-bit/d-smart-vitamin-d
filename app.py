@@ -246,34 +246,6 @@ div[data-testid="stSelectbox"] { margin-bottom: 0.25rem; }
 </style>
 """, unsafe_allow_html=True)
 
-if st.session_state.ds_page > 0:
-    # Keep the interface simple: language selector remains at the top;
-    # screen selection dropdown is removed. Use Back/Next and home hub cards.
-    _nav_left, _nav_right = st.columns(2)
-    with _nav_left:
-        st.button(
-            "← Back" if not pa else "← ਪਿੱਛੇ",
-            key="ds_top_back",
-            disabled=st.session_state.ds_page <= 1,
-            on_click=_ds_move_page,
-            args=(-1,),
-            use_container_width=True
-        )
-    with _nav_right:
-        st.button(
-            "Next →" if not pa else "ਅੱਗੇ →",
-            key="ds_top_next",
-            disabled=st.session_state.ds_page == len(ds_pages) - 1,
-            on_click=_ds_move_page,
-            args=(1,),
-            use_container_width=True
-        )
-    st.caption(
-        f"Screen {st.session_state.ds_page} of {len(ds_pages) - 1}"
-        if not pa else
-        f"ਸਕ੍ਰੀਨ {st.session_state.ds_page} / {len(ds_pages) - 1}"
-    )
-    st.divider()
 
 
 if st.session_state.ds_page == 0:
