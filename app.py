@@ -679,14 +679,61 @@ if st.session_state.ds_page == 8:
                 if not pa else
                 "ਅੰਕ ਵੇਖਣ ਤੋਂ ਪਹਿਲਾਂ ਕਿਰਪਾ ਕਰਕੇ ਪੰਜੇ ਸਵਾਲਾਂ ਦੇ ਜਵਾਬ ਦਿਓ।"
             )
+            st.session_state.pop("ds_community_result_v2", None)
         else:
             _score = sum(
                 1 for _i, _answer in enumerate(_community_answers)
                 if _answer == (_community_questions[_i][4] if pa else _community_questions[_i][1])
             )
-            st.success(
-                (f"You got {_score} out of 5. Keep learning and share one positive health action in your community!" if not pa else f"ਤੁਹਾਡੇ 5 ਵਿੱਚੋਂ {_score} ਜਵਾਬ ਸਹੀ ਹਨ। ਸਿੱਖਦੇ ਰਹੋ ਅਤੇ ਆਪਣੇ ਭਾਈਚਾਰੇ ਵਿੱਚ ਸਿਹਤ ਲਈ ਇੱਕ ਚੰਗਾ ਕਦਮ ਸਾਂਝਾ ਕਰੋ!")
+            st.session_state.ds_community_result_v2 = {
+                "score": _score,
+                "answers": list(_community_answers),
+            }
+
+    if "ds_community_result_v2" in st.session_state:
+        _result = st.session_state.ds_community_result_v2
+        _score = _result["score"]
+        st.success(
+            (f"You got {_score} out of 5. Keep learning and share one positive health action in your community!"
+             if not pa else
+             f"ਤੁਹਾਡੇ 5 ਵਿੱਚੋਂ {_score} ਜਵਾਬ ਸਹੀ ਹਨ। ਸਿੱਖਦੇ ਰਹੋ ਅਤੇ ਆਪਣੇ ਭਾਈਚਾਰੇ ਵਿੱਚ ਸਿਹਤ ਲਈ ਇੱਕ ਚੰਗਾ ਕਦਮ ਸਾਂਝਾ ਕਰੋ!")
+        )
+        if _score < 5:
+            _result_tab, _review_tab = st.tabs(
+                ["🏆 Result", "📖 Review answers"] if not pa
+                else ["🏆 ਨਤੀਜਾ", "📖 ਸਹੀ ਜਵਾਬ ਵੇਖੋ"]
             )
+            with _result_tab:
+                st.metric("Score" if not pa else "ਅੰਕ", f"{_score} / 5")
+                st.caption(
+                    "Review the answers in the next tab and learn from each question."
+                    if not pa else
+                    "ਅਗਲੀ ਟੈਬ ਵਿੱਚ ਸਹੀ ਜਵਾਬ ਵੇਖੋ ਅਤੇ ਹਰ ਸਵਾਲ ਤੋਂ ਸਿੱਖੋ।"
+                )
+            with _review_tab:
+                st.markdown("#### " + ("Answer review" if not pa else "ਜਵਾਬਾਂ ਦੀ ਸਮੀਖਿਆ"))
+                for _ri, _rq in enumerate(_community_questions):
+                    _correct_answer = _rq[4] if pa else _rq[1]
+                    _question_text = _rq[3] if pa else _rq[0]
+                    _chosen_answer = _result["answers"][_ri]
+                    _is_correct = _chosen_answer == _correct_answer
+                    if _is_correct:
+                        st.success(
+                            (f"Q{_ri + 1}. {_question_text}\\nYour answer: {_chosen_answer} ✓"
+                             if not pa else
+                             f"ਸਵਾਲ {_ri + 1}. {_question_text}\\nਤੁਹਾਡਾ ਜਵਾਬ: {_chosen_answer} ✓")
+                        )
+                    else:
+                        st.error(
+                            (f"Q{_ri + 1}. {_question_text}\\nYour answer: {_chosen_answer}"
+                             if not pa else
+                             f"ਸਵਾਲ {_ri + 1}. {_question_text}\\nਤੁਹਾਡਾ ਜਵਾਬ: {_chosen_answer}")
+                        )
+                        st.info(
+                            ("Correct answer: " + _correct_answer)
+                            if not pa else
+                            ("ਸਹੀ ਜਵਾਬ: " + _correct_answer)
+                        )
     st.markdown("### " + ("My community action" if not pa else "ਮੇਰਾ ਭਾਈਚਾਰਕ ਕਦਮ"))
     st.write(
         "Choose one realistic action: promote handwashing, keep drinking-water containers covered, use the correct waste bin, save water, or share trusted health information."
