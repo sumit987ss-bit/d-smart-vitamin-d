@@ -1203,12 +1203,31 @@ if st.session_state.ds_page == 11:
         _prompt = _q[3] if pa else _q[0]
         _correct = _q[4] if pa else _q[1]
         _wrong = _q[5] if pa else _q[2]
-        _community_answers.append(st.radio(_prompt, [_correct] + _wrong, key="ds_community_q_" + str(_qi)))
-    if st.button("Check my challenge" if not pa else "ਮੇਰੀ ਚੁਣੌਤੀ ਦੇ ਜਵਾਬ ਵੇਖੋ", type="primary", key="ds_community_check"):
-        _score = sum(1 for _i, _answer in enumerate(_community_answers) if _answer == (_community_questions[_i][4] if pa else _community_questions[_i][1]))
-        st.success(
-            (f"You got {_score} out of 5. Keep learning and share one positive health action in your community!" if not pa else f"ਤੁਹਾਡੇ 5 ਵਿੱਚੋਂ {_score} ਜਵਾਬ ਸਹੀ ਹਨ। ਸਿੱਖਦੇ ਰਹੋ ਅਤੇ ਆਪਣੇ ਭਾਈਚਾਰੇ ਵਿੱਚ ਸਿਹਤ ਲਈ ਇੱਕ ਚੰਗਾ ਕਦਮ ਸਾਂਝਾ ਕਰੋ!")
+        _options = _wrong + [_correct]
+        _community_answers.append(
+            st.radio(
+                _prompt,
+                _options,
+                index=None,
+                key="ds_community_q_v2_" + str(_qi),
+                help=("Select one answer." if not pa else "ਇੱਕ ਜਵਾਬ ਚੁਣੋ।")
+            )
         )
+    if st.button("Check my challenge" if not pa else "ਮੇਰੀ ਚੁਣੌਤੀ ਦੇ ਜਵਾਬ ਵੇਖੋ", type="primary", key="ds_community_check_v2"):
+        if any(_answer is None for _answer in _community_answers):
+            st.warning(
+                "Please answer all five questions before checking your score."
+                if not pa else
+                "ਅੰਕ ਵੇਖਣ ਤੋਂ ਪਹਿਲਾਂ ਕਿਰਪਾ ਕਰਕੇ ਪੰਜੇ ਸਵਾਲਾਂ ਦੇ ਜਵਾਬ ਦਿਓ।"
+            )
+        else:
+            _score = sum(
+                1 for _i, _answer in enumerate(_community_answers)
+                if _answer == (_community_questions[_i][4] if pa else _community_questions[_i][1])
+            )
+            st.success(
+                (f"You got {_score} out of 5. Keep learning and share one positive health action in your community!" if not pa else f"ਤੁਹਾਡੇ 5 ਵਿੱਚੋਂ {_score} ਜਵਾਬ ਸਹੀ ਹਨ। ਸਿੱਖਦੇ ਰਹੋ ਅਤੇ ਆਪਣੇ ਭਾਈਚਾਰੇ ਵਿੱਚ ਸਿਹਤ ਲਈ ਇੱਕ ਚੰਗਾ ਕਦਮ ਸਾਂਝਾ ਕਰੋ!")
+            )
     st.markdown("### " + ("My community action" if not pa else "ਮੇਰਾ ਭਾਈਚਾਰਕ ਕਦਮ"))
     st.write(
         "Choose one realistic action: promote handwashing, keep drinking-water containers covered, use the correct waste bin, save water, or share trusted health information."
