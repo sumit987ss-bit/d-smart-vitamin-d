@@ -605,80 +605,93 @@ if st.session_state.ds_page == 5:
 
 
 if st.session_state.ds_page == 6:
-    st.header("💧 " + ("Sanitation & Safe Water" if not pa else "ਸੈਨਿਟੇਸ਼ਨ ਅਤੇ ਸੁਰੱਖਿਅਤ ਪਾਣੀ"))
-    st.write(
-        "Clean surroundings, safe water, hygienic toilets and responsible waste handling help protect community health."
-        if not pa else
-        "ਸਾਫ਼ ਵਾਤਾਵਰਣ, ਸੁਰੱਖਿਅਤ ਪਾਣੀ, ਸਾਫ਼ ਟਾਇਲਟ ਅਤੇ ਕੂੜੇ ਦਾ ਢੰਗ ਨਾਲ ਪ੍ਰਬੰਧ ਸਮੁਦਾਇਕ ਸਿਹਤ ਦੀ ਰੱਖਿਆ ਕਰਦੇ ਹਨ।"
-    )
-    _san_topics = [
-        (
-            "🚰 Safe drinking water" if not pa else "🚰 ਸੁਰੱਖਿਅਤ ਪੀਣ ਵਾਲਾ ਪਾਣੀ",
-            "Water that looks clear is not always safe. Use a reliable approved source; when safety is uncertain, follow local public-health advice on treatment. Store drinking water in a clean, covered, food-safe container and avoid dipping unwashed hands or cups into it."
-            if not pa else
-            "ਸਾਫ਼ ਦਿਸਣ ਵਾਲਾ ਪਾਣੀ ਹਮੇਸ਼ਾ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਹੁੰਦਾ। ਭਰੋਸੇਯੋਗ ਅਤੇ ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਸਰੋਤ ਵਰਤੋ। ਜੇ ਪਾਣੀ ਦੀ ਸੁਰੱਖਿਆ ਬਾਰੇ ਸ਼ੱਕ ਹੋਵੇ ਤਾਂ ਸਥਾਨਕ ਸਿਹਤ ਵਿਭਾਗ ਦੀ ਸਲਾਹ ਅਨੁਸਾਰ ਇਲਾਜ ਕਰੋ। ਪੀਣ ਵਾਲਾ ਪਾਣੀ ਸਾਫ਼, ਢੱਕੇ ਹੋਏ ਅਤੇ ਭੋਜਨ ਲਈ ਸੁਰੱਖਿਅਤ ਬਰਤਨ ਵਿੱਚ ਰੱਖੋ।"
-        ),
-        (
-            "🚽 Toilet hygiene" if not pa else "🚽 ਟਾਇਲਟ ਦੀ ਸਫ਼ਾਈ",
-            "Use toilets safely, keep facilities as clean as possible, wash hands with soap afterwards, and report broken water supplies or sanitation facilities to a responsible adult or local authority."
-            if not pa else
-            "ਟਾਇਲਟ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਵਰਤੋ, ਜਿੱਥੇ ਸੰਭਵ ਹੋਵੇ ਸਹੂਲਤਾਂ ਸਾਫ਼ ਰੱਖੋ, ਬਾਅਦ ਵਿੱਚ ਸਾਬਣ ਨਾਲ ਹੱਥ ਧੋਵੋ ਅਤੇ ਪਾਣੀ ਜਾਂ ਸਫ਼ਾਈ ਦੀ ਸਹੂਲਤ ਖਰਾਬ ਹੋਣ 'ਤੇ ਜ਼ਿੰਮੇਵਾਰ ਵੱਡੇ ਜਾਂ ਸਥਾਨਕ ਅਧਿਕਾਰੀ ਨੂੰ ਦੱਸੋ।"
-        ),
-        (
-            "♻️ Waste segregation" if not pa else "♻️ ਕੂੜੇ ਦੀ ਵੱਖ-ਵੱਖ ਛਾਂਟ",
-            "Separate wet/biodegradable waste, dry recyclable waste and household hazardous waste according to local collection rules. Do not burn mixed waste or handle sharp, chemical or medical waste without proper support."
-            if not pa else
-            "ਸਥਾਨਕ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਗਿੱਲਾ/ਜੈਵਿਕ ਕੂੜਾ, ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਹੋਣ ਵਾਲਾ ਕੂੜਾ ਅਤੇ ਘਰੇਲੂ ਖਤਰਨਾਕ ਕੂੜਾ ਵੱਖ ਕਰੋ। ਮਿਲਿਆ-ਜੁਲਿਆ ਕੂੜਾ ਨਾ ਸਾੜੋ ਅਤੇ ਤਿੱਖੇ, ਰਸਾਇਣਕ ਜਾਂ ਮੈਡੀਕਲ ਕੂੜੇ ਨੂੰ ਸਹੀ ਸਹਾਇਤਾ ਤੋਂ ਬਿਨਾਂ ਨਾ ਛੂਹੋ।"
-        ),
-        (
-            "🦟 Mosquito prevention" if not pa else "🦟 ਮੱਛਰਾਂ ਤੋਂ ਬਚਾਅ",
-            "Remove or cover standing water where practical, keep water-storage containers covered, and follow local public-health advice. Do not enter drains or handle chemicals to control mosquitoes."
-            if not pa else
-            "ਜਿੱਥੇ ਸੰਭਵ ਹੋਵੇ ਖੜ੍ਹਾ ਪਾਣੀ ਹਟਾਓ ਜਾਂ ਢੱਕੋ ਅਤੇ ਪਾਣੀ ਸੰਭਾਲਣ ਵਾਲੇ ਬਰਤਨ ਢੱਕ ਕੇ ਰੱਖੋ। ਸਥਾਨਕ ਸਿਹਤ ਵਿਭਾਗ ਦੀ ਸਲਾਹ ਮੰਨੋ। ਮੱਛਰਾਂ ਨੂੰ ਕਾਬੂ ਕਰਨ ਲਈ ਨਾਲਿਆਂ ਵਿੱਚ ਨਾ ਉਤਰੋ ਅਤੇ ਰਸਾਇਣ ਆਪਣੇ ਆਪ ਨਾ ਵਰਤੋ।"
-        ),
-        (
-            "🏫 Clean school checklist" if not pa else "🏫 ਸਾਫ਼ ਸਕੂਲ ਦੀ ਜਾਂਚ-ਸੂਚੀ",
-            "Look for accessible drinking water, usable and reasonably clean toilets, soap or another approved handwashing option, covered bins, and clear reporting of leaks or stagnant water. Report problems to staff; students should not handle sewage, sharps or unknown chemicals."
-            if not pa else
-            "ਪੀਣ ਵਾਲੇ ਪਾਣੀ, ਵਰਤਣਯੋਗ ਅਤੇ ਸਾਫ਼ ਟਾਇਲਟ, ਸਾਬਣ ਜਾਂ ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਹੱਥ ਧੋਣ ਦੀ ਸਹੂਲਤ, ਢੱਕੇ ਕੂੜੇਦਾਨ ਅਤੇ ਲੀਕੇਜ ਜਾਂ ਖੜ੍ਹੇ ਪਾਣੀ ਦੀ ਜਾਂਚ ਕਰੋ। ਸਮੱਸਿਆ ਅਧਿਆਪਕਾਂ ਜਾਂ ਸਟਾਫ਼ ਨੂੰ ਦੱਸੋ; ਵਿਦਿਆਰਥੀ ਸੀਵਰੇਜ, ਤਿੱਖੀਆਂ ਚੀਜ਼ਾਂ ਜਾਂ ਅਣਜਾਣ ਰਸਾਇਣ ਨਾ ਸੰਭਾਲਣ।"
-        ),
-        (
-            "🌍 Water conservation" if not pa else "🌍 ਪਾਣੀ ਦੀ ਬਚਤ",
-            "Turn off taps when not needed, report leaks, and avoid wasting clean water. Never compromise drinking-water safety to save water."
-            if not pa else
-            "ਲੋੜ ਨਾ ਹੋਣ 'ਤੇ ਨਲ ਬੰਦ ਕਰੋ, ਲੀਕੇਜ ਦੀ ਸੂਚਨਾ ਦਿਓ ਅਤੇ ਸਾਫ਼ ਪਾਣੀ ਬਰਬਾਦ ਨਾ ਕਰੋ। ਪਾਣੀ ਬਚਾਉਣ ਲਈ ਪੀਣ ਵਾਲੇ ਪਾਣੀ ਦੀ ਸੁਰੱਖਿਆ ਨਾਲ ਸਮਝੌਤਾ ਨਾ ਕਰੋ।"
-        ),
-    ]
-    for _topic, _details in _san_topics:
-        with st.expander(_topic):
-            st.write(_details)
-    st.subheader("🗑️ " + ("Waste sorting activity" if not pa else "ਕੂੜਾ ਛਾਂਟਣ ਦੀ ਗਤੀਵਿਧੀ"))
-    _waste_item = st.selectbox(
-        "Choose an item" if not pa else "ਇੱਕ ਚੀਜ਼ ਚੁਣੋ",
-        ["Vegetable peels", "Clean paper/cardboard", "Plastic bottle", "Used battery"],
-        format_func=lambda x: (
-            ({
-                "Vegetable peels":"Vegetable peels — wet/biodegradable",
-                "Clean paper/cardboard":"Clean paper/cardboard — dry recyclable",
-                "Plastic bottle":"Plastic bottle — dry recyclable where accepted",
-                "Used battery":"Used battery — household hazardous/e-waste collection"
-            } if not pa else {
-                "Vegetable peels":"ਸਬਜ਼ੀਆਂ ਦੇ ਛਿਲਕੇ — ਗਿੱਲਾ/ਜੈਵਿਕ ਕੂੜਾ",
-                "Clean paper/cardboard":"ਸਾਫ਼ ਕਾਗਜ਼/ਗੱਤਾ — ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਕੂੜਾ",
-                "Plastic bottle":"ਪਲਾਸਟਿਕ ਬੋਤਲ — ਜਿੱਥੇ ਸਵੀਕਾਰ ਹੋਵੇ ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਕੂੜਾ",
-                "Used battery":"ਵਰਤੀ ਬੈਟਰੀ — ਖਤਰਨਾਕ/ਈ-ਕੂੜਾ ਇਕੱਠਾ ਕਰਨ ਵਾਲੀ ਥਾਂ"
-            })[x]
-        ),
-        key="ds_waste_item"
-    )
-    _waste_explanations = {
-        "Vegetable peels": ("Put in the wet/biodegradable stream if local collection supports it." if not pa else "ਜੇ ਸਥਾਨਕ ਪ੍ਰਬੰਧ ਹੋਵੇ ਤਾਂ ਗਿੱਲੇ/ਜੈਵਿਕ ਕੂੜੇ ਵਿੱਚ ਪਾਓ।"),
-        "Clean paper/cardboard": ("Keep clean and dry for recycling where accepted." if not pa else "ਜਿੱਥੇ ਰੀਸਾਈਕਲ ਹੁੰਦਾ ਹੋਵੇ, ਸਾਫ਼ ਅਤੇ ਸੁੱਕਾ ਰੱਖੋ।"),
-        "Plastic bottle": ("Empty it and follow local recycling rules." if not pa else "ਬੋਤਲ ਖਾਲੀ ਕਰੋ ਅਤੇ ਸਥਾਨਕ ਰੀਸਾਈਕਲ ਨਿਯਮ ਮੰਨੋ।"),
-        "Used battery": ("Do not put batteries in ordinary mixed waste; use an approved collection point." if not pa else "ਬੈਟਰੀ ਆਮ ਮਿਲੇ-ਜੁਲੇ ਕੂੜੇ ਵਿੱਚ ਨਾ ਪਾਓ; ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਇਕੱਠਾ ਕਰਨ ਵਾਲੀ ਥਾਂ ਵਰਤੋ।"),
-    }
-    st.info(_waste_explanations[_waste_item])
-    st.caption("Waste categories and collection systems vary by location." if not pa else "ਕੂੜੇ ਦੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਅਤੇ ਇਕੱਠਾ ਕਰਨ ਦੇ ਨਿਯਮ ਥਾਂ ਅਨੁਸਾਰ ਵੱਖ ਹੋ ਸਕਦੇ ਹਨ।")
+    st.header("💧 " + ("Sanitation Explorer" if not pa else "ਸੈਨਿਟੇਸ਼ਨ ਐਕਸਪਲੋਰਰ"))
+    st.write("Explore sanitation through visual learning stations, real-life examples and quick decisions—not a list of dropdowns." if not pa else "ਡਰਾਪਡਾਊਨ ਦੀ ਥਾਂ ਸਿੱਖਣ ਕਾਰਡਾਂ, ਅਸਲ ਉਦਾਹਰਨਾਂ ਅਤੇ ਛੋਟੀਆਂ ਚੋਣਾਂ ਰਾਹੀਂ ਸੈਨਿਟੇਸ਼ਨ ਸਿੱਖੋ।")
+    st.markdown("""
+    <div style="background:linear-gradient(120deg,#d9f8ff,#e7fff1);border:1px solid #bde5df;border-radius:22px;padding:20px;text-align:center;margin:8px 0 16px">
+      <div style="font-size:48px">🌍 💧 🧼 ♻️</div>
+      <div style="font-size:23px;font-weight:850;color:#087f8c">Every Drop • Every Space • Everyone</div>
+      <div style="color:#285963;font-size:14px">Safe water and clean surroundings protect the whole community.</div>
+    </div>
+    """ if not pa else """
+    <div style="background:linear-gradient(120deg,#d9f8ff,#e7fff1);border:1px solid #bde5df;border-radius:22px;padding:20px;text-align:center;margin:8px 0 16px">
+      <div style="font-size:48px">🌍 💧 🧼 ♻️</div>
+      <div style="font-size:23px;font-weight:850;color:#087f8c">ਹਰ ਬੂੰਦ • ਹਰ ਥਾਂ • ਹਰ ਵਿਅਕਤੀ</div>
+      <div style="color:#285963;font-size:14px">ਸੁਰੱਖਿਅਤ ਪਾਣੀ ਅਤੇ ਸਾਫ਼ ਵਾਤਾਵਰਣ ਪੂਰੇ ਭਾਈਚਾਰੇ ਦੀ ਰੱਖਿਆ ਕਰਦੇ ਹਨ।</div>
+    </div>
+    """, unsafe_allow_html=True)
+    _san_stations = st.tabs(["🚰 Water Lab" if not pa else "🚰 ਪਾਣੀ ਲੈਬ", "🚽 Clean Toilets" if not pa else "🚽 ਸਾਫ਼ ਟਾਇਲਟ", "♻️ Waste Sorter" if not pa else "♻️ ਕੂੜਾ ਛਾਂਟ", "🦟 Mosquito Shield" if not pa else "🦟 ਮੱਛਰਾਂ ਤੋਂ ਬਚਾਅ", "🏫 Green School" if not pa else "🏫 ਸਾਫ਼ ਸਕੂਲ"])
+
+    with _san_stations[0]:
+        st.subheader("🚰 " + ("Can you trust clear water?" if not pa else "ਕੀ ਸਾਫ਼ ਦਿਸਦਾ ਪਾਣੀ ਹਮੇਸ਼ਾ ਸੁਰੱਖਿਅਤ ਹੈ?"))
+        _wc=st.columns(2)
+        with _wc[0]:
+            st.markdown('<div style="background:#effaff;border:1px solid #c6e8f4;border-radius:16px;padding:16px;text-align:center;min-height:145px"><div style="font-size:42px">💧</div><b style="color:#087f8c">Looks clear</b><p style="color:#35545c">Clear appearance alone cannot prove water is safe.</p></div>' if not pa else '<div style="background:#effaff;border:1px solid #c6e8f4;border-radius:16px;padding:16px;text-align:center;min-height:145px"><div style="font-size:42px">💧</div><b style="color:#087f8c">ਸਾਫ਼ ਦਿਸਦਾ ਹੈ</b><p style="color:#35545c">ਸਿਰਫ਼ ਸਾਫ਼ ਦਿਸਣ ਨਾਲ ਪਾਣੀ ਸੁਰੱਖਿਅਤ ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ।</p></div>',unsafe_allow_html=True)
+        with _wc[1]:
+            st.markdown('<div style="background:#f0fff4;border:1px solid #c8ead4;border-radius:16px;padding:16px;text-align:center;min-height:145px"><div style="font-size:42px">🫙</div><b style="color:#176b5b">Store safely</b><p style="color:#35545c">Use a clean, covered, food-safe container.</p></div>' if not pa else '<div style="background:#f0fff4;border:1px solid #c8ead4;border-radius:16px;padding:16px;text-align:center;min-height:145px"><div style="font-size:42px">🫙</div><b style="color:#176b5b">ਸੁਰੱਖਿਅਤ ਸੰਭਾਲੋ</b><p style="color:#35545c">ਸਾਫ਼, ਢੱਕਿਆ ਹੋਇਆ ਅਤੇ ਪਾਣੀ ਲਈ ਸੁਰੱਖਿਅਤ ਬਰਤਨ ਵਰਤੋ।</p></div>',unsafe_allow_html=True)
+        st.markdown("### " + ("Safe-water pathway" if not pa else "ਸੁਰੱਖਿਅਤ ਪਾਣੀ ਦੇ ਕਦਮ"))
+        _water_steps=[("1️⃣","Trusted source" if not pa else "ਭਰੋਸੇਯੋਗ ਸਰੋਤ","Use an approved supply and follow local health guidance." if not pa else "ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਸਰੋਤ ਵਰਤੋ ਅਤੇ ਸਥਾਨਕ ਸਿਹਤ ਸਲਾਹ ਮੰਨੋ।"),("2️⃣","Clean container" if not pa else "ਸਾਫ਼ ਬਰਤਨ","Keep the container clean and covered." if not pa else "ਬਰਤਨ ਸਾਫ਼ ਅਤੇ ਢੱਕਿਆ ਰੱਖੋ।"),("3️⃣","Clean hands" if not pa else "ਸਾਫ਼ ਹੱਥ","Avoid touching stored water with unwashed hands or cups." if not pa else "ਗੰਦੇ ਹੱਥਾਂ ਜਾਂ ਕੱਪ ਨਾਲ ਪਾਣੀ ਨੂੰ ਨਾ ਛੂਹੋ।")]
+        _wc=st.columns(3)
+        for col,item in zip(_wc,_water_steps):
+            with col:
+                with st.container(border=True):
+                    st.markdown("### "+item[0]); st.markdown("**"+item[1]+"**"); st.caption(item[2])
+        st.info("If water safety is uncertain, follow local public-health guidance on treatment. Never guess or mix chemicals." if not pa else "ਜੇ ਪਾਣੀ ਦੀ ਸੁਰੱਖਿਆ ਬਾਰੇ ਸ਼ੱਕ ਹੋਵੇ ਤਾਂ ਸਥਾਨਕ ਸਿਹਤ ਵਿਭਾਗ ਦੀ ਸਲਾਹ ਅਨੁਸਾਰ ਇਲਾਜ ਕਰੋ। ਅੰਦਾਜ਼ੇ ਨਾਲ ਰਸਾਇਣ ਨਾ ਮਿਲਾਓ।")
+
+    with _san_stations[1]:
+        st.subheader("🚽 " + ("A clean toilet is a shared responsibility" if not pa else "ਸਾਫ਼ ਟਾਇਲਟ ਸਾਂਝੀ ਜ਼ਿੰਮੇਵਾਰੀ ਹੈ"))
+        _toilet_cards=[("🚪 Use safely","Use the facility as intended and leave it as clean as possible.","🚪 ਸੁਰੱਖਿਅਤ ਵਰਤੋਂ","ਟਾਇਲਟ ਢੰਗ ਨਾਲ ਵਰਤੋ ਅਤੇ ਜਿੰਨਾ ਹੋ ਸਕੇ ਸਾਫ਼ ਛੱਡੋ।"),("🧼 Wash hands","Wash with soap after using the toilet.","🧼 ਹੱਥ ਧੋਵੋ","ਟਾਇਲਟ ਵਰਤਣ ਤੋਂ ਬਾਅਦ ਸਾਬਣ ਨਾਲ ਹੱਥ ਧੋਵੋ।"),("🚰 Report faults","Tell a trusted adult or school staff about leaks or broken facilities.","🚰 ਖਰਾਬੀ ਦੱਸੋ","ਲੀਕੇਜ ਜਾਂ ਖਰਾਬ ਸਹੂਲਤ ਬਾਰੇ ਜ਼ਿੰਮੇਵਾਰ ਵੱਡੇ ਜਾਂ ਸਕੂਲ ਸਟਾਫ਼ ਨੂੰ ਦੱਸੋ।")]
+        _tc=st.columns(3)
+        for col,item in zip(_tc,_toilet_cards):
+            with col:
+                with st.container(border=True):
+                    st.markdown("### "+(item[2] if pa else item[0])); st.write(item[3] if pa else item[1])
+        st.warning("Students should never enter drains or handle sewage, sharps or unknown chemicals." if not pa else "ਵਿਦਿਆਰਥੀ ਨਾਲਿਆਂ ਵਿੱਚ ਨਾ ਉਤਰਨ ਅਤੇ ਸੀਵਰੇਜ, ਤਿੱਖੀਆਂ ਚੀਜ਼ਾਂ ਜਾਂ ਅਣਜਾਣ ਰਸਾਇਣ ਨਾ ਸੰਭਾਲਣ।")
+
+    with _san_stations[2]:
+        st.subheader("♻️ " + ("Waste sorting challenge" if not pa else "ਕੂੜਾ ਛਾਂਟਣ ਦੀ ਚੁਣੌਤੀ"))
+        st.write("Choose an item to reveal its usual waste stream. Follow local collection rules." if not pa else "ਕਿਸੇ ਚੀਜ਼ ਦੀ ਚੋਣ ਕਰਕੇ ਉਸ ਦੀ ਕੂੜੇ ਵਾਲੀ ਕਿਸਮ ਜਾਣੋ। ਸਥਾਨਕ ਨਿਯਮ ਮੰਨੋ।")
+        _waste_options={
+          "🥕 Vegetable peels":("Wet / biodegradable" if not pa else "ਗਿੱਲਾ / ਜੈਵਿਕ ਕੂੜਾ","Use the wet-waste stream or compost only where local arrangements support it." if not pa else "ਗਿੱਲੇ ਕੂੜੇ ਵਿੱਚ ਪਾਓ ਜਾਂ ਉੱਥੇ ਹੀ ਖਾਦ ਬਣਾਓ ਜਿੱਥੇ ਸਹੂਲਤ ਹੋਵੇ।"),
+          "📄 Clean paper/cardboard":("Dry recyclable" if not pa else "ਸੁੱਕਾ ਰੀਸਾਈਕਲ ਕੂੜਾ","Keep clean and dry; follow local recycling rules." if not pa else "ਸਾਫ਼ ਅਤੇ ਸੁੱਕਾ ਰੱਖੋ; ਸਥਾਨਕ ਰੀਸਾਈਕਲ ਨਿਯਮ ਮੰਨੋ।"),
+          "🧴 Plastic bottle":("Recyclable where accepted" if not pa else "ਜਿੱਥੇ ਸਵੀਕਾਰ ਹੋਵੇ ਰੀਸਾਈਕਲ","Empty it and use the local collection system where available." if not pa else "ਬੋਤਲ ਖਾਲੀ ਕਰੋ ਅਤੇ ਜਿੱਥੇ ਸਹੂਲਤ ਹੋਵੇ ਸਥਾਨਕ ਇਕੱਠ ਪ੍ਰਣਾਲੀ ਵਰਤੋ।"),
+          "🔋 Used battery":("Special collection / e-waste" if not pa else "ਵੱਖਰਾ ਇਕੱਠ / ਈ-ਕੂੜਾ","Do not put it in mixed waste; ask an adult about an authorised collection point." if not pa else "ਇਸਨੂੰ ਮਿਲੇ-ਜੁਲੇ ਕੂੜੇ ਵਿੱਚ ਨਾ ਪਾਓ; ਅਧਿਕਾਰਤ ਇਕੱਠ ਕੇਂਦਰ ਬਾਰੇ ਕਿਸੇ ਵੱਡੇ ਤੋਂ ਪੁੱਛੋ।"),
+          "🩹 Used medical sharp":("Special safe handling" if not pa else "ਖਾਸ ਸੁਰੱਖਿਅਤ ਸੰਭਾਲ","Never touch or sort sharps yourself; tell a responsible adult or trained staff." if not pa else "ਤਿੱਖੀ ਮੈਡੀਕਲ ਚੀਜ਼ ਨੂੰ ਖੁਦ ਨਾ ਛੂਹੋ; ਜ਼ਿੰਮੇਵਾਰ ਵੱਡੇ ਜਾਂ ਤਜਰਬੇਕਾਰ ਸਟਾਫ਼ ਨੂੰ ਦੱਸੋ।")}
+        _waste_choice=st.radio("Choose a waste item" if not pa else "ਕੂੜੇ ਦੀ ਚੀਜ਼ ਚੁਣੋ",list(_waste_options.keys()),key="ds_waste_visual_choice")
+        _waste_type,_waste_detail=_waste_options[_waste_choice]
+        st.markdown(f'<div style="background:linear-gradient(120deg,#e9fff2,#eef8ff);border:1px solid #c7e7d6;border-radius:18px;padding:18px;margin:8px 0;text-align:center"><div style="font-size:42px">{_waste_choice.split(" ")[0]}</div><div style="font-size:20px;font-weight:800;color:#087f8c">{_waste_type}</div><div style="color:#35545c;margin-top:8px">{_waste_detail}</div></div>',unsafe_allow_html=True)
+
+    with _san_stations[3]:
+        st.subheader("🦟 " + ("Break the mosquito life cycle" if not pa else "ਮੱਛਰਾਂ ਦੇ ਜੀਵਨ ਚੱਕਰ ਨੂੰ ਰੋਕੋ"))
+        _mosq=[("🪣","Empty or cover standing water where practical." if not pa else "ਜਿੱਥੇ ਸੰਭਵ ਹੋਵੇ ਖੜ੍ਹਾ ਪਾਣੀ ਖਾਲੀ ਕਰੋ ਜਾਂ ਢੱਕੋ।"),("🫙","Keep water-storage containers covered." if not pa else "ਪਾਣੀ ਦੇ ਭੰਡਾਰ ਵਾਲੇ ਬਰਤਨ ਢੱਕ ਕੇ ਰੱਖੋ।"),("🔎","Ask an adult to help check safe areas around home or school." if not pa else "ਘਰ ਜਾਂ ਸਕੂਲ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਸੁਰੱਖਿਅਤ ਥਾਵਾਂ ਦੀ ਜਾਂਚ ਲਈ ਵੱਡੇ ਦੀ ਮਦਦ ਲਵੋ।")]
+        _mc=st.columns(3)
+        for col,(icon,desc) in zip(_mc,_mosq):
+            with col:
+                with st.container(border=True):
+                    st.markdown("<div style='font-size:36px;text-align:center'>"+icon+"</div>",unsafe_allow_html=True); st.write(desc)
+        st.info("Do not enter drains, climb to unsafe places or handle pesticides. Follow local public-health guidance." if not pa else "ਨਾਲਿਆਂ ਵਿੱਚ ਨਾ ਉਤਰੋ, ਖਤਰਨਾਕ ਥਾਵਾਂ 'ਤੇ ਨਾ ਚੜ੍ਹੋ ਅਤੇ ਕੀਟਨਾਸ਼ਕ ਨਾ ਸੰਭਾਲੋ। ਸਥਾਨਕ ਸਿਹਤ ਵਿਭਾਗ ਦੀ ਸਲਾਹ ਮੰਨੋ।")
+
+    with _san_stations[4]:
+        st.subheader("🏫 " + ("School sanitation mission" if not pa else "ਸਕੂਲ ਸੈਨਿਟੇਸ਼ਨ ਮਿਸ਼ਨ"))
+        _school_checklist=[("🚰","Safe drinking water is available." if not pa else "ਸੁਰੱਖਿਅਤ ਪੀਣ ਵਾਲਾ ਪਾਣੀ ਉਪਲਬਧ ਹੈ।"),("🚽","Toilets are usable and reasonably clean." if not pa else "ਟਾਇਲਟ ਵਰਤਣਯੋਗ ਅਤੇ ਸਾਫ਼ ਹਨ।"),("🧼","Soap or an approved handwashing option is available." if not pa else "ਸਾਬਣ ਜਾਂ ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਹੱਥ ਧੋਣ ਦੀ ਸਹੂਲਤ ਹੈ।"),("🗑️","Waste bins and sorting arrangements are available." if not pa else "ਕੂੜੇਦਾਨ ਅਤੇ ਕੂੜਾ ਛਾਂਟਣ ਦੀ ਸਹੂਲਤ ਹੈ।"),("💧","Leaks and standing water are reported." if not pa else "ਲੀਕੇਜ ਅਤੇ ਖੜ੍ਹੇ ਪਾਣੀ ਦੀ ਸੂਚਨਾ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।")]
+        st.write("Tick features you can see in your school. Report missing facilities to staff; this is an awareness checklist, not an inspection." if not pa else "ਆਪਣੇ ਸਕੂਲ ਵਿੱਚ ਮੌਜੂਦ ਸਹੂਲਤਾਂ 'ਤੇ ਨਿਸ਼ਾਨ ਲਗਾਓ। ਘਾਟ ਹੋਣ 'ਤੇ ਸਟਾਫ਼ ਨੂੰ ਦੱਸੋ; ਇਹ ਜਾਗਰੂਕਤਾ ਸੂਚੀ ਹੈ, ਅਧਿਕਾਰਤ ਜਾਂਚ ਨਹੀਂ।")
+        _school_done=[]
+        for idx,(icon,desc) in enumerate(_school_checklist):
+            if st.checkbox(icon+" "+desc,key="ds_san_school_"+str(idx)): _school_done.append(idx)
+        st.progress(len(_school_done)/len(_school_checklist))
+        st.metric("Facilities checked" if not pa else "ਜਾਂਚੀਆਂ ਸਹੂਲਤਾਂ",f"{len(_school_done)} / {len(_school_checklist)}")
+        if len(_school_done)==len(_school_checklist):
+            st.success("Great observation! Share this checklist with a teacher or school staff member." if not pa else "ਵਧੀਆ ਨਿਰੀਖਣ! ਇਹ ਸੂਚੀ ਅਧਿਆਪਕ ਜਾਂ ਸਕੂਲ ਸਟਾਫ਼ ਨਾਲ ਸਾਂਝੀ ਕਰੋ।")
+
+    st.divider()
+    st.subheader("🧠 " + ("Sanitation quick quiz" if not pa else "ਸੈਨਿਟੇਸ਼ਨ ਛੋਟੀ ਕਵਿਜ਼"))
+    _san_q=st.radio("Which action helps keep stored drinking water safer?" if not pa else "ਸੰਭਾਲੇ ਪੀਣ ਵਾਲੇ ਪਾਣੀ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖਣ ਲਈ ਕਿਹੜਾ ਕਦਮ ਮਦਦ ਕਰਦਾ ਹੈ?",["Keep it in a clean, covered container","Leave the container open","Dip unwashed cups into it"] if not pa else ["ਸਾਫ਼, ਢੱਕੇ ਬਰਤਨ ਵਿੱਚ ਰੱਖੋ","ਬਰਤਨ ਖੁੱਲ੍ਹਾ ਛੱਡੋ","ਗੰਦੇ ਕੱਪ ਪਾਣੀ ਵਿੱਚ ਡੁਬੋਵੋ"],index=None,key="ds_san_quiz_v2")
+    if st.button("Check answer" if not pa else "ਜਵਾਬ ਜਾਂਚੋ",key="ds_san_quiz_check_v2"):
+        if _san_q==("Keep it in a clean, covered container" if not pa else "ਸਾਫ਼, ਢੱਕੇ ਬਰਤਨ ਵਿੱਚ ਰੱਖੋ"):
+            st.success("Correct! Clean, covered storage helps protect drinking water." if not pa else "ਸਹੀ! ਸਾਫ਼ ਅਤੇ ਢੱਕੇ ਬਰਤਨ ਵਿੱਚ ਪਾਣੀ ਰੱਖਣਾ ਇਸ ਦੀ ਸੁਰੱਖਿਆ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।")
+        else:
+            st.info("Try again: choose a clean, covered container." if not pa else "ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ: ਸਾਫ਼ ਅਤੇ ਢੱਕਿਆ ਬਰਤਨ ਚੁਣੋ।")
+    st.caption("SEHAT SAATHI provides education, not individual medical advice." if not pa else "SEHAT SAATHI ਸਿੱਖਿਆ ਦਿੰਦਾ ਹੈ, ਨਿੱਜੀ ਡਾਕਟਰੀ ਸਲਾਹ ਨਹੀਂ।")
 
 
 if st.session_state.ds_page == 7:
