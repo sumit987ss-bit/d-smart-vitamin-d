@@ -1,0 +1,23 @@
+{
+  "id": "./",
+  "name": "SEHAT SAATHI – ਸਿਹਤ ਸਾਥੀ",
+  "short_name": "SEHAT SAATHI",
+  "description": "Bilingual health, hygiene and sanitation learning platform.",
+  "lang": "en-IN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#eaf7ff",
+  "theme_color": "#087f8c",
+  "categories": ["education", "health"],
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
