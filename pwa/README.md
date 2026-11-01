@@ -1,26 +1,40 @@
-# SEHAT SAATHI – branded installable web app
+# SEHAT SAATHI – independent bilingual health-learning app
 
-This folder contains a Progressive Web App (PWA) shell with its own name, icon, manifest and standalone display mode. It embeds the current SEHAT SAATHI Streamlit application so the existing bilingual learning sections and configured AI Mentor remain available while the frontend migration is staged.
+This folder contains the standalone SEHAT SAATHI Progressive Web App (PWA). The current frontend is a native HTML/CSS/JavaScript app; it does **not** embed Streamlit and does not load the old Streamlit URL in an iframe.
 
-## Important architecture note
+## Features
+- English and Punjabi interface
+- Health basics, hygiene, sanitation and healthy habits
+- Knowledge quiz with feedback and score
+- Daily community challenge saved on the device
+- Installable mobile-friendly interface and offline shell caching
+- AI Health Mentor interface designed to use a secure server-side Gemini key
 
-This first stage is a branded installable shell, **not yet a full removal of Streamlit**. The embedded learning app still runs at the Streamlit URL and needs internet access. A complete migration requires porting the existing Python features, session state, quiz logic and Gemini integration into a new web backend/frontend and testing them feature by feature.
+## Important: AI Mentor hosting
+The frontend calls `/.netlify/functions/mentor`. Therefore, the AI Mentor works only when this repository is deployed to **Netlify** (or the frontend endpoint is changed to another compatible secure backend). GitHub Pages serves the static interface but does not run the Netlify function. On GitHub Pages, the rest of the learning app can work, but the AI Mentor will show a setup/unavailable message.
 
-## Publish using GitHub Pages
+## Deploy the complete app with AI Mentor on Netlify
+1. Open the official Netlify website: https://app.netlify.com/
+2. Sign in and choose **Add new project → Import an existing project**.
+3. Connect GitHub and select `sumit987ss-bit/d-smart-vitamin-d`, branch `main`.
+4. Netlify should detect the committed `netlify.toml`. Confirm the publish directory is `pwa` and the functions directory is `netlify/functions`.
+5. In the Netlify site dashboard, open **Site configuration → Environment variables** (menu wording may vary) and add:
+   - Key: `GEMINI_API_KEY`
+   - Value: your Gemini API key
+   Never place the key in this repository, the frontend HTML, or a public message.
+6. Trigger a deploy. Open the Netlify site URL and test the AI Mentor with both English and Punjabi questions.
 
-1. Open the repository settings on GitHub.
-2. Go to **Pages** and choose **GitHub Actions** as the build/deployment source.
-3. The workflow in `.github/workflows/deploy-pwa.yml` publishes this folder.
-4. After the workflow succeeds, the PWA URL will be `https://sumit987ss-bit.github.io/d-smart-vitamin-d/` if Pages is enabled for this repository.
-5. Open that URL in Chrome on Android, use the browser menu, then choose **Install app** or **Add to Home screen**. The exact wording depends on the browser version.
+## GitHub Pages preview
+The independent frontend can also be previewed at:
+https://sumit987ss-bit.github.io/d-smart-vitamin-d/
 
-## Checks
+GitHub Pages does not execute `netlify/functions/mentor.js`; use the Netlify URL for the full app including AI.
 
-- App name: SEHAT SAATHI – ਸਿਹਤ ਸਾਥੀ
-- Short name: SEHAT SAATHI
-- Icon: `icon.svg`
-- Display: standalone
-- Online/offline status shown in the shell
-- The Streamlit iframe is deliberately not cached; the learning app and AI Mentor require internet.
+## Install on Android
+Open the deployed site in Chrome, open the browser menu, then select **Install app** or **Add to Home screen**. Exact wording depends on the browser.
 
-If the app is published under a custom domain or a different Pages base path, update `start_url`, `scope`, and asset paths in `manifest.json` accordingly.
+## Safety and migration
+- The Gemini key is read only from the backend environment variable.
+- The mentor provides general educational information, not diagnosis or treatment.
+- The original `app.py` is retained as a fallback while the independent app is tested.
+- Do not retire the old app until the new deployment and mentor are verified end to end.
