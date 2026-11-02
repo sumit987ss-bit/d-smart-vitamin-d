@@ -32,7 +32,7 @@ export default {
           model:models[i].name,
           input:"Question: " + question,
           system_instruction:prompt,
-          generation_config:{thinking_level:models[i].thinking,max_output_tokens:300},
+          generation_config:{thinking_level:models[i].thinking},
           store:false
         })
       });
@@ -63,10 +63,13 @@ export default {
       .map(part => part.text || "")
       .join("\n").trim();
     const answer = String(data.output_text || answerFromSteps || "").trim();
-    if (data.status && data.status !== "completed") {
-      return reply({error:"The AI Mentor did not finish the response. Please try again."},502);
+    // Some interactions can be marked incomplete if a generation limit is reached.
+    // Return any usable text instead of making the student press Send repeatedly.
+    if (answer) return reply({answer});
+    if (data.status === "failed" || data.status === "cancelled") {
+      return reply({error:"The AI Mentor could not complete this answer. Please try once more."},502);
     }
-    return answer ? reply({answer}) : reply({error:"Gemini returned no text answer. Please try again."},502);
+    return reply({error:"The AI Mentor returned no text this time. Please try once more."},502);
    } catch (e) {
     return reply({error:"Could not process the question. Please try again."},502);
    }
