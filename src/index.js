@@ -22,11 +22,12 @@ export default {
      let detail = {};
      try { detail = await response.json(); } catch (_) {}
      const status = response.status;
-     const message = status === 400 ? "Gemini rejected the request. Check the model or request settings."
-       : status === 401 || status === 403 ? "Gemini rejected the API key or the key does not have API access. Check Google AI Studio key restrictions and API access."
-       : status === 404 ? "The configured Gemini model was not found or is unavailable for this key."
-       : status === 429 ? "Gemini quota or rate limit reached. Check the Google AI Studio project quota."
-       : "Gemini service error (HTTP " + status + "). Please check the Google AI Studio project and try again.";
+     const googleMessage = detail && detail.error && detail.error.message ? String(detail.error.message).slice(0,500) : "";
+     const message = status === 400 ? "Gemini rejected the request. " + googleMessage
+       : status === 401 || status === 403 ? "Gemini rejected the API key or the key does not have API access. " + googleMessage
+       : status === 404 ? "Gemini model/API response: " + (googleMessage || "Model not found (404).")
+       : status === 429 ? "Gemini quota or rate limit reached. " + googleMessage
+       : "Gemini service error (HTTP " + status + "). " + googleMessage;
      return reply({error:message},502);
     }
     const data = await response.json();
