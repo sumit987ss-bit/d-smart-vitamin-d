@@ -18,7 +18,17 @@ export default {
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.35,maxOutputTokens:700}})
     });
-    if (!response.ok) return reply({error:"The mentor service is temporarily unavailable."},502);
+    if (!response.ok) {
+     let detail = {};
+     try { detail = await response.json(); } catch (_) {}
+     const status = response.status;
+     const message = status === 400 ? "Gemini rejected the request. Check the model or request settings."
+       : status === 401 || status === 403 ? "Gemini rejected the API key or the key does not have API access. Check Google AI Studio key restrictions and API access."
+       : status === 404 ? "The configured Gemini model was not found or is unavailable for this key."
+       : status === 429 ? "Gemini quota or rate limit reached. Check the Google AI Studio project quota."
+       : "Gemini service error (HTTP " + status + "). Please check the Google AI Studio project and try again.";
+     return reply({error:message},502);
+    }
     const data = await response.json();
     const answer = (data.candidates || []).flatMap(c => c.content && c.content.parts ? c.content.parts : []).map(p => p.text || "").join("\n").trim();
     return answer ? reply({answer}) : reply({error:"No answer was returned. Please try again."},502);
