@@ -12,64 +12,40 @@ export default {
     const language = body.language === "pa" ? "Punjabi" : "English";
     if (!question) return reply({error:"A question is required."},400);
 
-    // Short, direct instructions reduce input overhead and keep answers useful on mobile.
-    const prompt = "You are SEHAT SAATHI, a health-awareness educator for students and families. Reply in simple " + language + ". Answer the exact question directly in about 60–100 words, using short bullets when helpful. Cover general health, hygiene, sanitation, nutrition and healthy habits only. Do not diagnose, prescribe medicines, or give supplement doses. For personal symptoms or treatment decisions, recommend a qualified healthcare professional; for emergencies, advise local emergency services. Never request identifying or private medical information. If off-topic, politely redirect to health awareness.";
+    const systemPrompt = "You are SEHAT SAATHI, a health-awareness educator for students and families. Reply in simple " + language + ". Answer directly in 40–70 words. Use short sentences. Cover general health, hygiene, sanitation, nutrition and healthy habits only. Do not diagnose, prescribe medicines, or give supplement doses. For personal symptoms or treatment decisions, recommend a qualified healthcare professional; for emergencies, advise local emergency services. Never request identifying or private medical information. If off-topic, politely redirect to health awareness.";
 
-    // Start with the lightweight model and minimal reasoning for routine health-awareness Q&A.
-    // Fall back only on temporary overload; never retry invalid keys or quota errors.
-    const models = [
-      {name:"gemini-3.5-flash-lite",thinking:"minimal"},
-      {name:"gemini-3.6-flash",thinking:"low"},
-      {name:"gemini-3.8-flash",thinking:"low"}
-    ];
-    let response = null;
-    let lastOverloadMessage = "";
-    for (let i = 0; i < models.length; i++) {
-      response = await fetch("https://generativelanguage.googleapis.com/v1beta/interactions", {
-        method: "POST",
-        headers: {"Content-Type":"application/json","x-goog-api-key":env.GEMINI_API_KEY},
-        body: JSON.stringify({
-          model:models[i].name,
-          input:"Question: " + question,
-          system_instruction:prompt,
-          generation_config:{thinking_level:models[i].thinking},
-          store:false
-        })
-      });
-      if (response.ok) break;
-      if (response.status !== 503) break;
-      let detail = {};
-      try { detail = await response.clone().json(); } catch (_) {}
-      lastOverloadMessage = detail && detail.error && detail.error.message ? String(detail.error.message).slice(0,350) : "Gemini is temporarily overloaded.";
+    // One fast, non-reasoning model. Stream tokens immediately; avoid serial fallback waits.
+    const upstream = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:streamGenerateContent?alt=sse", {
+      method:"POST",
+      headers:{"Content-Type":"application/json","x-goog-api-key":env.GEMINI_API_KEY},
+      body:JSON.stringify({
+        systemInstruction:{parts:[{text:systemPrompt}]},
+        contents:[{role:"user",parts:[{text:question}]}],
+        generationConfig:{temperature:0.2,maxOutputTokens:220}
+      })
+    });
+
+    if (!upstream.ok) {
+      let detail={};
+      try { detail=await upstream.json(); } catch (_) {}
+      const status=upstream.status;
+      const message=detail && detail.error && detail.error.message ? String(detail.error.message).slice(0,400) : "";
+      const friendly=status===401 || status===403 ? "Gemini rejected the API key. Please check the Cloudflare GEMINI_API_KEY secret. " + message
+        : status===429 ? "The AI Mentor is busy or the API limit was reached. Please try again shortly. " + message
+        : status===404 ? "The selected Gemini model is unavailable for this API key. " + message
+        : status===503 ? "Gemini is temporarily busy. Please try again shortly. " + message
+        : "Gemini service error (HTTP " + status + "). " + message;
+      return reply({error:friendly},502);
     }
-    if (!response || !response.ok) {
-     let detail = {};
-     try { detail = await response.json(); } catch (_) {}
-     const status = response ? response.status : 503;
-     const googleMessage = detail && detail.error && detail.error.message ? String(detail.error.message).slice(0,500) : "";
-     const message = status === 400 ? "Gemini rejected the request. " + googleMessage
-       : status === 401 || status === 403 ? "Gemini rejected the API key or this key does not have API access. Check the Cloudflare GEMINI_API_KEY secret. " + googleMessage
-       : status === 404 ? "Gemini model or Interactions API was not found. Confirm that this API is available for your key. " + googleMessage
-       : status === 429 ? "Gemini quota or rate limit reached. Please try again later. " + googleMessage
-       : status === 503 ? "Gemini is temporarily overloaded across the available models. Please try again shortly. " + (googleMessage || lastOverloadMessage)
-       : "Gemini service error (HTTP " + status + "). " + googleMessage;
-     return reply({error:message},502);
-    }
-    const data = await response.json();
-    const answerFromSteps = (data.steps || [])
-      .filter(step => step && step.type === "model_output" && Array.isArray(step.content))
-      .flatMap(step => step.content)
-      .filter(part => part && part.type === "text")
-      .map(part => part.text || "")
-      .join("\n").trim();
-    const answer = String(data.output_text || answerFromSteps || "").trim();
-    // Some interactions can be marked incomplete if a generation limit is reached.
-    // Return any usable text instead of making the student press Send repeatedly.
-    if (answer) return reply({answer});
-    if (data.status === "failed" || data.status === "cancelled") {
-      return reply({error:"The AI Mentor could not complete this answer. Please try once more."},502);
-    }
-    return reply({error:"The AI Mentor returned no text this time. Please try once more."},502);
+
+    return new Response(upstream.body,{
+      status:200,
+      headers:{
+        "Content-Type":"text/event-stream; charset=utf-8",
+        "Cache-Control":"no-cache, no-transform",
+        "X-Accel-Buffering":"no"
+      }
+    });
    } catch (e) {
     return reply({error:"Could not process the question. Please try again."},502);
    }
