@@ -11,25 +11,36 @@ export default {
     const question = String(body.question || "").trim().slice(0,1200);
     const language = body.language === "pa" ? "Punjabi" : "English";
     if (!question) return reply({error:"A question is required."},400);
-    const prompt = "You are SEHAT SAATHI, a careful health, hygiene and sanitation education mentor for students and families. Answer in " + language + " using simple, respectful language. Keep the answer clear and practical. Give general educational information only; do not diagnose, prescribe medicines, or recommend supplement doses. For personal symptoms or treatment decisions, encourage consulting a qualified healthcare professional. For possible emergencies, advise contacting local emergency services immediately. Do not ask for identifying details. Do not request names, addresses, phone numbers, or private medical records. If a question is unrelated to health, hygiene, sanitation or healthy habits, politely redirect to those topics. Question: " + question;
-    // Try the preferred model first, then fall back on temporary overload (503) only.
-    // Do not silently fall back for invalid keys, permissions, malformed requests, or quota errors.
-    const models = ["gemini-3.8-flash","gemini-3.6-flash","gemini-3.5-flash-lite"];
+
+    // Short, direct instructions reduce input overhead and keep answers useful on mobile.
+    const prompt = "You are SEHAT SAATHI, a health-awareness educator for students and families. Reply in simple " + language + ". Answer the exact question directly in about 60–100 words, using short bullets when helpful. Cover general health, hygiene, sanitation, nutrition and healthy habits only. Do not diagnose, prescribe medicines, or give supplement doses. For personal symptoms or treatment decisions, recommend a qualified healthcare professional; for emergencies, advise local emergency services. Never request identifying or private medical information. If off-topic, politely redirect to health awareness.";
+
+    // Start with the lightweight model and minimal reasoning for routine health-awareness Q&A.
+    // Fall back only on temporary overload; never retry invalid keys or quota errors.
+    const models = [
+      {name:"gemini-3.5-flash-lite",thinking:"minimal"},
+      {name:"gemini-3.6-flash",thinking:"low"},
+      {name:"gemini-3.8-flash",thinking:"low"}
+    ];
     let response = null;
     let lastOverloadMessage = "";
     for (let i = 0; i < models.length; i++) {
-      const makeRequest = () => fetch("https://generativelanguage.googleapis.com/v1beta/interactions", {
+      response = await fetch("https://generativelanguage.googleapis.com/v1beta/interactions", {
         method: "POST",
         headers: {"Content-Type":"application/json","x-goog-api-key":env.GEMINI_API_KEY},
-        body: JSON.stringify({model:models[i],input:prompt,store:false})
+        body: JSON.stringify({
+          model:models[i].name,
+          input:"Question: " + question,
+          system_instruction:prompt,
+          generation_config:{thinking_level:models[i].thinking,max_output_tokens:300},
+          store:false
+        })
       });
-      response = await makeRequest();
       if (response.ok) break;
       if (response.status !== 503) break;
       let detail = {};
       try { detail = await response.clone().json(); } catch (_) {}
       lastOverloadMessage = detail && detail.error && detail.error.message ? String(detail.error.message).slice(0,350) : "Gemini is temporarily overloaded.";
-      if (i < models.length - 1) await new Promise(resolve => setTimeout(resolve, 700));
     }
     if (!response || !response.ok) {
      let detail = {};
@@ -40,7 +51,7 @@ export default {
        : status === 401 || status === 403 ? "Gemini rejected the API key or this key does not have API access. Check the Cloudflare GEMINI_API_KEY secret. " + googleMessage
        : status === 404 ? "Gemini model or Interactions API was not found. Confirm that this API is available for your key. " + googleMessage
        : status === 429 ? "Gemini quota or rate limit reached. Please try again later. " + googleMessage
-       : status === 503 ? "Gemini is temporarily overloaded across the available fallback models. Please try again shortly. " + (googleMessage || lastOverloadMessage)
+       : status === 503 ? "Gemini is temporarily overloaded across the available models. Please try again shortly. " + (googleMessage || lastOverloadMessage)
        : "Gemini service error (HTTP " + status + "). " + googleMessage;
      return reply({error:message},502);
     }
@@ -57,7 +68,7 @@ export default {
     }
     return answer ? reply({answer}) : reply({error:"Gemini returned no text answer. Please try again."},502);
    } catch (e) {
-    return reply({error:"Could not process the question. Please try again."},400);
+    return reply({error:"Could not process the question. Please try again."},502);
    }
   }
   return env.ASSETS.fetch(request);
