@@ -5,18 +5,18 @@ export default {
    const headers = {"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"};
    const reply = (data,status=200) => new Response(JSON.stringify(data),{status,headers});
    if (request.method !== "POST") return reply({error:"Method not allowed."},405);
-   if (!env.GEMINI_API_KEY) return reply({error:"The AI Mentor is not configured yet."},503);
+   if (!env.GEMINI_API_KEY) return reply({error:"The AI Mentor is not configured yet. Please check the GEMINI_API_KEY secret in Cloudflare."},503);
    try {
     const body = await request.json();
     const question = String(body.question || "").trim().slice(0,1200);
     const language = body.language === "pa" ? "Punjabi" : "English";
     if (!question) return reply({error:"A question is required."},400);
-    const prompt = "You are SEHAT SAATHI, a careful health, hygiene and sanitation education mentor for students and families. Answer in " + language + " using simple, respectful language. Give general educational information only; do not diagnose or prescribe medication. For personal symptoms, encourage consulting a qualified healthcare professional. For possible emergencies, advise contacting local emergency services. Do not ask for identifying details. If a question is unrelated to health, hygiene, sanitation or healthy habits, politely redirect. Question: " + question;
-    const endpoint = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + encodeURIComponent(env.GEMINI_API_KEY);
-    const response = await fetch(endpoint, {
+    const prompt = "You are SEHAT SAATHI, a careful health, hygiene and sanitation education mentor for students and families. Answer in " + language + " using simple, respectful language. Keep the answer clear and practical. Give general educational information only; do not diagnose, prescribe medicines, or recommend supplement doses. For personal symptoms or treatment decisions, encourage consulting a qualified healthcare professional. For possible emergencies, advise contacting local emergency services immediately. Do not ask for identifying details. Do not request names, addresses, phone numbers, or private medical records. If a question is unrelated to health, hygiene, sanitation or healthy habits, politely redirect to those topics. Question: " + question;
+    // Use the current Gemini Interactions API and avoid storing health questions with the provider.
+    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/interactions", {
       method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.35,maxOutputTokens:700}})
+      headers: {"Content-Type":"application/json","x-goog-api-key":env.GEMINI_API_KEY},
+      body: JSON.stringify({model:"gemini-3.8-flash",input:prompt,store:false})
     });
     if (!response.ok) {
      let detail = {};
@@ -24,17 +24,26 @@ export default {
      const status = response.status;
      const googleMessage = detail && detail.error && detail.error.message ? String(detail.error.message).slice(0,500) : "";
      const message = status === 400 ? "Gemini rejected the request. " + googleMessage
-       : status === 401 || status === 403 ? "Gemini rejected the API key or the key does not have API access. " + googleMessage
-       : status === 404 ? "Gemini model/API response: " + (googleMessage || "Model not found (404).")
-       : status === 429 ? "Gemini quota or rate limit reached. " + googleMessage
+       : status === 401 || status === 403 ? "Gemini rejected the API key or this key does not have API access. Check the Cloudflare GEMINI_API_KEY secret. " + googleMessage
+       : status === 404 ? "Gemini model or Interactions API was not found. Confirm that this API is available for your key. " + googleMessage
+       : status === 429 ? "Gemini quota or rate limit reached. Please try again later. " + googleMessage
        : "Gemini service error (HTTP " + status + "). " + googleMessage;
      return reply({error:message},502);
     }
     const data = await response.json();
-    const answer = (data.candidates || []).flatMap(c => c.content && c.content.parts ? c.content.parts : []).map(p => p.text || "").join("\n").trim();
-    return answer ? reply({answer}) : reply({error:"No answer was returned. Please try again."},502);
+    const answerFromSteps = (data.steps || [])
+      .filter(step => step && step.type === "model_output" && Array.isArray(step.content))
+      .flatMap(step => step.content)
+      .filter(part => part && part.type === "text")
+      .map(part => part.text || "")
+      .join("\n").trim();
+    const answer = String(data.output_text || answerFromSteps || "").trim();
+    if (data.status && data.status !== "completed") {
+      return reply({error:"The AI Mentor did not finish the response. Please try again."},502);
+    }
+    return answer ? reply({answer}) : reply({error:"Gemini returned no text answer. Please try again."},502);
    } catch (e) {
-    return reply({error:"Could not process the question."},400);
+    return reply({error:"Could not process the question. Please try again."},400);
    }
   }
   return env.ASSETS.fetch(request);
