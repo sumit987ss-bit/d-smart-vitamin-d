@@ -345,7 +345,7 @@ function renderSanitationHub(){
  const cards=a=>'<div class="san-grid">'+a.map(x=>'<article class="san-card"><div class="ico">'+x[0]+'</div><h4>'+x[1]+'</h4><p>'+x[2]+'</p></article>').join("")+'</div>';
  const steps=a=>'<div class="san-list">'+a.map(x=>'<article class="san-step"><span class="ico">'+x[0]+'</span><div><b>'+x[1]+'</b><br>'+x[2]+'</div></article>').join("")+'</div>';
  let body="";
- if(tab==="start")body=hero("💧 🚻 ♻️ 🦟","Sanitation starts with small actions",L.intro)+'<div class="san-fact">💡 <b>'+(lang==="pa"?"ਕੀ ਤੁਸੀਂ ਜਾਣਦੇ ਹੋ?":"WOW FACT")+'</b><br>'+L.fact+'</div>'+cards(L.start);
+ if(tab==="start")body=hero("💧 🚻 ♻️ 🦟",lang==="pa"?"ਛੋਟੇ ਕਦਮਾਂ ਨਾਲ ਸੈਨਿਟੇਸ਼ਨ ਦੀ ਸ਼ੁਰੂਆਤ":"Sanitation starts with small actions",L.intro)+'<div class="san-fact">💡 <b>'+(lang==="pa"?"ਕੀ ਤੁਸੀਂ ਜਾਣਦੇ ਹੋ?":"WOW FACT")+'</b><br>'+L.fact+'</div>'+cards(L.start);
  if(tab==="water")body=hero("💧 🚰 🫙",L.waterTitle,L.water[0][2])+steps(L.water)+'<div class="health-note">⚠️ '+L.waterNote+'</div>';
  if(tab==="toilet")body=hero("🚻 🧼 ✨",L.toiletTitle,lang==="pa"?"ਪਖਾਨੇ ਦੀ ਸੁਰੱਖਿਅਤ ਵਰਤੋਂ ਅਤੇ ਸਫ਼ਾਈ ਰੋਜ਼ਾਨਾ ਦੀ ਸਿਹਤ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹੈ।":"Safe toilet use and cleaning are important everyday public-health habits.")+steps(L.toilet);
  if(tab==="waste")body=hero("♻️ 🥬 📦 🔋",L.wasteTitle,lang==="pa"?"ਹਰ ਚੀਜ਼ ਇੱਕੋ ਕੂੜੇਦਾਨ ਵਿੱਚ ਨਹੀਂ ਜਾਣੀ ਚਾਹੀਦੀ।":"Not everything belongs in the same bin.")+cards(L.waste)+'<div class="panel"><h3>🧠 '+(lang==="pa"?"ਛੋਟੀ ਚੁਣੌਤੀ":"Quick challenge")+'</h3><p>'+L.question+'</p>'+L.options.map((x,i)=>'<button class="san-quiz-option" onclick="sanitationQuiz('+i+')">'+x+'</button>').join("")+'<p id="sanQuizFeedback" class="answer" aria-live="polite"></p></div>';
