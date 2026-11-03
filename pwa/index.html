@@ -253,7 +253,7 @@ function renderHealthHub(){
 }
 function renderFeature(page){let c=document.getElementById("featureContent"),html="";
 if(page==="diet"){html=renderDietChecker()}
-if(["health","hygiene","sanitation","habits"].includes(page)){if(page==="health"){html=renderNutritionExplorer()+'<p class="disclaimer">'+t("footer")+'</p>'}else if(page==="hygiene"){html=renderHygieneExplorer()}else if(page==="sanitation"||page==="habits"){html=renderVisualExplorer(page)}}
+if(["health","hygiene","sanitation","habits"].includes(page)){if(page==="health"){html="";}else if(page==="hygiene"){html=renderHygieneExplorer()}else if(page==="sanitation"||page==="habits"){html=renderVisualExplorer(page)}}
 if(page==="quiz"){currentQuiz=0;score=0;answered=false;html='<h2 class="feature-title">'+t("quizTitle")+'</h2><p class="feature-intro" id="quizProgress"></p><div class="panel" id="quizBox"></div>';c.innerHTML=html;renderQuiz();return}
 if(page==="mentor"){html='<div class="mentor-brand"><div class="mentor-orb">🤖</div><div><h3>SAATHI AI</h3><p>'+(lang==="pa"?"ਤੁਹਾਡਾ ਡਿਜੀਟਲ ਸਿਹਤ ਸਿੱਖਿਆ ਸਾਥੀ":"Your digital health learning companion")+'</p></div></div><h2 class="feature-title">'+t("mentorTitle")+'</h2><p class="feature-intro">'+t("mentorIntro")+'</p><div class="panel"><label for="mentorQuestion"><b>'+t("question")+'</b></label><textarea id="mentorQuestion" maxlength="1200" placeholder="'+t("question")+'"></textarea><button id="mentorSend" onclick="askMentor()">'+t("send")+'</button><div id="mentorReply" class="answer hidden" aria-live="polite"></div></div><div class="panel"><b>🔒 '+(lang==="pa"?"ਗੋਪਨੀਯਤਾ ਅਤੇ ਸੁਰੱਖਿਆ":"Privacy & safety")+'</b><p class="disclaimer">'+t("mentorNotice")+'</p><p class="disclaimer">'+(lang==="pa"?"ਜੇ ਇਹ ਐਮਰਜੈਂਸੀ ਹੈ ਤਾਂ ਸਥਾਨਕ ਐਮਰਜੈਂਸੀ ਸੇਵਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।":"For an emergency, contact your local emergency service.")+'</p></div>'}
 c.innerHTML=html}
@@ -265,7 +265,7 @@ document.getElementById("language").addEventListener("change",e=>{lang=e.target.
 document.addEventListener("input",e=>{if(e.target&&e.target.id==="foodSearch")renderFoodCards()});
 document.addEventListener("change",e=>{if(e.target&&e.target.id&&e.target.id.startsWith("diet-"))saveDietProgress()});
 const originalRenderFeature=renderFeature;
-renderFeature=function(page){originalRenderFeature(page);if(page==="health")renderFoodCards()};
+renderFeature=function(page){if(page==="health"){originalRenderFeature(page);renderHealthHub()}else{originalRenderFeature(page)}};
 document.getElementById("challengeDone").addEventListener("change",e=>{let m=document.getElementById("challengeMessage");m.textContent=e.target.checked?(lang==="pa"?"ਸ਼ਾਬਾਸ਼! ਤੁਹਾਡਾ ਛੋਟਾ ਕਦਮ ਮਹੱਤਵਪੂਰਨ ਹੈ।":"Well done! Your small action matters."):"";localStorage.setItem("ss-challenge",e.target.checked?"yes":"no")});
 if(localStorage.getItem("ss-challenge")==="yes")document.getElementById("challengeDone").checked=true;renderBadges();
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
