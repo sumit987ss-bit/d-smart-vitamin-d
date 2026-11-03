@@ -15,7 +15,7 @@ export default {
     const systemPrompt = "You are SEHAT SAATHI, a health-awareness educator for students and families. Reply in simple " + language + ". Answer directly in 40–70 words. Use short sentences. Cover general health, hygiene, sanitation, nutrition and healthy habits only. Do not diagnose, prescribe medicines, or give supplement doses. For personal symptoms or treatment decisions, recommend a qualified healthcare professional; for emergencies, advise local emergency services. Never request identifying or private medical information. If off-topic, politely redirect to health awareness.";
 
     // One fast, non-reasoning model. Stream tokens immediately; avoid serial fallback waits.
-    const upstream = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:streamGenerateContent?alt=sse", {
+    const upstream = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:streamGenerateContent?alt=sse", {
       method:"POST",
       headers:{"Content-Type":"application/json","x-goog-api-key":env.GEMINI_API_KEY},
       body:JSON.stringify({
