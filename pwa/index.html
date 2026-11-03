@@ -328,7 +328,7 @@ document.getElementById("language").addEventListener("change",e=>{lang=e.target.
 document.addEventListener("input",e=>{if(e.target&&e.target.id==="foodSearch")renderFoodCards()});
 document.addEventListener("change",e=>{if(e.target&&e.target.id&&e.target.id.startsWith("diet-"))saveDietProgress()});
 const originalRenderFeature=renderFeature;
-renderFeature=function(page){if(page==="health"){originalRenderFeature(page);renderHealthHub()}else{originalRenderFeature(page)}};
+renderFeature=function(page){if(page==="health"){originalRenderFeature(page);renderHealthHub()}else if(page==="hygiene"){originalRenderFeature(page);renderHygieneHub()}else{originalRenderFeature(page)}};
 document.getElementById("challengeDone").addEventListener("change",e=>{let m=document.getElementById("challengeMessage");m.textContent=e.target.checked?(lang==="pa"?"ਸ਼ਾਬਾਸ਼! ਤੁਹਾਡਾ ਛੋਟਾ ਕਦਮ ਮਹੱਤਵਪੂਰਨ ਹੈ।":"Well done! Your small action matters."):"";localStorage.setItem("ss-challenge",e.target.checked?"yes":"no")});
 if(localStorage.getItem("ss-challenge")==="yes")document.getElementById("challengeDone").checked=true;renderBadges();
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
