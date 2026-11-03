@@ -122,8 +122,8 @@ function setFoodGroup(group){activeFoodGroup=group;renderFoodCards()}
 
 
 const dailyFoodOptions = {
- en: foodGroups.en.map(f=>[f.id,f.n,({grains:"grain",pulses:"pulse",fruit:"fruit",vegetables:"veg",dairy:"dairy",protein:"protein",nuts:"nuts",snacks:"snack",drinks:"drink",extras:"other"})[f.g]||"other").concat([["water","Plain water","drink"],["warm-water","Warm water","drink"]]),
- pa: foodGroups.pa.map(f=>[f.id,f.n,({grains:"grain",pulses:"pulse",fruit:"fruit",vegetables:"veg",dairy:"dairy",protein:"protein",nuts:"nuts",snacks:"snack",drinks:"drink",extras:"other"})[f.g]||"other").concat([["water","ਸਾਦਾ ਪਾਣੀ","drink"],["warm-water","ਗੁਣਗੁਣਾ ਪਾਣੀ","drink"]])
+ en: foodGroups.en.map(f=>[f.id,f.n,({grains:"grain",pulses:"pulse",fruit:"fruit",vegetables:"veg",dairy:"dairy",protein:"protein",nuts:"nuts",snacks:"snack",drinks:"drink",extras:"other"})[f.g]||"other"]).concat([["water","Plain water","drink"],["warm-water","Warm water","drink"]]),
+ pa: foodGroups.pa.map(f=>[f.id,f.n,({grains:"grain",pulses:"pulse",fruit:"fruit",vegetables:"veg",dairy:"dairy",protein:"protein",nuts:"nuts",snacks:"snack",drinks:"drink",extras:"other"})[f.g]||"other"]).concat([["water","ਸਾਦਾ ਪਾਣੀ","drink"],["warm-water","ਗੁਣਗੁਣਾ ਪਾਣੀ","drink"]])
 };
 const dietSlots = {
 en:[["wake","🌄 First intake after waking"],["breakfast","🌅 Breakfast / Morning"],["lunch","☀️ Afternoon / Lunch"],["evening","🌇 Evening snack"],["dinner","🌙 Night / Dinner"]],
