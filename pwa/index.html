@@ -404,9 +404,9 @@ function renderHealthHub(){
 
 function renderDeveloperHub(){
  const pa=lang==="pa";
- const studentPhoto="https://raw.githubusercontent.com/sumit987ss-bit/d-smart-vitamin-d/main/pwa/assets/ramandeep-kaur.jpg?v=4";
- const guidePhoto="https://raw.githubusercontent.com/sumit987ss-bit/d-smart-vitamin-d/main/pwa/assets/sumitpal-singh-sodhi.jpg?v=4";
- const photo=(src,alt)=>'<div class="team-photo-wrap"><img class="team-photo" src="'+src+'" alt="'+alt+'" loading="eager" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display=\'none\';this.parentElement.classList.add(\'photo-unavailable\')"></div>';
+ const studentPhoto="https://cdn.jsdelivr.net/gh/sumit987ss-bit/d-smart-vitamin-d@main/pwa/assets/ramandeep-kaur.jpg?v=4";
+ const guidePhoto="https://cdn.jsdelivr.net/gh/sumit987ss-bit/d-smart-vitamin-d@main/pwa/assets/sumitpal-singh-sodhi.jpg?v=4";
+ const photo=(src,alt)=>'<div class="team-photo-wrap"><img class="team-photo" src="'+src+'" alt="'+alt+'" loading="eager" decoding="async" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="this.style.display=\'none\';this.parentElement.classList.add(\'photo-unavailable\')"></div>';
  document.getElementById("featureContent").innerHTML=
  '<section class="team-showcase">'+
  '<div class="team-banner"><div class="team-kicker">SEHAT SAATHI · OUR PEOPLE</div><div class="team-symbol">🌿</div><h2>'+(pa?"ਸਾਡੀ ਸਿਹਤ ਸਾਥੀ ਟੀਮ":"THE TEAM BEHIND SEHAT SAATHI")+'</h2><p>'+(pa?"ਵਿਦਿਆਰਥੀ ਦੀ ਸੋਚ, ਅਧਿਆਪਕ ਦੀ ਰਹਿਨੁਮਾਈ ਅਤੇ ਸਿਹਤਮੰਦ ਭਵਿੱਖ ਵੱਲ ਇੱਕ ਕਦਮ।":"A student idea, teacher guidance and a shared mission for healthier communities.")+'</p><div class="team-pill">LEARN · CARE · INSPIRE</div></div>'+
