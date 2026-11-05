@@ -299,6 +299,8 @@ function updateDietLive(slotKey){
  const badge=document.getElementById("diet-count-"+slotKey),meal=document.querySelector("#diet-dropdown-"+slotKey+"")?.closest(".diet-meal")?.querySelector(".diet-meal-count");
  if(badge)badge.textContent=String(ids.length);
  if(meal)meal.textContent=ids.length?(ids.length+" "+(pa?"ਚੋਣਾਂ":"selected")):(pa?"ਚੁਣੋ":"Choose items");
+ const slot=dietSlots[lang].find(x=>x[0]===slotKey);
+ if(document.getElementById("dietResult-"+slotKey))renderDietResult("dietResult-"+slotKey,ids,slot?slot[1]:"Meal");
 }
 function renderDietChecker(){
  const pa=lang==="pa",foods=dailyFoodOptions[lang],saved=readDietProgress();
@@ -307,7 +309,7 @@ function renderDietChecker(){
  const slots=dietSlots[lang].map(slot=>{
   const chosen=saved[slot[0]]||[];
   const options=foods.map(f=>'<label class="diet-option"><input type="checkbox" data-diet-food value="'+f[0]+'" '+(chosen.includes(f[0])?'checked':'')+' onchange="updateDietLive(\''+slot[0]+'\')"><span class="diet-option-emoji">'+(foodGroups[lang].find(x=>x.id===f[0])?.e||({coffee:"☕",water:"💧","warm-water":"💧"}[f[0]]||"🍽️"))+'</span><span class="diet-option-name">'+f[1]+'<small>'+(f[4]||"")+'</small></span><b class="diet-option-kcal">'+f[3]+' kcal</b></label>').join("");
-  return '<section class="diet-meal"><div class="diet-meal-head"><h3>'+slot[1]+'</h3><span class="diet-meal-count">'+(chosen.length?chosen.length+" selected":"Choose items")+'</span></div><details class="diet-dropdown" id="diet-dropdown-'+slot[0]+'"><summary><span>🍽️ '+L.select+'</span><span class="diet-summary-count" id="diet-count-'+slot[0]+'">'+chosen.length+'</span></summary><div class="diet-option-list">'+options+'</div></details><div id="dietLive-'+slot[0]+'" class="diet-live-kcal" aria-live="polite"></div><div id="dietResult-'+slot[0]+'" aria-live="polite"></div></section>';
+  return '<section class="diet-meal"><div class="diet-meal-head"><h3>'+slot[1]+'</h3><span class="diet-meal-count">'+(chosen.length?chosen.length+" selected":"Choose items")+'</span></div><details class="diet-dropdown" id="diet-dropdown-'+slot[0]+'"><summary><span>🍽️ '+L.select+'</span><span class="diet-summary-count" id="diet-count-'+slot[0]+'">'+chosen.length+'</span></summary><div class="diet-option-list" id="diet-options-'+slot[0]+'">'+options+'</div></details><div id="dietLive-'+slot[0]+'" class="diet-live-kcal" aria-live="polite"></div><div id="dietResult-'+slot[0]+'" aria-live="polite"></div></section>';
  }).join("");
  return '<h2 class="feature-title">'+(pa?'ਮੇਰੀ ਰੋਜ਼ਾਨਾ ਖੁਰਾਕ ਜਾਂਚ':'My Daily Diet Checker')+'</h2><p class="feature-intro">'+L.intro+'</p><div class="diet-hero"><div class="diet-plate">🥗</div><h2>'+(pa?'ਹਰ ਪੜਾਅ ਦੀ ਖੁਰਾਕ':'Your food, throughout the day')+'</h2><p>'+(pa?'ਚੋਣ ਕਰਦੇ ਹੀ ਹਰ ਪੜਾਅ ਦੀ ਕੈਲੋਰੀ ਦਾ ਅੰਦਾਜ਼ਾ ਵੇਖੋ।':'See an estimated kcal subtotal as you select foods at each stage.')+'</p></div>'+slots+'<section class="diet-day-panel"><p>'+L.saved+'</p><p class="disclaimer">'+L.hint+'</p><button onclick="assessDiet()">'+L.dayCheck+'</button><div id="dietResult-day" aria-live="polite"></div></section><p class="disclaimer">'+L.disclaimer+'</p>';
 }
