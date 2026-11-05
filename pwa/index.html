@@ -142,6 +142,12 @@ footer{color:#718896}
 @media(max-width:370px){.dash-eyebrow{font-size:8px;letter-spacing:1px}.dash-live{font-size:7px;padding:5px 7px}.dash-stats>div{gap:5px;padding:9px 6px}.dash-stats strong{font-size:18px}.dash-stats span{font-size:8px}.dash-tile{min-height:180px;padding:12px 10px}.dash-copy h2{font-size:27px}}
 @media(prefers-reduced-motion:reduce){.dash-tile{transition:none}.dash-tile:hover{transform:none}}
 
+
+/* Student profile is name-only until a reliable portrait is available */
+.student-name-only{min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 12%,#e4fff5 0,#fff 68%);border:1px solid #cce9e2;text-align:center}
+.student-name-only h3{font-size:clamp(22px,5vw,28px);font-weight:950;letter-spacing:-.5px;color:#0b4960;margin:12px 0 0}
+.student-name-mark{display:grid;place-items:center;width:62px;height:62px;border-radius:20px;background:linear-gradient(145deg,#d8fff0,#9be8d2);color:#087f78;font-size:32px;box-shadow:0 8px 22px #0b8b7b20}
+
 </style></head>
 <body>
 <header><div class="brand"><img src="./icon.svg" alt="SEHAT SAATHI icon"><div><h1>SEHAT SAATHI</h1><p>ਸਿਹਤ ਸਾਥੀ · Health • Hygiene • Sanitation</p></div><select id="language" class="lang" aria-label="Language"><option value="en">English</option><option value="pa">ਪੰਜਾਬੀ</option></select></div></header>
@@ -445,7 +451,7 @@ function renderDeveloperHub(){
  '<div class="team-banner"><div class="team-kicker">SEHAT SAATHI · OUR PEOPLE</div><div class="team-symbol">🌿</div><h2>'+(pa?"ਸਾਡੀ ਸਿਹਤ ਸਾਥੀ ਟੀਮ":"THE TEAM BEHIND SEHAT SAATHI")+'</h2><p>'+(pa?"ਵਿਦਿਆਰਥੀ ਦੀ ਸੋਚ, ਅਧਿਆਪਕ ਦੀ ਰਹਿਨੁਮਾਈ ਅਤੇ ਸਿਹਤਮੰਦ ਭਵਿੱਖ ਵੱਲ ਇੱਕ ਕਦਮ।":"A student idea, teacher guidance and a shared mission for healthier communities.")+'</p><div class="team-pill">LEARN · CARE · INSPIRE</div></div>'+
  '<div class="team-intro"><span>'+(pa?"ਸਾਡੇ ਨਿਰਮਾਤਾ":"MEET THE CREATORS")+'</span><h3>'+(pa?"ਸਿੱਖਣ ਅਤੇ ਸੇਵਾ ਦੀ ਸਾਂਝੀ ਯਾਤਰਾ":"A partnership in learning and service")+'</h3></div>'+
  '<div class="team-profile-grid">'+
- '<article class="team-profile student-profile">'+photo(studentPhoto,"Ramandeep Kaur — Student Developer")+'<div class="team-profile-body"><div class="team-role student-role">STUDENT DEVELOPER</div><h3>Ramandeep Kaur</h3><p>'+(pa?"ਵਿਦਿਆਰਥੀ ਡਿਵੈਲਪਰ":"Student Innovator")+'</p><div class="team-divider"></div><div class="team-contribution">💡 '+(pa?"ਵਿਚਾਰ, ਸਿੱਖਣ ਅਤੇ ਸਿਹਤ ਜਾਗਰੂਕਤਾ":"Ideas, learning & health awareness")+'</div></div></article>'+
+ '<article class="team-profile student-profile student-name-only"><div class="student-name-mark" aria-hidden="true">✦</div><h3>Ramandeep Kaur</h3></article>'+
  '<article class="team-profile guide-profile">'+photo(guidePhoto,"Sumitpal Singh Sodhi — Guide Teacher")+'<div class="team-profile-body"><div class="team-role guide-role">GUIDE TEACHER</div><h3>Sumitpal Singh Sodhi</h3><p>'+(pa?"ਸਾਇੰਸ ਮਾਸਟਰ":"Science Master")+'</p><div class="team-divider"></div><div class="team-contribution">🎓 '+(pa?"ਮਾਰਗਦਰਸ਼ਨ, ਵਿਗਿਆਨਕ ਸੋਚ ਅਤੇ ਸਹਿਯੋਗ":"Mentorship, scientific thinking & guidance")+'</div></div></article>'+
  '</div><div class="team-school-card"><div class="school-icon">🏫</div><div><span>'+(pa?"ਸਾਡਾ ਸਕੂਲ":"OUR SCHOOL")+'</span><h3>GSSS Bare Ke</h3><p>Ferozepur, Punjab</p></div><div class="school-leaf">🌱</div></div>'+
  '<div class="team-mission"><div>“</div><p>'+(pa?"ਸਿਹਤਮੰਦ ਵਿਦਿਆਰਥੀ, ਸਾਫ਼ ਸਕੂਲ ਅਤੇ ਤੰਦਰੁਸਤ ਪੰਜਾਬ।":"Healthy students. Cleaner schools. A healthier Punjab.")+'</p></div>'+
