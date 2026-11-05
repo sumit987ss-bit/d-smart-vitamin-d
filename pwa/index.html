@@ -73,6 +73,7 @@ footer{text-align:center;color:#698087;font-size:12px;padding:25px 5px 12px}
 @media(min-width:650px){.health-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Daily food pattern checker */
 /* Daily food pattern checker - polished multi-select */
+.diet-verdict{margin:12px 0;padding:13px 14px;border-radius:14px;line-height:1.5;border:1px solid #e4c77c;background:#fff8df;color:#674d12}.diet-verdict.is-varied{background:#e8f8ef;border-color:#a8dfbd;color:#145c3d}.diet-verdict p{margin:5px 0 0;font-size:12px}
 .diet-meal{padding:16px;border:1px solid #d7e7f0;border-radius:20px;background:linear-gradient(145deg,#fff,#f6fbff);box-shadow:0 8px 22px #153d560c}
 .diet-meal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.diet-meal-head h3{margin:0}.diet-meal-count{font-size:11px;color:#0b7779;background:#e3f8f1;border-radius:99px;padding:6px 9px;font-weight:800}
 .diet-dropdown{border:1px solid #cfe4e9;border-radius:15px;background:#f8fcff;overflow:hidden}.diet-dropdown summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px;font-weight:800;color:#16485e;cursor:pointer;background:linear-gradient(100deg,#e7f8f5,#eef5ff)}.diet-dropdown summary::-webkit-details-marker{display:none}.diet-dropdown summary:after{content:"⌄";font-size:20px;color:#078f8a}.diet-dropdown[open] summary:after{content:"⌃"}.diet-summary-count{display:grid;place-items:center;min-width:26px;height:26px;border-radius:50%;background:#087f8c;color:white;font-size:12px}
@@ -326,10 +327,21 @@ function dietMealAssessment(ids,pa){
  if(!ids.length)tips.unshift(pa?"ਇਸ ਪੜਾਅ ਲਈ ਭੋਜਨ ਚੁਣੋ।":"Select foods for this stage.");
  return {positives,tips};
 }
+function dietVerdict(ids,pa){
+ const foods=dailyFoodOptions[lang],groups=new Set(ids.map(id=>(foods.find(f=>f[0]===id)||[])[2]));
+ const hasProduce=groups.has("fruit")||groups.has("veg");
+ const hasProtein=groups.has("pulse")||groups.has("protein")||groups.has("dairy")||groups.has("nuts");
+ const hasGrain=groups.has("grain");
+ const varied=[...groups].filter(g=>["fruit","veg","pulse","grain","dairy","protein","nuts"].includes(g)).length>=3;
+ const nutritious=ids.length>0&&hasProduce&&hasProtein&&hasGrain&&varied;
+ const title=pa?(nutritious?"ਇਹ ਚੋਣ ਪੋਸ਼ਕ ਵਿਭਿੰਨਤਾ ਵਾਲੀ ਹੈ।":"ਇਹ ਚੋਣ ਆਪਣੇ ਆਪ ਵਿੱਚ ਸੰਤੁਲਿਤ ਪੋਸ਼ਕ ਭੋਜਨ ਨਹੀਂ ਹੈ।"):(nutritious?"This selection has nutritious variety.":"This selection is not a balanced nutritious meal by itself.");
+ const note=pa?(nutritious?"ਇਸ ਵਿੱਚ ਅਨਾਜ, ਫਲ/ਸਬਜ਼ੀਆਂ ਅਤੇ ਪ੍ਰੋਟੀਨ ਵਾਲੇ ਵੱਖ-ਵੱਖ ਸਮੂਹ ਸ਼ਾਮਲ ਹਨ।":"ਇਸ ਵਿੱਚ ਫਲ/ਸਬਜ਼ੀਆਂ, ਅਨਾਜ ਅਤੇ ਪ੍ਰੋਟੀਨ ਵਾਲੇ ਭੋਜਨ ਸਮੂਹਾਂ ਦੀ ਕਮੀ ਹੈ। ਹੋਰ ਵਿਭਿੰਨ ਭੋਜਨ ਸ਼ਾਮਲ ਕਰੋ।"):(nutritious?"It includes a mix of grains, fruit/vegetables and protein-containing foods.":"It is missing a broader mix of fruit/vegetables, grains and protein-containing foods. Add variety across food groups.");
+ return '<div class="diet-verdict '+(nutritious?'is-varied':'needs-variety')+'"><b>'+(pa?'ਸਿੱਧਾ ਮੁਲਾਂਕਣ: ':'Direct assessment: ')+title+'</b><p>'+note+'</p></div>';
+}
 function renderDietResult(target,ids,label){
  const pa=lang==="pa",r=dietMealAssessment(ids,pa),names=ids.map(dietName),kcal=dietKcal(ids);
  const lines=ids.map(id=>'<li>'+dietName(id)+' — '+dietPortion(id)+': <b>'+((dietFood(id)||[])[3]||0)+' kcal</b></li>').join("");
- document.getElementById(target).innerHTML='<div class="diet-result"><h3>'+label+'</h3><div class="diet-result-total"><span>'+(pa?'ਇਸ ਪੜਾਅ ਦਾ ਅੰਦਾਜ਼ਨ ਜੋੜ':'Estimated subtotal for this phase')+'</span><strong>'+kcal+' kcal</strong></div><p><b>'+(pa?'ਚੁਣੀਆਂ ਚੀਜ਼ਾਂ':'Selected items')+':</b> '+(names.length?names.join(", "):(pa?'ਹਾਲੇ ਕੋਈ ਨਹੀਂ':'None yet'))+'</p>'+(lines?'<details class="diet-breakdown"><summary>'+(pa?'ਮਾਤਰਾ ਅਤੇ ਕੈਲੋਰੀ ਵੇਖੋ':'View serving and kcal details')+'</summary><ul>'+lines+'</ul></details>':'')+'<b>'+(pa?'ਪੋਸ਼ਕ ਵਿਭਿੰਨਤਾ':'Nutrition variety')+'</b><p>'+(r.positives.length?r.positives.map(x=>'<span class="diet-chip">✓ '+x+'</span>').join(" "):(pa?'ਹਾਲੇ ਕੋਈ ਸਮੂਹ ਨਹੀਂ':'No food groups selected yet'))+'</p><b>'+(pa?'ਹੋਰ ਕੀ ਸ਼ਾਮਲ ਕਰ ਸਕਦੇ ਹੋ':'Ideas to add variety')+'</b><ul>'+r.tips.map(x=>'<li>'+x+'</li>').join("")+'</ul></div>';
+ document.getElementById(target).innerHTML='<div class="diet-result"><h3>'+label+'</h3><div class="diet-result-total"><span>'+(pa?'ਇਸ ਪੜਾਅ ਦਾ ਅੰਦਾਜ਼ਨ ਜੋੜ':'Estimated subtotal for this phase')+'</span><strong>'+kcal+' kcal</strong></div><p><b>'+(pa?'ਚੁਣੀਆਂ ਚੀਜ਼ਾਂ':'Selected items')+':</b> '+(names.length?names.join(", "):(pa?'ਹਾਲੇ ਕੋਈ ਨਹੀਂ':'None yet'))+'</p>'+(lines?'<details class="diet-breakdown"><summary>'+(pa?'ਮਾਤਰਾ ਅਤੇ ਕੈਲੋਰੀ ਵੇਖੋ':'View serving and kcal details')+'</summary><ul>'+lines+'</ul></details>':'')+dietVerdict(ids,pa)+'<b>'+(pa?'ਪੋਸ਼ਕ ਵਿਭਿੰਨਤਾ':'Nutrition variety')+'</b><p>'+(r.positives.length?r.positives.map(x=>'<span class="diet-chip">✓ '+x+'</span>').join(" "):(pa?'ਹਾਲੇ ਕੋਈ ਸਮੂਹ ਨਹੀਂ':'No food groups selected yet'))+'</p><b>'+(pa?'ਹੋਰ ਕੀ ਸ਼ਾਮਲ ਕਰ ਸਕਦੇ ਹੋ':'Ideas to add variety')+'</b><ul>'+r.tips.map(x=>'<li>'+x+'</li>').join("")+'</ul></div>';
 }
 function assessDiet(slotKey){
  saveDietProgress();
@@ -339,7 +351,7 @@ function assessDiet(slotKey){
  const total=summary.reduce((n,x)=>n+dietKcal(x.ids),0),allIds=summary.flatMap(x=>x.ids),combined=dietMealAssessment(allIds,pa);
  const rows=summary.map(x=>'<div class="diet-day-row"><b>'+x.slot[1]+'</b><span>'+x.ids.length+' '+(pa?'ਚੋਣਾਂ':'items')+'</span><strong>'+dietKcal(x.ids)+' kcal</strong></div>').join("");
  const kcalText=pa?"ਅੱਜ ਲਈ ਦਰਜ ਭੋਜਨ ਦੀ ਅੰਦਾਜ਼ਨ ਕੁੱਲ ਊਰਜਾ":"Estimated energy from foods recorded today";
- document.getElementById("dietResult-day").innerHTML='<div class="diet-result diet-day-result"><h3>'+(pa?'ਤੁਹਾਡਾ ਅੱਜ ਦਾ ਖੁਰਾਕ ਸੰਖੇਪ':'Your day at a glance')+'</h3><div class="diet-day-total"><span>'+kcalText+'</span><strong>'+total+' kcal</strong></div><p class="disclaimer">'+(pa?'ਇਹ ਚੁਣੀਆਂ ਆਮ ਮਾਤਰਾਵਾਂ ਦਾ ਜੋੜ ਹੈ; ਇਹ ਰੋਜ਼ਾਨਾ ਟੀਚਾ ਜਾਂ ਸਿਫ਼ਾਰਸ਼ ਨਹੀਂ।':'This is only the sum of the typical servings selected—not a daily target or recommendation.')+'</p>'+rows+'<h4>'+(pa?'ਪੋਸ਼ਕ ਵਿਭਿੰਨਤਾ':'Nutrition variety')+'</h4><p>'+(combined.positives.length?combined.positives.map(x=>'<span class="diet-chip">✓ '+x+'</span>').join(" "):(pa?'ਹਾਲੇ ਕੋਈ ਭੋਜਨ ਦਰਜ ਨਹੀਂ':'No foods recorded yet'))+'</p><h4>'+(pa?'ਖੁਰਾਕ ਵਿੱਚ ਹੋਰ ਕੀ ਸ਼ਾਮਲ ਕਰ ਸਕਦੇ ਹੋ':'What you could add for variety')+'</h4><ul>'+combined.tips.map(x=>'<li>'+x+'</li>').join("")+'</ul><p class="disclaimer">'+(pa?'ਕੋਈ ਇੱਕ ਭੋਜਨ ਚੰਗਾ ਜਾਂ ਮਾੜਾ ਨਹੀਂ ਹੁੰਦਾ। ਵੱਖ-ਵੱਖ ਭੋਜਨ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਵਿਭਿੰਨਤਾ ਮਹੱਤਵਪੂਰਨ ਹੈ।':'No single food makes a diet nutritious or not. Variety across foods and nutrients matters.')+'</p></div>';
+ document.getElementById("dietResult-day").innerHTML='<div class="diet-result diet-day-result"><h3>'+(pa?'ਤੁਹਾਡਾ ਅੱਜ ਦਾ ਖੁਰਾਕ ਸੰਖੇਪ':'Your day at a glance')+'</h3><div class="diet-day-total"><span>'+kcalText+'</span><strong>'+total+' kcal</strong></div><p class="disclaimer">'+(pa?'ਇਹ ਚੁਣੀਆਂ ਆਮ ਮਾਤਰਾਵਾਂ ਦਾ ਜੋੜ ਹੈ; ਇਹ ਰੋਜ਼ਾਨਾ ਟੀਚਾ ਜਾਂ ਸਿਫ਼ਾਰਸ਼ ਨਹੀਂ।':'This is only the sum of the typical servings selected—not a daily target or recommendation.')+'</p>'+rows+dietVerdict(allIds,pa)+'<h4>'+(pa?'ਪੋਸ਼ਕ ਵਿਭਿੰਨਤਾ':'Nutrition variety')+'</h4><p>'+(combined.positives.length?combined.positives.map(x=>'<span class="diet-chip">✓ '+x+'</span>').join(" "):(pa?'ਹਾਲੇ ਕੋਈ ਭੋਜਨ ਦਰਜ ਨਹੀਂ':'No foods recorded yet'))+'</p><h4>'+(pa?'ਖੁਰਾਕ ਵਿੱਚ ਹੋਰ ਕੀ ਸ਼ਾਮਲ ਕਰ ਸਕਦੇ ਹੋ':'What you could add for variety')+'</h4><ul>'+combined.tips.map(x=>'<li>'+x+'</li>').join("")+'</ul><p class="disclaimer">'+(pa?'ਕੋਈ ਇੱਕ ਭੋਜਨ ਚੰਗਾ ਜਾਂ ਮਾੜਾ ਨਹੀਂ ਹੁੰਦਾ। ਵੱਖ-ਵੱਖ ਭੋਜਨ ਅਤੇ ਪੋਸ਼ਕ ਤੱਤਾਂ ਦੀ ਵਿਭਿੰਨਤਾ ਮਹੱਤਵਪੂਰਨ ਹੈ।':'No single food makes a diet nutritious or not. Variety across foods and nutrients matters.')+'</p></div>';
 }
 const visualFacts={
 en:{
