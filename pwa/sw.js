@@ -1,4 +1,4 @@
-const CACHE_NAME = "sehat-saathi-shell-v12";
+const CACHE_NAME = "sehat-saathi-shell-v13";
 const SHELL_FILES = ["./", "./index.html", "./manifest.json", "./icon.svg"];
 
 self.addEventListener("install", event => {
